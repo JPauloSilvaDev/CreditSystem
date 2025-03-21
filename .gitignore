@@ -28,9 +28,6 @@ bld/
 # Ignore NuGet packages
 *.nupkg
 
-# Ensure obj folder is ignored ONLY in Credit.System.App directory
-# This is the correct line to ignore obj folder inside Credit.System.App
-Credit.System.App/obj/
 
 # Ignore the filecontentindex folder
 filecontentindex/
