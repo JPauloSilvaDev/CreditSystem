@@ -1,5 +1,4 @@
-# Ignore all obj folders globally
-[Oo]bj/
+
 
 # Ignore build results globally
 [Dd]ebug/
