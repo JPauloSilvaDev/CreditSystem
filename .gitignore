@@ -1,4 +1,7 @@
-# Build results
+# Ignore all obj folders globally
+[Oo]bj/
+
+# Ignore build results globally
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
@@ -10,11 +13,10 @@ x86/
 [Aa][Rr][Mm]64/
 bld/
 [Bb]in/
-[Oo]bj/
 [Ll]og/
 [Ll]ogs/
 
-# Visual Studio
+# Visual Studio files
 .vs/
 .vscode/
 .idea/
@@ -22,9 +24,13 @@ bld/
 *.userosscache
 *.suo
 *.userprefs
-Credit.System.App/obj/
-# Ignore the filecontentindex folder
-filecontentindex/
 
 # Ignore NuGet packages
 *.nupkg
+
+# Ensure obj folder is ignored ONLY in Credit.System.App directory
+# This is the correct line to ignore obj folder inside Credit.System.App
+Credit.System.App/obj/
+
+# Ignore the filecontentindex folder
+filecontentindex/
