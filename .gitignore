@@ -22,7 +22,7 @@ bld/
 *.userosscache
 *.suo
 *.userprefs
-
+Credit.System.App/obj/
 # Ignore the filecontentindex folder
 filecontentindex/
 
