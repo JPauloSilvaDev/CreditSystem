@@ -10,13 +10,7 @@ namespace CreditSystem.Utilities
 
  
 
-        public Security(IConfiguration configuration)
-        {
-            _logger = logger;
-            _configuration = configuration;
-            _context = context;
-        }
-
+  
 
         private readonly string key = _configuration["SecurityKey"];
 
