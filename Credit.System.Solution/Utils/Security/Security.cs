@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace Utils
+namespace Utils.Security
 {
     public static class Security
     {

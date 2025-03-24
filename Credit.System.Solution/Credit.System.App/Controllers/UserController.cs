@@ -2,7 +2,7 @@
 using DataBase.Operations;
 using DataBase.Operations.Tables.ServiceSystem;
 using Microsoft.AspNetCore.Mvc;
-using Utils;
+using Utils.Security;
 
 namespace Credit.System.App.Controllers
 
@@ -51,9 +51,7 @@ namespace Credit.System.App.Controllers
         {
             try
             {
-                string key = _configuration["SecretKey"];
-
-                string encryptedPassword = Security.Encrypt(password, key);
+                string encryptedPassword = Security.Encrypt(password);
 
                 User user = _dataBaseConnection.User.Where(x => x.Login == login && x.Password == encryptedPassword).FirstOrDefault();
 
@@ -68,7 +66,6 @@ namespace Credit.System.App.Controllers
             }
             catch (Exception)
             {
-
                 throw;
             }
            

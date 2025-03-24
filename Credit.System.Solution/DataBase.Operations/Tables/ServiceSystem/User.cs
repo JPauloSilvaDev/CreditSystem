@@ -1,13 +1,11 @@
-﻿
-using System.ComponentModel.DataAnnotations;
-
-namespace DataBase.Operations.Tables.ServiceSystem
+﻿namespace DataBase.Operations.Tables.ServiceSystem
 {
     public class User
     {
-       
         public int UserId { get; set; }
-            
+          
+        public string Name { get; set; }
+
         public string Login { get; set; }
 
         public string Email { get; set; }

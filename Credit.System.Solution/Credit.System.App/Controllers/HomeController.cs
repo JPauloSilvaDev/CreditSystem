@@ -21,18 +21,6 @@ namespace Credit.System.App.Controllers
 
         public IActionResult Index()
         {
-            try
-            {
-           
-
-            }
-            catch (Exception)
-            {
-
-            }
-
-
-
             User users = _context.User.FirstOrDefault();
 
             return View();
