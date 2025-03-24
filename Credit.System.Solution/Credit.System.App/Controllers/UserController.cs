@@ -3,9 +3,11 @@ using DataBase.Operations;
 using DataBase.Operations.Tables.ServiceSystem;
 using Microsoft.AspNetCore.Mvc;
 using Utils.Security;
+using Credit.System.App;
+
+
 
 namespace Credit.System.App.Controllers
-
 {
     public class UserController : Controller
     {
@@ -22,8 +24,8 @@ namespace Credit.System.App.Controllers
 
         public IActionResult Index()
         {
-           //validate existing session and redirect to login 
-            return View();
+            //validate existing session and redirect to login 
+            return View("Login", "User");
         }
 
         public IActionResult Register(User userData)
@@ -47,6 +49,8 @@ namespace Credit.System.App.Controllers
             return View();
         }
 
+
+        [HttpPost]
         public IActionResult Login(string login, string password)
         {
             try
@@ -57,16 +61,16 @@ namespace Credit.System.App.Controllers
 
                 if (user == null)
                 {
-                    //return custom exception
+                    throw new Exception("Senha incorreta ou usuário não existe em nossa base de dados");
                 }
 
 
                 //start user session
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                return Json(new { success = false, Message = ex.Message });
             }
            
             

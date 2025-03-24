@@ -1,7 +1,7 @@
 ﻿using Credit.System.App.Repository;
 using DataBase.Operations.Interfaces;
 using DataBase.Operations.Tables.ServiceSystem;
-using Utils;
+using Utils.Security;
 
 namespace DataBase.Operations
 {

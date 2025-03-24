@@ -1,15 +1,15 @@
-﻿using DataBase.Operations.Tables.ServiceSystem;
+﻿//using DataBase.Operations.Tables.ServiceSystem;
 
 namespace Utils.Validators
 {
-    public static class UserValidator
-    {
+    //public static class UserValidator
+    //{
         
-        public static void ValidateUserInformation(User user)
-        {
+    //    public static void ValidateUserInformation(User user)
+    //    {
             
-        }
+    //    }
     
     
-    }
+    //}
 }

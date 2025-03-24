@@ -17,8 +17,57 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Scripts\" />
-    <Folder Include="Style\" />
+    <None Include="wwwroot\css\bootstrap-grid.css" />
+    <None Include="wwwroot\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\css\bootstrap-grid.min.css" />
+    <None Include="wwwroot\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\css\bootstrap-grid.rtl.css" />
+    <None Include="wwwroot\css\bootstrap-grid.rtl.css.map" />
+    <None Include="wwwroot\css\bootstrap-grid.rtl.min.css" />
+    <None Include="wwwroot\css\bootstrap-grid.rtl.min.css.map" />
+    <None Include="wwwroot\css\bootstrap-reboot.css" />
+    <None Include="wwwroot\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\css\bootstrap-reboot.min.css" />
+    <None Include="wwwroot\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\css\bootstrap-reboot.rtl.css" />
+    <None Include="wwwroot\css\bootstrap-reboot.rtl.css.map" />
+    <None Include="wwwroot\css\bootstrap-reboot.rtl.min.css" />
+    <None Include="wwwroot\css\bootstrap-reboot.rtl.min.css.map" />
+    <None Include="wwwroot\css\bootstrap-utilities.css" />
+    <None Include="wwwroot\css\bootstrap-utilities.css.map" />
+    <None Include="wwwroot\css\bootstrap-utilities.min.css" />
+    <None Include="wwwroot\css\bootstrap-utilities.min.css.map" />
+    <None Include="wwwroot\css\bootstrap-utilities.rtl.css" />
+    <None Include="wwwroot\css\bootstrap-utilities.rtl.css.map" />
+    <None Include="wwwroot\css\bootstrap-utilities.rtl.min.css" />
+    <None Include="wwwroot\css\bootstrap-utilities.rtl.min.css.map" />
+    <None Include="wwwroot\css\bootstrap.css" />
+    <None Include="wwwroot\css\bootstrap.css.map" />
+    <None Include="wwwroot\css\bootstrap.min.css" />
+    <None Include="wwwroot\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\css\bootstrap.rtl.css" />
+    <None Include="wwwroot\css\bootstrap.rtl.css.map" />
+    <None Include="wwwroot\css\bootstrap.rtl.min.css" />
+    <None Include="wwwroot\css\bootstrap.rtl.min.css.map" />
+    <None Include="wwwroot\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\js\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\js\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\js\bootstrap.esm.js" />
+    <None Include="wwwroot\js\bootstrap.esm.js.map" />
+    <None Include="wwwroot\js\bootstrap.esm.min.js" />
+    <None Include="wwwroot\js\bootstrap.esm.min.js.map" />
+    <None Include="wwwroot\js\bootstrap.js" />
+    <None Include="wwwroot\js\bootstrap.js.map" />
+    <None Include="wwwroot\js\bootstrap.min.js" />
+    <None Include="wwwroot\js\bootstrap.min.js.map" />
+    <None Include="wwwroot\js\jquery-3.7.1.min.js" />
+    <None Include="wwwroot\js\jquery-3.7.1.min.map" />
+    <None Include="wwwroot\js\User.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\js\User\" />
   </ItemGroup>
 
 </Project>
