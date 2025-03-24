@@ -5,7 +5,6 @@
 
         private readonly IConfiguration _configuration;
 
-        // Inject IConfiguration through the constructor
         public ConfigHelper(IConfiguration configuration)
         {
             _configuration = configuration;

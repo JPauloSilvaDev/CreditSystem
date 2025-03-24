@@ -1,8 +1,8 @@
 ﻿using Credit.System.App.Repository;
-using Credit.System.App.TableModels.ServiceSystem;
-using Credit.System.App.Utils;
-using CreditSystem.Utilities.ConfigHelper;
+using DataBase.Operations;
+using DataBase.Operations.Tables.ServiceSystem;
 using Microsoft.AspNetCore.Mvc;
+using Utils;
 
 namespace Credit.System.App.Controllers
 
@@ -22,11 +22,22 @@ namespace Credit.System.App.Controllers
 
         public IActionResult Index()
         {
+           //validate existing session and redirect to login 
             return View();
         }
 
         public IActionResult Register(User userData)
         {
+            try
+            {
+                //validator class
+                new UserOperations(_dataBaseConnection).InsertUser(userData);
+                
+            }
+            catch (Exception)
+            {
+              
+            }
             
             //check if user email/cpf exist
 

@@ -1,30 +1,37 @@
 using System.Diagnostics;
 using Credit.System.App.Models;
 using Credit.System.App.Repository;
-
-
+using CreditSystem.Utilities;
+using CreditSystem.Utilities.ConfigHelper;
+using DataBase.Operations;
+using DataBase.Operations.Tables.ServiceSystem;
 using Microsoft.AspNetCore.Mvc;
-using Credit.System.App.TableModels.ServiceSystem;
 
 
 namespace Credit.System.App.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IConfiguration _configuration;
-        private readonly ILogger<HomeController> _logger;
         private readonly DataBaseConnection _context;
 
-
-        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, DataBaseConnection context)
+        public HomeController(DataBaseConnection context)
         {
-            _logger = logger;
-            _configuration = configuration;
             _context = context;
         }
 
         public IActionResult Index()
         {
+            try
+            {
+           
+
+            }
+            catch (Exception)
+            {
+
+            }
+
+
 
             User users = _context.User.FirstOrDefault();
 

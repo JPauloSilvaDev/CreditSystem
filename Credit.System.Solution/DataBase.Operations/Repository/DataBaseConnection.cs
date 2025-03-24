@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Credit.System.App.TableModels.ServiceSystem;
+﻿using DataBase.Operations.Tables.ServiceSystem;
 using Microsoft.EntityFrameworkCore;
 
 namespace Credit.System.App.Repository

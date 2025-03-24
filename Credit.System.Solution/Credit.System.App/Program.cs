@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<DataBaseConnection>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("CreditSystemDB")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ServiceSystemDB")));
 
 // Add controllers with views
 builder.Services.AddControllersWithViews();

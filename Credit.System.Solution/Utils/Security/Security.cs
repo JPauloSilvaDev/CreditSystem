@@ -1,11 +1,13 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace Credit.System.App.Utils
+namespace Utils
 {
     public static class Security
     {
-        public static string Encrypt(string plainText, string key)
+        private const string Key = "a2e6b1234567890f";
+
+        public static string Encrypt(string plainText)
         {
 
             try
@@ -15,7 +17,7 @@ namespace Credit.System.App.Utils
 
                 using (Aes aesAlg = Aes.Create())
                 {
-                    aesAlg.Key = Encoding.UTF8.GetBytes(key);
+                    aesAlg.Key = Encoding.UTF8.GetBytes(Key);
                     aesAlg.IV = new byte[16];
 
                     ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
@@ -28,7 +30,7 @@ namespace Credit.System.App.Utils
                             {
                                 swEncrypt.Write(plainText);
                             }
-                            
+
                             return Convert.ToBase64String(msEncrypt.ToArray());
                         }
                     }
@@ -40,7 +42,7 @@ namespace Credit.System.App.Utils
             }
         }
 
-        public static string Decrypt(string cipherText, string key)
+        public static string Decrypt(string cipherText)
         {
             try
             {
@@ -50,12 +52,12 @@ namespace Credit.System.App.Utils
 
                 using (Aes aesAlg = Aes.Create())
                 {
-                 
-                    aesAlg.Key = Encoding.UTF8.GetBytes(key);
-                    aesAlg.IV = new byte[16]; 
-               
+
+                    aesAlg.Key = Encoding.UTF8.GetBytes(Key);
+                    aesAlg.IV = new byte[16];
+
                     ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
-                  
+
                     using (MemoryStream msDecrypt = new MemoryStream(Convert.FromBase64String(cipherText)))
                     {
                         using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
@@ -72,8 +74,8 @@ namespace Credit.System.App.Utils
             {
                 throw;
             }
-            
-           
+
+
         }
 
     }
