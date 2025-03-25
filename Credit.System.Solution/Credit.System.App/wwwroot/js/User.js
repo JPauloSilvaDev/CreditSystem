@@ -39,7 +39,11 @@ function UserLogin() {
     })
         .then(response => response.json())  // Parse JSON response
         .then(data => {
-            console.log(data);  // Handle the response data
+            if (data.success) {
+                fetch('/Home/Index', {
+                    method: 'GET',  
+                })
+            } 
         })
         .catch(error => {
             console.error('There was an error!', error);  // Handle errors

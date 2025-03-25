@@ -1,12 +1,7 @@
 using System.Diagnostics;
 using Credit.System.App.Models;
 using Credit.System.App.Repository;
-using CreditSystem.Utilities;
-using CreditSystem.Utilities.ConfigHelper;
-using DataBase.Operations;
-using DataBase.Operations.Tables.ServiceSystem;
 using Microsoft.AspNetCore.Mvc;
-using Utils;
 
 
 namespace Credit.System.App.Controllers
@@ -22,14 +17,12 @@ namespace Credit.System.App.Controllers
 
         public IActionResult Index()
         {
-            User users = _context.User.FirstOrDefault();
+            var userLogged = HttpContext.Session.GetString("UserLogged");
 
-            return View();
-        }
+            if (userLogged == null)
+                return RedirectToAction("Index", "User");
 
-        public IActionResult Privacy()
-        {
-            return View();
+            return View("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

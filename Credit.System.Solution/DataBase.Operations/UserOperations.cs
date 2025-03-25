@@ -9,8 +9,7 @@ namespace DataBase.Operations
     {
         private readonly DataBaseConnection _serviceSystemConnection;
 
-        //modify this as static to always get the servicesystem db connection
-
+        //Lembrar de modificar aqui como static depois pra pegar a conexão de forma fixa em cada pasta correspondente a seu banco.
         public UserOperations(DataBaseConnection serviceSystemConnection)
         {
             _serviceSystemConnection = serviceSystemConnection;
@@ -22,10 +21,12 @@ namespace DataBase.Operations
 			{
 				user.IsActive = true;
 				user.CreationDate = DateTime.Now;
-                user.Password = Security.Encrypt(user.Password);
-                user.CreationDate = DateTime.Now;
                 user.Login = user.Login;
 
+                string firstPassword = Security.GeneratePassword();
+                
+                user.Password = Security.Encrypt(firstPassword);
+                
                 _serviceSystemConnection.Add(user);
                 _serviceSystemConnection.SaveChanges();
 			

@@ -2,10 +2,8 @@
 using DataBase.Operations;
 using DataBase.Operations.Tables.ServiceSystem;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Utils.Security;
-using Credit.System.App;
-
-
 
 namespace Credit.System.App.Controllers
 {
@@ -24,33 +22,33 @@ namespace Credit.System.App.Controllers
 
         public IActionResult Index()
         {
-            //validate existing session and redirect to login 
-            return View("Login", "User");
+            return View();
         }
 
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View(new User());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Register(User userData)
         {
             try
             {
-                //validator class
                 new UserOperations(_dataBaseConnection).InsertUser(userData);
-                
             }
             catch (Exception)
             {
-              
+
             }
-            
-            //check if user email/cpf exist
 
-            //save new user into the table with the company id being the one of the logged user or if the logged user is admin he can create from any company.
-
-            
             return View();
         }
 
-
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Login(string login, string password)
         {
             try
@@ -64,21 +62,25 @@ namespace Credit.System.App.Controllers
                     throw new Exception("Senha incorreta ou usuário não existe em nossa base de dados");
                 }
 
+                var userModel = new { Id = user.UserId, Name = user.Name, CompanyId = user.CompanyId };
 
-                //start user session
+                string json = JsonConvert.SerializeObject(userModel);
+
+                HttpContext.Session.SetString("UserLogged", json);
+
+                return RedirectToAction("Index", "Home");
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return Json(new { success = false, Message = ex.Message });
+                throw;
             }
-           
-            
-            return View();
+
         }
 
-        public IActionResult Logout() { 
-        
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
         }
     }
