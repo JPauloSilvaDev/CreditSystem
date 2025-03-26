@@ -1,4 +1,5 @@
-﻿using Credit.System.App.Repository;
+﻿using System.Net.Security;
+using Credit.System.App.Repository;
 using DataBase.Operations.Interfaces;
 using DataBase.Operations.Tables.ServiceSystem;
 using Utils.Security;
@@ -35,5 +36,25 @@ namespace DataBase.Operations
 				throw;
 			}
         }
+
+        public User GetUserByLoginAndPassword(string login, string password)
+        {
+            User user = new User();
+
+    
+
+            try
+            {
+                user = _serviceSystemConnection.User.Where(x => x.Login == login && x.Password == Security.Encrypt(password)).FirstOrDefault();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return user;
+        
+        }
+
     }
 }

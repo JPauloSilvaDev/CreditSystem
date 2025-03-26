@@ -175,7 +175,7 @@
         "projectName": "Utils",
         "projectPath": "C:\\Users\\jpsil\\source\\repos\\CreditSystem\\Credit.System.Solution\\Utils\\Utils.csproj",
         "packagesPath": "C:\\Users\\jpsil\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jpsil\\Source\\Repos\\CreditSystem\\Credit.System.Solution\\Utils\\obj\\",
+        "outputPath": "C:\\Users\\jpsil\\source\\repos\\CreditSystem\\Credit.System.Solution\\Utils\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

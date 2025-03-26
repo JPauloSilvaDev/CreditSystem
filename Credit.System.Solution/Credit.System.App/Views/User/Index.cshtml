@@ -10,8 +10,11 @@
     <title>Login</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <script src="/js/User.js"></script>
+   
 
+    <script src="/js/jquery-3.7.1.min.js"></script>
+    <script src="/js/jquery.maskedinput.min.js"></script>
+    <script src="/js/User.js"></script>
     <style>
         /* Customize the modal fade transition */
         .modal.fade {
@@ -58,7 +61,7 @@
                     <form asp-action="Login" method="post">
                         <div class="mb-3">
                             <label for="loginInput" class="form-label">CPF</label>
-                            <input type="text" name="login" class="form-control" required>
+                            <input type="text" id="loginInput" name="login" maxlength="14" class="form-control" required>
                         </div>
                         <div class="mb-3">
                             <label for="passwordInput" class="form-label">Senha</label>

@@ -1,53 +1,34 @@
-﻿
+﻿//$(document).ready(function () {
+//    applyCpfMask();
+//});
+
+//function applyCpfMask() {
+//    //$("#txtData").mask("99/99/9999");
+//    //$("#txtTelefone").mask("(099) 9999-9999");
+//    //$("#txtCep").mask("99999-999");
+//    $("#loginInput").mask("999.999.999-99");
+//    //$("#txtCNPJ").mask("99.999.999/9999-99");
+//    //$("#txtPlacaVeiculo").mask("aaa - 9999");
+//    //$("#txtIP").mask('099.099.099.099');
+//};
 
 
 
+//$(document).ready(function () {
+//    applyCpfMask();
+//});
+
+
+jQuery(function ($) {
+    //$("#txtData").mask("99/99/9999");
+    //$("#txtTelefone").mask("(099) 9999-9999");
+    //$("#txtCep").mask("99999-999");
+
+    $("#loginInput").mask("999.999.999-99");
+    //$("#txtCNPJ").mask("99.999.999/9999-99");
+    //$("#txtPlacaVeiculo").mask("aaa - 9999");
+    //$("#txtIP").mask('099.099.099.099');
+});
 
 
 
-function UserLogin() {
-
-
-    debugger
-
-
-
-    let loginInput = $('#loginInput').val();
-    let passwordInput = $('#passwordInput').val();
-
-    if (loginInput == "") {
-        alert('Insira seu login');
-        return;
-    }
-       
-    if (passwordInput == "") {
-        alert('Insira sua senha');
-        return;
-    }
-
-
-    const data = new URLSearchParams();
-    data.append('login', loginInput);
-    data.append('password', passwordInput);
-
-    fetch('/User/Login', {
-        method: 'POST',  // HTTP method
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',  // Use URL encoding
-        },
-        body: data.toString()  // Send form data as a query string
-    })
-        .then(response => response.json())  // Parse JSON response
-        .then(data => {
-            if (data.success) {
-                fetch('/Home/Index', {
-                    method: 'GET',  
-                })
-            } 
-        })
-        .catch(error => {
-            console.error('There was an error!', error);  // Handle errors
-        });
-
-
-}
