@@ -7,10 +7,9 @@ namespace DataBase.Operations
 {
     public class UserOperations : IUserOperations
     {
-        private readonly DataBaseConnection _serviceSystemConnection;
+        private readonly ServiceSystemConnection _serviceSystemConnection;
 
-        //Lembrar de modificar aqui como static depois pra pegar a conexão de forma fixa em cada pasta correspondente a seu banco.
-        public UserOperations(DataBaseConnection serviceSystemConnection)
+        public UserOperations(ServiceSystemConnection serviceSystemConnection)
         {
             _serviceSystemConnection = serviceSystemConnection;
         }

@@ -3,10 +3,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Credit.System.App.Repository
 {
-    public class DataBaseConnection : DbContext
+    public class ServiceSystemConnection : DbContext
     {
-        public DataBaseConnection(DbContextOptions<DataBaseConnection> options) : base(options) { }
+        public ServiceSystemConnection(DbContextOptions<ServiceSystemConnection> options)
+            : base(options) { }
+
         public DbSet<User> User { get; set; }
+      
     }
 
 }

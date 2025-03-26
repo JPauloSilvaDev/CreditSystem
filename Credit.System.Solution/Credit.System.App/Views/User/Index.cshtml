@@ -10,33 +10,82 @@
     <title>Login</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-
     <script src="/js/User.js"></script>
+
+    <style>
+        /* Customize the modal fade transition */
+        .modal.fade {
+            transition: opacity 1s ease; /* Change '1s' to the desired fade duration */
+        }
+
+        /* Ensure modal is centered vertically and horizontally */
+        .modal-dialog {
+            width: 100%; /* Allow full width up to a certain size */
+            max-width: 300px; /* Set max width to a more balanced value */
+        }
+
+        /* Center the modal vertically and horizontally */
+        .modal {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+           /*  height: 100vh;  *//* Ensures the modal takes full height of the viewport */
+        }
+
+        /* Ensure the modal looks great on mobile */
+        @@media (max-width: 767px) {
+            .modal-dialog
+
+        {
+            width: 90%; /* Make it take 90% width on small screens */
+            max-width: 400px; /* Restrict the max width to 400px on mobile */
+        }
+
+        }
+    </style>
 </head>
 <body style="background-color: royalblue">
 
-    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-        <div class="card p-4 shadow-lg" style="width: 100%; max-width: 400px;">
-            <h2 class="text-center mb-4">Login</h2>
-            <form asp-action="Login" method="post">
-                <div class="mb-3">
-                    <label for="loginInput" class="form-label">Cpf</label>
-                    <input type="text" name="login" class="form-control" required>
+    <!-- Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="mb-3">
-                    <label for="passwordInput" class="form-label">Senha</label>
-                    <input type="password" name="password" class="form-control" required>
+                <div class="modal-body">
+                    <form asp-action="Login" method="post">
+                        <div class="mb-3">
+                            <label for="loginInput" class="form-label">CPF</label>
+                            <input type="text" name="login" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="passwordInput" class="form-label">Senha</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-secondary">Login</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-primary" >Login</button>
-                </div>
-            </form>
-
+            </div>
         </div>
     </div>
 
-
+    <!-- Bootstrap 5 Scripts -->
     <script src="/js/bootstrap.bundle.min.js"></script>
+
+    <!-- jQuery (optional, if needed) -->
     <script src="/js/jquery-3.7.1.min.js"></script>
+
+    <!-- Open the modal when the page loads -->
+    <script>
+        $(document).ready(function() {
+            // Show the modal when the page loads
+            $('#loginModal').modal('show');
+        });
+    </script>
+
 </body>
 </html>

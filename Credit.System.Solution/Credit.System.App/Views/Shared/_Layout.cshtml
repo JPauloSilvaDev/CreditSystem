@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Credit.System.App</title>
+    <title>@ViewData["Title"] - Sistema de Cobrança</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -40,48 +40,61 @@
         .navbar {
             margin-left: 250px;
         }
+
+        .nav-item .collapse {
+            padding-left: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="sidebar">
-        <h3 class="text-center">Siclacla</h3>
+        <h3 class="text-center">Sistema de Cobrança</h3>
         <ul class="nav flex-column">
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
             </li>
+
+            <!-- Menu with collapsible submenus -->
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Registrar</a>
-            </li>
-            <li class="nav-item">
+                <a class="nav-link text-dark" data-bs-toggle="collapse" href="#submenu1" role="button" aria-expanded="false" aria-controls="submenu1">
+                    Usuários
+                </a>
+                <div class="collapse" id="submenu1">
+                    <ul class="nav flex-column ms-3">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Registrar</a>
+                        </li>
+
+                        
+                    </ul>
+                </div>
+
+           
                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Logout">Sair</a>
+           
+            
             </li>
-       
+
+            <!-- Another menu with collapsible submenus -->
+            <li class="nav-item">
+                <a class="nav-link text-dark" data-bs-toggle="collapse" href="#submenu2" role="button" aria-expanded="false" aria-controls="submenu2">
+                    Financeiro
+                </a>
+                <div class="collapse" id="submenu2">
+                    <ul class="nav flex-column ms-3">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Finance" asp-action="Transactions">Transações</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Finance" asp-action="Reports">Relatórios</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
         </ul>
     </div>
 
     <div class="content-wrapper">
-@*         <header>
-            <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="container-fluid">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Credit.System.App</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </header> *@
-
         <div class="container">
             <main role="main" class="pb-3">
                 @RenderBody()
@@ -90,7 +103,7 @@
 
         <footer class="border-top footer text-muted">
             <div class="container">
-                &copy; 2025 - Credit.System.App - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                &copy; @DateTime.Now.Year - Sistema de Cobrança - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
             </div>
         </footer>
     </div>

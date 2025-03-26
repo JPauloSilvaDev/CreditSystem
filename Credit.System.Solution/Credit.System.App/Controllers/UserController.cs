@@ -11,9 +11,9 @@ namespace Credit.System.App.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly ILogger<UserController> _logger;
-        private readonly DataBaseConnection _dataBaseConnection;
+        private readonly ServiceSystemConnection _dataBaseConnection;
 
-        public UserController(ILogger<UserController> logger, IConfiguration configuration, DataBaseConnection dataBaseConnection)
+        public UserController(ILogger<UserController> logger, IConfiguration configuration, ServiceSystemConnection dataBaseConnection)
         {
             _logger = logger;
             _configuration = configuration;

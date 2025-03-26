@@ -1,12 +1,15 @@
 using Microsoft.Extensions.Configuration;
 using Credit.System.App.Repository;
 using Microsoft.EntityFrameworkCore;
+using DataBase.Operations.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<DataBaseConnection>(options =>
+builder.Services.AddDbContext<ServiceSystemConnection>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ServiceSystemDB")));
 
+builder.Services.AddDbContext<CreditSystemConnection>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CreditSystemDB")));
 
 builder.Services.AddControllersWithViews();
 

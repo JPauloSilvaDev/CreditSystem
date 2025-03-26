@@ -10,6 +10,5 @@
  
         public DateTime? DeletionDate { get; set; }
 
-
     }
 }
