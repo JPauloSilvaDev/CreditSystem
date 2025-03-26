@@ -1,7 +1,6 @@
-using Microsoft.Extensions.Configuration;
 using Credit.System.App.Repository;
-using Microsoft.EntityFrameworkCore;
 using DataBase.Operations.Repository;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
