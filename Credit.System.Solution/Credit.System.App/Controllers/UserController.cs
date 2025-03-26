@@ -4,18 +4,17 @@ using DataBase.Operations.Tables.ServiceSystem;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Utils.Security;
-
+using Utils;
+using DataBase.Operations.Interfaces;
 namespace Credit.System.App.Controllers
 {
     public class UserController : Controller
     {
         private readonly IConfiguration _configuration;
-        private readonly ILogger<UserController> _logger;
         private readonly ServiceSystemConnection _dataBaseConnection;
 
-        public UserController(ILogger<UserController> logger, IConfiguration configuration, ServiceSystemConnection dataBaseConnection)
+        public UserController(IConfiguration configuration, ServiceSystemConnection dataBaseConnection)
         {
-            _logger = logger;
             _configuration = configuration;
             _dataBaseConnection = dataBaseConnection;
         }
@@ -41,7 +40,7 @@ namespace Credit.System.App.Controllers
             }
             catch (Exception)
             {
-
+                return View(ViewBag["Error"] = "Não foi possível atender a solicitação no momento.");
             }
 
             return View();
@@ -53,14 +52,10 @@ namespace Credit.System.App.Controllers
         {
             try
             {
-                string encryptedPassword = Security.Encrypt(password);
-
-                User user = _dataBaseConnection.User.Where(x => x.Login == login && x.Password == encryptedPassword).FirstOrDefault();
+                User user = new UserOperations(_dataBaseConnection).GetUserByLoginAndPassword(login, password);
 
                 if (user == null)
-                {
                     throw new Exception("Senha incorreta ou usuário não existe em nossa base de dados");
-                }
 
                 var userModel = new { Id = user.UserId, Name = user.Name, CompanyId = user.CompanyId };
 
@@ -73,7 +68,7 @@ namespace Credit.System.App.Controllers
             }
             catch (Exception)
             {
-                throw;
+                return Json(new { });
             }
 
         }

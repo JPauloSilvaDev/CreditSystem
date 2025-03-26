@@ -56,41 +56,51 @@
 
             <!-- Menu with collapsible submenus -->
             <li class="nav-item">
+                
                 <a class="nav-link text-dark" data-bs-toggle="collapse" href="#submenu1" role="button" aria-expanded="false" aria-controls="submenu1">
-                    Usuários
+                    Cliente
                 </a>
+                
                 <div class="collapse" id="submenu1">
                     <ul class="nav flex-column ms-3">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Registrar</a>
+                     @*    <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Usuário</a>
+                        </li> *@
+                          <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="Register">Novo</a>
                         </li>
-
-                        
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="GetClientsList">Lista de Clientes</a>
+                        </li>
+                        @*  <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Empresa</a>
+                        </li> *@
                     </ul>
                 </div>
-
-           
-                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Logout">Sair</a>
-           
             
             </li>
 
             <!-- Another menu with collapsible submenus -->
             <li class="nav-item">
                 <a class="nav-link text-dark" data-bs-toggle="collapse" href="#submenu2" role="button" aria-expanded="false" aria-controls="submenu2">
-                    Financeiro
+                    Usuário
                 </a>
                 <div class="collapse" id="submenu2">
                     <ul class="nav flex-column ms-3">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Finance" asp-action="Transactions">Transações</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Novo</a>
                         </li>
-                        <li class="nav-item">
+                       @*  <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Finance" asp-action="Reports">Relatórios</a>
-                        </li>
+                        </li> *@
                     </ul>
                 </div>
             </li>
+
+
+            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Logout">Sair</a>
+        
+        
         </ul>
     </div>
 
