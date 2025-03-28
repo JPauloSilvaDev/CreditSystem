@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Credit.System.App.Repository;
+﻿using Credit.System.App.Repository;
 using DataBase.Operations.Interfaces;
 using DataBase.Operations.Tables.ServiceSystem;
 

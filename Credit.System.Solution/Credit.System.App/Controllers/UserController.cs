@@ -11,10 +11,9 @@ namespace Credit.System.App.Controllers
     
     public class UserController : Controller
     {
-        
-      
         private readonly IUserOperations _userOperations;
         private readonly ICompanyOperations _companyOperations;
+        
         public UserController(IUserOperations userOperations, ICompanyOperations companyOperations)
         {
             _userOperations = userOperations;
@@ -48,8 +47,6 @@ namespace Credit.System.App.Controllers
         {
             try
             {
-                
-                
                 _userOperations.InsertUser(userData);
             }
             catch (Exception ex)
