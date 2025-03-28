@@ -14,7 +14,7 @@ namespace Credit.System.App.Controllers
             if (userLogged == null)
                 return RedirectToAction("Index", "User");
 
-            return View("Index");
+            return View("Index", userLogged);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,5 +1,119 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "GetClientsList";
 }
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Tables - SB Admin</title>
+@* 	<link href="~/css/style.min.css" rel="stylesheet" />
+	<link href="~/css/styles.css" rel="stylesheet" />
+	<script src="~/js/all.js"></script> *@
+
+	<style>
+		/* Ensure that the body and html take up the full screen height */
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+
+		/* Main content area should take remaining space */
+		#layoutSidenav {
+			display: flex;
+			flex-direction: column;
+			min-height: 100vh;
+		}
+
+		/* Make main content grow to push footer down */
+		#layoutSidenav_content {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+		}
+
+		/* Center the content using flexbox */
+		.container-fluid {
+			flex: 1;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			padding: 20px;
+		}
+
+		/* Card styling */
+		.card {
+			width: 100%;
+			max-width: 1200px;
+			margin: 20px;
+		}
+
+		/* Table styling */
+		#datatablesSimple {
+			width: 100%;
+		}
+	</style>
+</head>
+<body class="sb-nav-fixed">
+
+	<main>
+		<div class="container-fluid px-4">
+			<div class="card mb-4">
+				<div class="card-header">
+					<i class="fas fa-table me-1"></i>
+					DataTable Example
+				</div>
+				<div class="card-body">
+					<table id="datatablesSimple" class="table table-bordered">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Name</th>
+								<th>Email</th>
+								<th>Phone</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>John Doe</td>
+								<td>john.doe@example.com</td>
+								<td>(555) 123-4567</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>Jane Smith</td>
+								<td>jane.smith@example.com</td>
+								<td>(555) 987-6543</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>Mark Johnson</td>
+								<td>mark.johnson@example.com</td>
+								<td>(555) 246-8102</td>
+							</tr>
+							<tr>
+								<td>4</td>
+								<td>Emily Brown</td>
+								<td>emily.brown@example.com</td>
+								<td>(555) 135-7924</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</main>
+
+
+	<script src="~/js/bootstrap.bundle.min.js"></script>
+@* 	<script src="~/js/scripts.js"></script> *@
+	<script src="~/js/simple-datatables.min.js"></script>
+	<script src="~/js/datatables-simple-demo.js"></script>
+</body>
+</html>

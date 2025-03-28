@@ -2,125 +2,140 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Sistema de Cobrança</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Credit.System.App.styles.css" asp-append-version="true" />
-    <style>
-        /* Custom sidebar styles */
-        .sidebar {
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 250px;
-            background-color: #f8f9fa;
-            padding-top: 20px;
-        }
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link href="~/css/styles.css" rel="stylesheet" />
+    <link href="~/css/style.min.css" rel="stylesheet" />
+    <script src="~/js/all.js"></script>
 
-            .sidebar a {
-                display: block;
-                padding: 10px;
-                color: #333;
-                text-decoration: none;
-                font-weight: 500;
-            }
-
-                .sidebar a:hover {
-                    background-color: #ddd;
-                }
-
-        .content-wrapper {
-            margin-left: 250px;
-            padding: 20px;
-        }
-
-        .navbar {
-            margin-left: 250px;
-        }
-
-        .nav-item .collapse {
-            padding-left: 10px;
-        }
-    </style>
 </head>
-<body>
-    <div class="sidebar">
-        <h3 class="text-center">Sistema de Cobrança</h3>
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
-            </li>
-
-            <!-- Menu with collapsible submenus -->
-            <li class="nav-item">
-                
-                <a class="nav-link text-dark" data-bs-toggle="collapse" href="#submenu1" role="button" aria-expanded="false" aria-controls="submenu1">
-                    Cliente
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="index.html">Sistema de Cobrança</a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!">
+            <i class="fas fa-bars"></i>
+        </button>
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <input class="form-control" type="text" placeholder="Procurar..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-primary" id="btnNavbarSearch" type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </form>
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-user fa-fw"></i>
                 </a>
-                
-                <div class="collapse" id="submenu1">
-                    <ul class="nav flex-column ms-3">
-                     @*    <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Usuário</a>
-                        </li> *@
-                          <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="Register">Novo</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Client" asp-action="GetClientsList">Lista de Clientes</a>
-                        </li>
-                        @*  <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Empresa</a>
-                        </li> *@
-                    </ul>
-                </div>
-            
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="#!">Configurações</a></li>
+                   @*  <li><a class="dropdown-item" href="#!">Activity Log</a></li> *@
+                    <li><hr class="dropdown-divider" /></li>
+                    <li><a class="dropdown-item" href="#!">Sair</a></li>
+                </ul>
             </li>
-
-            <!-- Another menu with collapsible submenus -->
-            <li class="nav-item">
-                <a class="nav-link text-dark" data-bs-toggle="collapse" href="#submenu2" role="button" aria-expanded="false" aria-controls="submenu2">
-                    Usuário
-                </a>
-                <div class="collapse" id="submenu2">
-                    <ul class="nav flex-column ms-3">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Novo</a>
-                        </li>
-                       @*  <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Finance" asp-action="Reports">Relatórios</a>
-                        </li> *@
-                    </ul>
-                </div>
-            </li>
-
-
-            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Logout">Sair</a>
-        
-        
         </ul>
-    </div>
+    </nav>
 
-    <div class="content-wrapper">
-        <div class="container">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Core</div>
+                        <a class="nav-link" href="index.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Dashboard
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Interface</div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Cliente
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" asp-area="" asp-controller="Client" asp-action="Register">Novo</a>
+                                <a class="nav-link" asp-area="" asp-controller="Client" asp-action="GetClientsList">Lista de Clientes</a>
+                            </nav>
+                        </div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                            Usuário
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <a class="nav-link collapsed" asp-area="" asp-controller="User" asp-action="Register">
+                                    Novo
+                                    <div class="sb-sidenav-collapse-arrow"></div>
+                                </a>
+                            @*     <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link" href="login.html">Login</a>
+                                        <a class="nav-link" href="register.html">Register</a>
+                                        <a class="nav-link" href="password.html">Forgot Password</a>
+                                    </nav>
+                                </div> *@
+                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                    Error
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link" href="401.html">401 Page</a>
+                                        <a class="nav-link" href="404.html">404 Page</a>
+                                        <a class="nav-link" href="500.html">500 Page</a>
+                                    </nav>
+                                </div>
+                            </nav>
+                        </div>
+                        <div class="sb-sidenav-menu-heading">Addons</div>
+                        <a class="nav-link" href="charts.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                            Charts
+                        </a>
+                        <a class="nav-link" href="tables.html">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Tables
+                        </a>
+                    </div>
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="small" id="loggedInUser"></div>
+                    Start Bootstrap
+                </div>
+            </nav>
         </div>
 
-        <footer class="border-top footer text-muted">
-            <div class="container">
-                &copy; @DateTime.Now.Year - Sistema de Cobrança - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div id="layoutSidenav_content">
+            <div class="content-wrapper">
+                <div class="container">
+                    <main role="main" class="pb-3">
+                        @RenderBody()
+                    </main>
+                </div>
+
+                <footer class="border-top footer text-muted">
+                    <div class="container">
+                        &copy; @DateTime.Now.Year - Sistema de Cobrança - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </div>
+                </footer>
             </div>
-        </footer>
+        </div>
     </div>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/jquery-3.7.1.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/scripts.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

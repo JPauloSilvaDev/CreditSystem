@@ -29,12 +29,12 @@ namespace Credit.System.App.Controllers
         public IActionResult Register()
         {
 
-            UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
+            //UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
 
-            if (userLogged.CompanyId == 1)
-            {
-                List<Company> companies = _companyOperations.GetAllCompanies();
-            }
+            //if (userLogged.CompanyId == 1)
+            //{
+            //    List<Company> companies = _companyOperations.GetAllCompanies();
+            //}
 
 
             return View(new User());
