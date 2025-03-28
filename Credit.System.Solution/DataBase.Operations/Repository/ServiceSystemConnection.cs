@@ -9,7 +9,9 @@ namespace Credit.System.App.Repository
             : base(options) { }
 
         public DbSet<User> User { get; set; }
-      
+        public DbSet<Company> Company { get; set; }
+
+
     }
 
 }

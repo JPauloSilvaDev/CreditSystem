@@ -1,7 +1,5 @@
-﻿
-
-@model DataBase.Operations.Tables.ServiceSystem.User
-
+﻿@model DataBase.Operations.Tables.ServiceSystem.User
+@using DataBase.Operations.Interfaces;
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
 	<div>
 		<h2 class="text-center mb-4">Registrar Usuário</h2>
@@ -22,8 +20,19 @@
 			<div class="d-grid gap-2">
 				<button type="submit" class="btn btn-primary">Registrar</button>
 			</div>
-		</form>
 
+			@{
+				if (Model.CompanyId == 1)
+				{
+					<div class="mb-3">
+						<label for="emailInput" class="form-label">Empresa</label>
+						<input type="text" id="emailInput" name="Name" class="form-control" required>
+					</div>
+				}
+			}
+
+			</form>
+
+		</div>
 	</div>
-</div>
 

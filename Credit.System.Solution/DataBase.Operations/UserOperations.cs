@@ -22,7 +22,7 @@ namespace DataBase.Operations
 				user.IsActive = true;
 				user.CreationDate = DateTime.Now;
                 user.Login = user.Login;
-
+                user.CompanyId = 1;
                 string firstPassword = Security.GeneratePassword();
                 
                 user.Password = Security.Encrypt(firstPassword);
@@ -40,8 +40,6 @@ namespace DataBase.Operations
         public User GetUserByLoginAndPassword(string login, string password)
         {
             User user = new User();
-
-    
 
             try
             {

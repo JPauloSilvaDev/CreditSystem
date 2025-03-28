@@ -1,49 +1,63 @@
-﻿using Credit.System.App.Repository;
+﻿using Credit.System.App.CustomAttributes;
+using Credit.System.App.Models;
+using Credit.System.App.Repository;
 using DataBase.Operations;
+using DataBase.Operations.Interfaces;
 using DataBase.Operations.Tables.ServiceSystem;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Utils.Security;
-using Utils;
-using DataBase.Operations.Interfaces;
 namespace Credit.System.App.Controllers
 {
+    
     public class UserController : Controller
     {
-        private readonly IConfiguration _configuration;
-        private readonly ServiceSystemConnection _dataBaseConnection;
-
-        public UserController(IConfiguration configuration, ServiceSystemConnection dataBaseConnection)
+        
+      
+        private readonly IUserOperations _userOperations;
+        private readonly ICompanyOperations _companyOperations;
+        public UserController(IUserOperations userOperations, ICompanyOperations companyOperations)
         {
-            _configuration = configuration;
-            _dataBaseConnection = dataBaseConnection;
+            _userOperations = userOperations;
+            _companyOperations = companyOperations;
         }
 
         public IActionResult Index()
         {
             return View();
         }
-
+        [CheckUserSession]
         [HttpGet]
         public IActionResult Register()
         {
+
+            UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
+
+            if (userLogged.CompanyId == 1)
+            {
+                List<Company> companies = _companyOperations.GetAllCompanies();
+            }
+
+
             return View(new User());
         }
 
+        [CheckUserSession]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Register(User userData)
+        public string Register(User userData)
         {
             try
             {
-                new UserOperations(_dataBaseConnection).InsertUser(userData);
+                
+                
+                _userOperations.InsertUser(userData);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return View(ViewBag["Error"] = "Não foi possível atender a solicitação no momento.");
+                JsonConvert.SerializeObject(new { success = "false", message = ex.Message});
             }
 
-            return View();
+            return JsonConvert.SerializeObject(new { success = "true", message = "" });
         }
 
         [HttpPost]
@@ -52,7 +66,7 @@ namespace Credit.System.App.Controllers
         {
             try
             {
-                User user = new UserOperations(_dataBaseConnection).GetUserByLoginAndPassword(login, password);
+                User user = _userOperations.GetUserByLoginAndPassword(login, password);
 
                 if (user == null)
                     throw new Exception("Senha incorreta ou usuário não existe em nossa base de dados");
@@ -66,11 +80,14 @@ namespace Credit.System.App.Controllers
                 return RedirectToAction("Index", "Home");
 
             }
-            catch (Exception)
+            catch (CSException ex)
             {
-                return Json(new { });
+                return Json(new { success = "true", message = ex.Message});
             }
-
+            catch (Exception ex)
+            {
+                return Json(new { success = "true", message = "Não foi possível concluir a solicitação no momento, tente novamente mais tarde." });
+            }
         }
 
         public IActionResult Logout()

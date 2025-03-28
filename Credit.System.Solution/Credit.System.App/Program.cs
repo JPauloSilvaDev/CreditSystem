@@ -1,4 +1,6 @@
 using Credit.System.App.Repository;
+using DataBase.Operations;
+using DataBase.Operations.Interfaces;
 using DataBase.Operations.Repository;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +12,9 @@ builder.Services.AddDbContext<ServiceSystemConnection>(options =>
 builder.Services.AddDbContext<CreditSystemConnection>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CreditSystemDB")));
 
+
+builder.Services.AddScoped<ICompanyOperations, CompanyOperations>();
+builder.Services.AddScoped<IUserOperations, UserOperations>();
 builder.Services.AddControllersWithViews();
 
 

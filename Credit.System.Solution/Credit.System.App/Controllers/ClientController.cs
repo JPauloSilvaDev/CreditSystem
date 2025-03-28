@@ -1,25 +1,27 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Credit.System.App.CustomAttributes;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Credit.System.App.Controllers
 {
+    [CheckUserSession]
     public class ClientController : Controller
     {
         public IActionResult Index()
         {
-            var userLogged = HttpContext.Session.GetString("UserLogged");
+            //var userLogged = HttpContext.Session.GetString("UserLogged");
 
-            if (userLogged == null)
-                return RedirectToAction("Index", "User");
+            //if (userLogged == null)
+            //    return RedirectToAction("Index", "User");
 
             return View();
         }
     
         public IActionResult Register()
         {
-            var userLogged = HttpContext.Session.GetString("UserLogged");
+            //var userLogged = HttpContext.Session.GetString("UserLogged");
 
-            if (userLogged == null)
-                return RedirectToAction("Index", "User");
+            //if (userLogged == null)
+            //    return RedirectToAction("Index", "User");
 
             return View();//new client
 
@@ -29,10 +31,10 @@ namespace Credit.System.App.Controllers
         public IActionResult GetClientsList()
         {
 
-            var userLogged = HttpContext.Session.GetString("UserLogged");
+            //var userLogged = HttpContext.Session.GetString("UserLogged");
 
-            if (userLogged == null)
-                return RedirectToAction("Index", "User");
+            //if (userLogged == null)
+            //    return RedirectToAction("Index", "User");
 
             return View();//model do cliente
         }

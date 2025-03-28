@@ -1,0 +1,25 @@
+﻿
+.modal.fade {
+    transition: opacity 1s ease; 
+}
+
+
+.modal-dialog {
+    width: 100%; 
+    max-width: 300px; 
+}
+
+
+.modal {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+@@media (max-width: 767px) {
+    .modal-dialog {
+        width: 90%;
+        max-width: 400px;
+    }
+}
