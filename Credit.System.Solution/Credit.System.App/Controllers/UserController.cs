@@ -29,15 +29,16 @@ namespace Credit.System.App.Controllers
         public IActionResult Register()
         {
 
-            //UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
+            UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
 
-            //if (userLogged.CompanyId == 1)
-            //{
-            //    List<Company> companies = _companyOperations.GetAllCompanies();
-            //}
+            if (userLogged.CompanyId == 1)
+            {
+                userLogged.CompanyList = _companyOperations.GetAllCompanies();
+                
+                return View(userLogged);
+            }
 
-
-            return View(new User());
+            return View();
         }
 
         [CheckUserSession]
@@ -48,7 +49,7 @@ namespace Credit.System.App.Controllers
             try
             {
                 _userOperations.InsertUser(userData);
-            }
+            }   
             catch (Exception ex)
             {
                 JsonConvert.SerializeObject(new { success = "false", message = ex.Message});
@@ -66,7 +67,7 @@ namespace Credit.System.App.Controllers
                 User user = _userOperations.GetUserByLoginAndPassword(login, password);
 
                 if (user == null)
-                    throw new Exception("Senha incorreta ou usuário não existe em nossa base de dados");
+                    throw new CSException("Senha incorreta ou usuário não existe em nossa base de dados");
 
                 var userModel = new { Id = user.UserId, Name = user.Name, CompanyId = user.CompanyId };
 
@@ -77,9 +78,9 @@ namespace Credit.System.App.Controllers
                 return RedirectToAction("Index", "Home");
 
             }
-            catch (CSException ex)
+            catch (CSException csEx)
             {
-                return Json(new { success = "true", message = ex.Message});
+                return Json(new { success = "true", message = csEx.Message});
             }
             catch (Exception ex)
             {

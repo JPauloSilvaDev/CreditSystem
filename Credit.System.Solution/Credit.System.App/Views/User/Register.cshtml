@@ -1,4 +1,4 @@
-﻿@model DataBase.Operations.Tables.ServiceSystem.User
+﻿@model Credit.System.App.Models.UserSessionModel;
 @using DataBase.Operations.Interfaces;
 
 <div class="container">
@@ -46,11 +46,14 @@
                         {
                             <div class="mb-3">
                                 <label for="companyInput" class="form-label">Empresa</label>
-                                <input type="text" id="companyInput" name="Company" class="form-control"
-                                       placeholder="Nome da Empresa" required>
-                                <div class="invalid-feedback">
-                                    Por favor, insira o nome da empresa.
-                                </div>
+                                <select class="form-control" id="state" required="">
+                                    <option value="">Selecione</option>
+                                    @foreach (Company company in Model.CompanyList)
+                                    {
+                                        // Get the description of the state
+                                        <option value="@company.CompanyId">@company.Name</option>
+                                    }
+                                </select>
                             </div>
                         }
 
