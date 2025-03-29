@@ -46,7 +46,7 @@
                         {
                             <div class="mb-3">
                                 <label for="companyInput" class="form-label">Empresa</label>
-                                <select class="form-control" id="state" required="">
+                                <select class="form-control" id="state" name="CompanyId" required="">
                                     <option value="">Selecione</option>
                                     @foreach (Company company in Model.CompanyList)
                                     {
@@ -59,7 +59,7 @@
 
                         <!-- Submit Button -->
                         <div class="d-grid mt-4">
-                            <button type="submit" class="btn btn-secondary btn-lg">
+                            <button type="submit" id="btnRegisterUser"class="btn btn-secondary btn-lg">
                                 <i class="fas fa-user-plus me-2"></i>Registrar
                             </button>
                         </div>

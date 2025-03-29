@@ -48,6 +48,11 @@ namespace Credit.System.App.Controllers
         {
             try
             {
+                UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
+
+                if (userLogged.CompanyId != 1)
+                    userData.CompanyId = userLogged.CompanyId;  
+
                 _userOperations.InsertUser(userData);
             }   
             catch (Exception ex)
