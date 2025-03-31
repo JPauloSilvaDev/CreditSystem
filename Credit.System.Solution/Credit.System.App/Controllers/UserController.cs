@@ -1,7 +1,6 @@
 ﻿using Credit.System.App.CustomAttributes;
+using Credit.System.App.Mapper;
 using Credit.System.App.Models;
-using Credit.System.App.Repository;
-using DataBase.Operations;
 using DataBase.Operations.Interfaces;
 using DataBase.Operations.Tables.ServiceSystem;
 using Microsoft.AspNetCore.Mvc;
@@ -44,23 +43,35 @@ namespace Credit.System.App.Controllers
         [CheckUserSession]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public string Register(User userData)
+        public string Register(RegisterUserModel userModel)
         {
             try
             {
                 UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
 
                 if (userLogged.CompanyId != 1)
-                    userData.CompanyId = userLogged.CompanyId;  
+                    userModel.CompanyId = userLogged.CompanyId;
 
-                _userOperations.InsertUser(userData);
+                bool userExists = _userOperations.UserExistsAtCompany(userModel.Login, userModel.CompanyId);
+
+                if (userExists)
+                    throw new CSException("Usuário já está cadastrado na empresa.");
+
+                User newUser = UserMapper.MapRegisterUserModelToUser(userModel);
+
+                _userOperations.InsertUser(newUser);
             }   
+            catch (CSException exc)
+            {
+                JsonConvert.SerializeObject(new { success = "false", message = exc.Message });
+            }  
+            
             catch (Exception ex)
             {
                 JsonConvert.SerializeObject(new { success = "false", message = ex.Message});
             }
 
-            return JsonConvert.SerializeObject(new { success = "true", message = "" });
+            return JsonConvert.SerializeObject(new { success = "true", message = "Usuário cadastrado com sucesso!" });
         }
 
         [HttpPost]

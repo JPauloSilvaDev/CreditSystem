@@ -23,9 +23,14 @@ namespace DataBase.Operations
 				user.CreationDate = DateTime.Now;
                 user.Login = user.Login;
                 user.CompanyId = 1;
-                string firstPassword = Security.GeneratePassword();
+
+                user.Password = "POkN8Tt8TnnfTAzUERL/6w=="; //123
                 
-                user.Password = Security.Encrypt(firstPassword);
+                
+                //usar somente quando a funcionalidade de envio de email estiver pronta.
+
+                //string firstPassword = Security.GeneratePassword();
+                //user.Password = Security.Encrypt(firstPassword);
                 
                 _serviceSystemConnection.Add(user);
                 _serviceSystemConnection.SaveChanges();
@@ -52,6 +57,19 @@ namespace DataBase.Operations
 
             return user;
         
+        }
+
+        public bool UserExistsAtCompany(string login, long companyId)
+        {
+            try
+            {
+                return _serviceSystemConnection.User
+                    .Any(x => x.Login == login && x.CompanyId == companyId);
+            }
+            catch
+            {
+                return false; // Or rethrow depending on your requirements
+            }
         }
 
     }

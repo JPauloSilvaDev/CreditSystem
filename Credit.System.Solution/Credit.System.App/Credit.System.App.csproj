@@ -63,7 +63,7 @@
     <None Include="wwwroot\js\bootstrap.min.js.map" />
     <None Include="wwwroot\js\jquery-3.7.1.min.js" />
     <None Include="wwwroot\js\jquery-3.7.1.min.map" />
-    <None Include="wwwroot\js\User.js" />
+    <None Include="wwwroot\js\Utils.js" />
   </ItemGroup>
 
   <ItemGroup>

@@ -7,5 +7,7 @@ namespace DataBase.Operations.Interfaces
         public void InsertUser(User user);
         
         public User GetUserByLoginAndPassword(string user, string password);
+
+        public bool UserExistsAtCompany(string login, long companyId);
     }
 }

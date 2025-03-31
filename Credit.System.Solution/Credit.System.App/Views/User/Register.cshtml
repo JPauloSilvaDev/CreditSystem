@@ -13,7 +13,7 @@
                         <!-- CPF Field -->
                         <div class="mb-3">
                             <label for="cpfInput" class="form-label">CPF</label>
-                            <input type="text" id="cpfInput" name="Login" class="form-control"
+                            <input type="text" id="cpfInput" name="Login" onfocus="applyCpfMask('cpfInput')" class="form-control"
                                    pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
                                    placeholder="000.000.000-00" required>
                             <div class="invalid-feedback">
@@ -71,3 +71,4 @@
     </div>
 </div>
 
+<script src="/js/Utils.js"></script>
