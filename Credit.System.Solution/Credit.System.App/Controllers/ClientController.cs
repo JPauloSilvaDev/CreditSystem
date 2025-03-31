@@ -15,7 +15,6 @@ namespace Credit.System.App.Controllers
 
             return View();
         }
-    
         public IActionResult Register()
         {
             //var userLogged = HttpContext.Session.GetString("UserLogged");
@@ -26,8 +25,6 @@ namespace Credit.System.App.Controllers
             return View();//new client
 
         }
-
-
         public IActionResult GetClientsList()
         {
 
@@ -38,7 +35,6 @@ namespace Credit.System.App.Controllers
 
             return View();//model do cliente
         }
-
 
     }
 }
