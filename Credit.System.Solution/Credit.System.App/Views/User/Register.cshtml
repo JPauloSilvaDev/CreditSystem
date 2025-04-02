@@ -9,7 +9,7 @@
                     <h2 class="card-title text-center mb-0">Registrar Usuário</h2>
                 </div>
                 <div class="card-body">
-                    <form asp-action="Register" method="post" class="needs-validation" novalidate>
+                    @* <form asp-action="Register" method="post" class="needs-validation" novalidate> *@
                         <!-- CPF Field -->
                         <div class="mb-3">
                             <label for="cpfInput" class="form-label">CPF</label>
@@ -46,7 +46,7 @@
                         {
                             <div class="mb-3">
                                 <label for="companyInput" class="form-label">Empresa</label>
-                                <select class="form-control" id="state" name="CompanyId" required="">
+                                <select class="form-control" id="companyId" required="">
                                     <option value="">Selecione</option>
                                     @foreach (Company company in Model.CompanyList)
                                     {
@@ -59,11 +59,11 @@
 
                         <!-- Submit Button -->
                         <div class="d-grid mt-4">
-                            <button type="submit" id="btnRegisterUser"class="btn btn-secondary btn-lg">
+                            <button type="submit" onclick="RegisterNewUser()" id="btnRegisterUser" class="btn btn-secondary btn-lg">
                                 <i class="fas fa-user-plus me-2"></i>Registrar
                             </button>
                         </div>
-                    </form>
+                    @* </form> *@
                 </div>
              
             </div>
@@ -71,4 +71,11 @@
     </div>
 </div>
 
+@Html.AntiForgeryToken()
+<!-- or -->
+<input type="hidden" name="__RequestVerificationToken"
+       value="@Html.AntiForgeryToken()" />
+
+
 <script src="/js/Utils.js"></script>
+<script src="~/js/User.js"></script>

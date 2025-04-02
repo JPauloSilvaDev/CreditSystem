@@ -14,7 +14,7 @@ namespace Credit.System.App.Mapper
                     Email = userModel.Email,
                     Login = userModel.Login,
                     Name = userModel.Name,
-                    CompanyId = userModel.CompanyId,
+                    CompanyId = userModel.CompanyId.Value,
                 };
             }
             catch (Exception)

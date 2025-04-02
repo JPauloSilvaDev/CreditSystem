@@ -1,5 +1,7 @@
 ﻿using Credit.System.App.CustomAttributes;
+using Credit.System.App.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Credit.System.App.Controllers
 {
@@ -17,12 +19,19 @@ namespace Credit.System.App.Controllers
         }
         public IActionResult Register()
         {
-            //var userLogged = HttpContext.Session.GetString("UserLogged");
+            UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
+            
 
-            //if (userLogged == null)
-            //    return RedirectToAction("Index", "User");
+            if(userLogged.CompanyId == 1)
+            {
+                //inserir cliente na tabela Company
+            }
+            else
+            {
 
-            return View();//new client
+            } //Inserir cliente na tabela companyclient.
+
+                return View();//new client
 
         }
         public IActionResult GetClientsList()

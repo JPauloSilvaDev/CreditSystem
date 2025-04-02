@@ -33,7 +33,6 @@ namespace Credit.System.App.Controllers
             if (userLogged.CompanyId == 1)
             {
                 userLogged.CompanyList = _companyOperations.GetAllCompanies();
-                
                 return View(userLogged);
             }
 
@@ -43,19 +42,19 @@ namespace Credit.System.App.Controllers
         [CheckUserSession]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public string Register(RegisterUserModel userModel)
+        public IActionResult Register([FromBody]RegisterUserModel userModel)
         {
             try
             {
                 UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
 
-                if (userLogged.CompanyId != 1)
+                if (userModel.CompanyId == null)
                     userModel.CompanyId = userLogged.CompanyId;
 
-                bool userExists = _userOperations.UserExistsAtCompany(userModel.Login, userModel.CompanyId);
+                bool userExists = _userOperations.UserExistsAtCompany(userModel.Login, userModel.CompanyId.Value);
 
                 if (userExists)
-                    throw new CSException("Usuário já está cadastrado na empresa.");
+                    throw new CSException("Usuário já está cadastrado na empresa."); 
 
                 User newUser = UserMapper.MapRegisterUserModelToUser(userModel);
 
@@ -63,15 +62,15 @@ namespace Credit.System.App.Controllers
             }   
             catch (CSException exc)
             {
-                JsonConvert.SerializeObject(new { success = "false", message = exc.Message });
+                return StatusCode(422, new { success = false, message = exc.Message });
             }  
             
             catch (Exception ex)
             {
-                JsonConvert.SerializeObject(new { success = "false", message = ex.Message});
+               return StatusCode(500, new { success = false, message = ex.Message});
             }
 
-            return JsonConvert.SerializeObject(new { success = "true", message = "Usuário cadastrado com sucesso!" });
+            return Ok(new { success = true, message = "Usuário cadastrado com sucesso!" });
         }
 
         [HttpPost]
@@ -85,9 +84,15 @@ namespace Credit.System.App.Controllers
                 if (user == null)
                     throw new CSException("Senha incorreta ou usuário não existe em nossa base de dados");
 
-                var userModel = new { Id = user.UserId, Name = user.Name, CompanyId = user.CompanyId };
+                UserSessionModel sessionModel = new UserSessionModel()
+                {
+                    UserId = user.Id,
+                    Name = user.Name,
+                    CompanyId = user.CompanyId,
+                    Email = user.Email,
+                };
 
-                string json = JsonConvert.SerializeObject(userModel);
+                string json = JsonConvert.SerializeObject(sessionModel);
 
                 HttpContext.Session.SetString("UserLogged", json);
 
@@ -98,7 +103,7 @@ namespace Credit.System.App.Controllers
             {
                 return Json(new { success = "true", message = csEx.Message});
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return Json(new { success = "true", message = "Não foi possível concluir a solicitação no momento, tente novamente mais tarde." });
             }

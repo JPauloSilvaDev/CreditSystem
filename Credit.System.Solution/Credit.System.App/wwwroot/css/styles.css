@@ -11291,3 +11291,67 @@ body {
 footer {
     margin-top: auto;
 }
+
+
+/* Alert System Styles */
+/* Updated Alert System Styles */
+#alert-container {
+    position: fixed;
+    top: 70px; /* Lowered from top */
+    right: 20px; /* Moved from centered to right */
+    left: auto; /* Override previous left:0 */
+    z-index: 1060;
+    overflow: hidden;
+    pointer-events: none;
+    width: auto; /* Let content determine width */
+}
+
+.alert-card {
+    position: relative;
+    padding: 15px 40px 15px 20px;
+    margin: 0 0 15px 0; /* Removed auto margins */
+    border-radius: 5px; /* Changed from bottom-only radius */
+    color: white;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    transform: translateX(100%); /* Slide in from right */
+    transition: transform 0.3s ease-out, opacity 0.5s ease-out;
+    max-width: 400px; /* Slightly narrower */
+    text-align: left; /* Left-aligned text */
+    opacity: 1;
+    pointer-events: auto;
+}
+
+    .alert-card.visible {
+        transform: translateX(0); /* Slide to final position */
+    }
+
+    /* Rest of your existing alert-card styles remain the same */
+    .alert-card.fade-out {
+        opacity: 0;
+    }
+
+    .alert-card.success {
+        background-color: #4CAF50;
+    }
+
+    .alert-card.warning {
+        background-color: #FF9800;
+    }
+
+    .alert-card.error {
+        background-color: #F44336;
+    }
+
+.alert-close-btn {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 5px;
+    line-height: 1;
+}

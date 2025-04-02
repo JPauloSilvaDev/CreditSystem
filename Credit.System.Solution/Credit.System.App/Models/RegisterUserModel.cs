@@ -8,6 +8,6 @@
 
         public string Email { get; set; }
 
-        public long CompanyId { get; set; }
+        public long? CompanyId { get; set; }
     }
 }

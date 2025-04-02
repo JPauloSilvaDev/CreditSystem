@@ -50,3 +50,61 @@ jQuery(function ($) {
 
 
 
+function getAntiForgeryToken() {
+    return document.querySelector('input[name="__RequestVerificationToken"]').value;
+}
+
+
+
+// Alert System Functions
+function showAlert(message, type = 'success', duration = 5000) {
+    const container = document.getElementById('alert-container');
+
+    // Create alert card
+    const alertCard = document.createElement('div');
+    alertCard.className = `alert-card ${type}`;
+    alertCard.innerHTML = `
+        ${message}
+        <button class="alert-close-btn">&times;</button>
+    `;
+
+    // Add to container
+    container.appendChild(alertCard);
+
+    // Trigger slide-down animation
+    setTimeout(() => {
+        alertCard.classList.add('visible');
+    }, 10);
+
+    // Close button functionality
+    const closeBtn = alertCard.querySelector('.alert-close-btn');
+    closeBtn.addEventListener('click', () => {
+        fadeOutAlert(alertCard);
+    });
+
+    // Auto-fade after duration
+    if (duration > 0) {
+        setTimeout(() => {
+            fadeOutAlert(alertCard);
+        }, duration);
+    }
+
+    // Remove after fade completes
+    alertCard.addEventListener('transitionend', (e) => {
+        if (e.propertyName === 'opacity' && alertCard.classList.contains('fade-out')) {
+            alertCard.remove();
+        }
+    });
+}
+
+function fadeOutAlert(alertElement) {
+    alertElement.classList.remove('visible');
+    alertElement.classList.add('fade-out');
+}
+
+// Make it available globally if needed
+window.showAlert = showAlert;
+
+function fadeOutAlert(alertElement) {
+    alertElement.classList.add('fade-out');
+}
