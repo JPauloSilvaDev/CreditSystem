@@ -1,17 +1,20 @@
-﻿namespace DataBase.Operations.Tables.ServiceSystem
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace DataBase.Operations.Tables.ServiceSystem
 {
-    public class Company
+    public class Company: BaseFields
     {
-    
+        [Column("CompanyId")]
         public long CompanyId { get; set; }
-        
-        public string Name { get; set; }
+
+        [Description("Razão Social")]
+        public string PrimaryName { get; set; }
+
+        [Description("Razão Social")]
+        public string SecondName { get; set; }
 
         public string DocumentNumber { get; set; }
-
-        public DateTime CreationDate { get; set; }
- 
-        public DateTime? DeletionDate { get; set; }
 
         public string Email { get; set; }
     
