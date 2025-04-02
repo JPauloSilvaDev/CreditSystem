@@ -1,4 +1,5 @@
-﻿using DataBase.Operations.Tables.ServiceSystem;
+﻿using DataBase.Operations.Tables;
+using DataBase.Operations.Tables.ServiceSystem;
 using Microsoft.EntityFrameworkCore;
 
 namespace Credit.System.App.Repository
@@ -10,6 +11,9 @@ namespace Credit.System.App.Repository
 
         public DbSet<User> User { get; set; }
         public DbSet<Company> Company { get; set; }
+        public DbSet<Client> Client { get; set; }
+
+
 
 
     }

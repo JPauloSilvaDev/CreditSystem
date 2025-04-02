@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataBase.Operations.Tables
 {
-    internal class Client: BaseFields
+    public class Client: BaseFields
     {
         [Column("ID")]
         public long Id { get; set; }
