@@ -1,6 +1,6 @@
 ﻿namespace Platform.Entity
 {
-    public class BaseEntity
+    public abstract class BaseEntity
     {
         public DateTime? DeletionDate { get; set; }
 

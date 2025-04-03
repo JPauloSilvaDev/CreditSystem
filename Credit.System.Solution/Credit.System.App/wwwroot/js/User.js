@@ -4,7 +4,7 @@
     const cpf = document.getElementById("cpfInput").value;
     const email = document.getElementById("emailInput").value;
     const name = document.getElementById("nameInput").value;
-    const companyId = document.getElementById("companyId").value; // Optional field
+    const companyId = document.getElementById("companyId")?.value;// Optional field
 
     if (cpf == "") {
         showAlert("Insira um CPF válido.", 'warning', 5000);

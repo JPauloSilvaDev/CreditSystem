@@ -8,12 +8,12 @@ using Platform.Entity.ServiceSystem;
 using Platform.Utils;
 namespace Credit.System.App.Controllers
 {
-    
+
     public class UserController : Controller
     {
         private readonly IUserOperations _userOperations;
         private readonly ICompanyOperations _companyOperations;
-        
+
         public UserController(IUserOperations userOperations, ICompanyOperations companyOperations)
         {
             _userOperations = userOperations;
@@ -28,22 +28,18 @@ namespace Credit.System.App.Controllers
         [HttpGet]
         public IActionResult Register()
         {
-
             UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
 
             if (userLogged.CompanyId == 1)
-            {
                 userLogged.CompanyList = _companyOperations.GetAllCompanies();
-                return View(userLogged);
-            }
 
-            return View();
+            return View(userLogged);
         }
 
         [CheckUserSession]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Register([FromBody]RegisterUserModel userModel)
+        public IActionResult Register([FromBody] RegisterUserModel userModel)
         {
             try
             {
@@ -55,20 +51,20 @@ namespace Credit.System.App.Controllers
                 bool userExists = _userOperations.UserExistsAtCompany(userModel.Login, userModel.CompanyId.Value);
 
                 if (userExists)
-                    throw new CSException("Usuário já está cadastrado na empresa."); 
+                    throw new CSException("Usuário já está cadastrado na empresa.");
 
                 User newUser = UserMapper.MapRegisterUserModelToUser(userModel);
 
                 _userOperations.InsertUser(newUser);
-            }   
+            }
             catch (CSException exc)
             {
                 return StatusCode(422, new { success = false, message = exc.Message });
-            }  
-            
+            }
+
             catch (Exception ex)
             {
-               return StatusCode(500, new { success = false, message = ex.Message});
+                return StatusCode(500, new { success = false, message = ex.Message });
             }
 
             return Ok(new { success = true, message = "Usuário cadastrado com sucesso!" });
@@ -102,7 +98,7 @@ namespace Credit.System.App.Controllers
             }
             catch (CSException csEx)
             {
-                return Json(new { success = "true", message = csEx.Message});
+                return Json(new { success = "true", message = csEx.Message });
             }
             catch (Exception)
             {
