@@ -12,14 +12,16 @@ namespace DataBase.Operations.Tables.ServiceSystem
         public string PrimaryName { get; set; }
        
         [Description("Nome Fantasia")]
-        public string SecondName { get; set; }
-       
+        public string SecondaryName { get; set; }
+        
+        [Description("CNPJ")]
         public string Document { get; set; }
-       
+        
+        [Description("Telefone 1")]
         public string PrimaryPhone { get; set; }
-       
-        public string SecondPhone { get; set; }
-       
+        
+        [Description("Telefone 2")]
+        public string? SecondaryPhone { get; set; }
 
         public string Email { get; set; }
        
@@ -31,7 +33,7 @@ namespace DataBase.Operations.Tables.ServiceSystem
        
         public string State { get; set; }
        
-        public string Observation { get; set; }
+        public string? Observation { get; set; }
         
         public string Neighborhood { get; set; }
 
