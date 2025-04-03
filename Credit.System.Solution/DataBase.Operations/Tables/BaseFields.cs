@@ -12,5 +12,7 @@ namespace DataBase.Operations.Tables
 
         public DateTime CreationDate { get; set; }
     
+        public DateTime? UpdateDate { get; set; }
+
     }
 }

@@ -2824,25 +2824,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Odin\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\jpsil\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Odin\\Documents\\Projetos\\CreditSystem\\Credit.System.Solution\\Credit.System.App\\Credit.System.App.csproj",
+      "projectUniqueName": "C:\\Users\\jpsil\\source\\repos\\CreditSystem\\Credit.System.Solution\\Credit.System.App\\Credit.System.App.csproj",
       "projectName": "Credit.System.App",
-      "projectPath": "C:\\Users\\Odin\\Documents\\Projetos\\CreditSystem\\Credit.System.Solution\\Credit.System.App\\Credit.System.App.csproj",
-      "packagesPath": "C:\\Users\\Odin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Odin\\Documents\\Projetos\\CreditSystem\\Credit.System.Solution\\Credit.System.App\\obj\\",
+      "projectPath": "C:\\Users\\jpsil\\source\\repos\\CreditSystem\\Credit.System.Solution\\Credit.System.App\\Credit.System.App.csproj",
+      "packagesPath": "C:\\Users\\jpsil\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\jpsil\\source\\repos\\CreditSystem\\Credit.System.Solution\\Credit.System.App\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Odin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\jpsil\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -2851,18 +2849,17 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\Users\\Odin\\Documents\\Projetos\\CreditSystem\\Credit.System.Solution\\DataBase.Operations\\DataBase.Operations.csproj": {
-              "projectPath": "C:\\Users\\Odin\\Documents\\Projetos\\CreditSystem\\Credit.System.Solution\\DataBase.Operations\\DataBase.Operations.csproj"
+            "C:\\Users\\jpsil\\source\\repos\\CreditSystem\\Credit.System.Solution\\DataBase.Operations\\DataBase.Operations.csproj": {
+              "projectPath": "C:\\Users\\jpsil\\source\\repos\\CreditSystem\\Credit.System.Solution\\DataBase.Operations\\DataBase.Operations.csproj"
             },
-            "C:\\Users\\Odin\\Documents\\Projetos\\CreditSystem\\Credit.System.Solution\\Utils\\Utils.csproj": {
-              "projectPath": "C:\\Users\\Odin\\Documents\\Projetos\\CreditSystem\\Credit.System.Solution\\Utils\\Utils.csproj"
+            "C:\\Users\\jpsil\\source\\repos\\CreditSystem\\Credit.System.Solution\\Utils\\Utils.csproj": {
+              "projectPath": "C:\\Users\\jpsil\\source\\repos\\CreditSystem\\Credit.System.Solution\\Utils\\Utils.csproj"
             }
           }
         }
@@ -2915,7 +2912,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.202/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -5,6 +5,8 @@ using DataBase.Operations.Interfaces;
 using DataBase.Operations.Tables.ServiceSystem;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Credit.System.App;
+using Utils;
 namespace Credit.System.App.Controllers
 {
     
@@ -82,7 +84,7 @@ namespace Credit.System.App.Controllers
                 User user = _userOperations.GetUserByLoginAndPassword(login, password);
 
                 if (user == null)
-                    throw new CSException("Senha incorreta ou usuário não existe em nossa base de dados");
+                    throw new CSException(CustomExceptionMessage.UserMessage0001);
 
                 UserSessionModel sessionModel = new UserSessionModel()
                 {
@@ -105,7 +107,7 @@ namespace Credit.System.App.Controllers
             }
             catch (Exception)
             {
-                return Json(new { success = "true", message = "Não foi possível concluir a solicitação no momento, tente novamente mais tarde." });
+                return Json(new { success = "true", message = CustomExceptionMessage.GenericMessage0001, });
             }
         }
 
