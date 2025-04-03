@@ -21,11 +21,8 @@ namespace Platform.Transactional.Operations
 				user.IsActive = true;
 				user.CreationDate = DateTime.Now;
                 user.Login = user.Login;
-                user.CompanyId = 1;
-
                 user.Password = "POkN8Tt8TnnfTAzUERL/6w=="; //123
-                
-                
+
                 //usar somente quando a funcionalidade de envio de email estiver pronta.
 
                 //string firstPassword = Security.GeneratePassword();
