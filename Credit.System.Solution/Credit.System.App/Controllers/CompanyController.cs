@@ -33,9 +33,11 @@ namespace Credit.System.App.Controllers
             {
                 UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
 
+                company.CreationDate = DateTime.Now;
+               
 
                 _serviceSystemConnection.Add(company);
-                    _serviceSystemConnection.SaveChanges();
+                _serviceSystemConnection.SaveChanges();
 
             }
             catch (CSException exc)

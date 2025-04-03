@@ -12,6 +12,8 @@
 //    //$("#txtIP").mask('099.099.099.099');
 //};
 
+
+
 function applyCpfMask(inputId) {
 
     $("#" + inputId).mask("999.999.999-99");
@@ -24,17 +26,17 @@ function applyCnpjMask(inputId) {
 
 }
 
-function documentFormatter(inputDocument) {
-    debugger;
+//function documentFormatter(inputDocument) {
+//    debugger;
 
     
 
-    if (value.length <= 11) {
-        applyCpfMask(inputDocument); // Aplica a máscara de CPF
-    } else {
-        applyCnpjMask(inputDocument); // Aplica a máscara de CNPJ
-    }
-}
+//    if (value.length <= 11) {
+//        applyCpfMask(inputDocument); // Aplica a máscara de CPF
+//    } else {
+//        applyCnpjMask(inputDocument); // Aplica a máscara de CNPJ
+//    }
+//}
 
 
 jQuery(function ($) {
@@ -108,3 +110,4 @@ window.showAlert = showAlert;
 function fadeOutAlert(alertElement) {
     alertElement.classList.add('fade-out');
 }
+

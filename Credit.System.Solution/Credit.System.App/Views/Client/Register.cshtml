@@ -98,7 +98,7 @@
                 <!-- CPF/CNPJ, Endereço, and Number side by side -->
                 <div class="col-md-2 mb-3">
                     <label for="username">CPF/CNPJ</label>
-                <input type="text" class="form-control" id="documentInput" onblur="documentFormatter('documentInput')" placeholder="CPF/CNPJ" required="">
+                <input type="text" class="form-control" id="inputCpfCnpj" name="inputCpf" placeholder="CPF/CNPJ" required="">
                     <div class="invalid-feedback" style="width: 100%;">Your username is required.</div>
                 </div>
 
@@ -185,17 +185,29 @@
 
 </div>
 
+<script>
+        var options = {
+        onKeyPress: function (inputCpfCnpj, ev, el, op) {
+            var masks = ['000.000.000-00', '00.000.000/0000-00'];
+            $(el).mask((inputCpfCnpj.replace(/\D/g, '').length > 11) ? masks[1] : masks[0], op);
+        }
+    };
+
+    // Aplica a máscara correta ao carregar a página
+    $('#inputCpfCnpj').mask('000.000.000-00', options);
+
+    // Atualiza a máscara dinamicamente ao digitar
+    $('#inputCpfCnpj').on('input', function () {
+        $(this).mask($(this).val().replace(/\D/g, '').length > 11 ? '00.000.000/0000-00' : '000.000.000-00', options);
+    });
+    
+    
+</script>
+
 
    
-@* <script>
 
-        function buscaCep(cep) {
-        return fetch(`https://viacep.com.br/ws/${cep}/json/`)
-        .then(response => response.json())
-        .catch(error => console.error('Erro ao buscar o CEP:', error));
-    }
+<script src="~/js/Utils.js"></script>
 
-    
-</script> *@
-<script src="~/js/User.js"></script>
+
 
