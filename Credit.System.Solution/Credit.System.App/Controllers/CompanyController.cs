@@ -1,8 +1,8 @@
 ﻿using Credit.System.App.Models;
-using DataBase.Operations.Interfaces;
-using DataBase.Operations.Tables.ServiceSystem;
+using Platform.Entity.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Platform.Entity.ServiceSystem;
 
 namespace Credit.System.App.Controllers
 {

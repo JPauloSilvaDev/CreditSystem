@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DataBase.Operations.Tables.ServiceSystem
+namespace Platform.Entity.ServiceSystem
 {
-    public class Company: BaseFields
+    public class Company: BaseEntity
     {
         [Column("CompanyId")]
         public long CompanyId { get; set; }

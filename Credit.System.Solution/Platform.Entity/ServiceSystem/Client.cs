@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
-namespace DataBase.Operations.Tables.ServiceSystem
+
+namespace Platform.Entity.ServiceSystem
 {
-    public class Client : BaseFields
+    public class Client : BaseEntity
     {
         public long ClientId { get; set; }
        

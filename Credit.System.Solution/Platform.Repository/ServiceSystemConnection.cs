@@ -1,7 +1,7 @@
-﻿using DataBase.Operations.Tables.ServiceSystem;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Platform.Entity.ServiceSystem;
 
-namespace Credit.System.App.Repository
+namespace Platform.Repository
 {
     public class ServiceSystemConnection : DbContext
     {
@@ -11,8 +11,6 @@ namespace Credit.System.App.Repository
         public DbSet<User> User { get; set; }
         public DbSet<Company> Company { get; set; }
         public DbSet<Client> Client { get; set; }
-
-
 
 
     }

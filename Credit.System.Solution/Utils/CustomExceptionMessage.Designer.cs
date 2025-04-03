@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Utils {
+namespace Platform.Utils {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Utils {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Utils.CustomExceptionMessage", typeof(CustomExceptionMessage).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Platform.Utils.CustomExceptionMessage", typeof(CustomExceptionMessage).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

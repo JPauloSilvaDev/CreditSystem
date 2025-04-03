@@ -1,4 +1,4 @@
-﻿using DataBase.Operations.Tables.ServiceSystem;
+﻿using Platform.Entity.ServiceSystem;
 
 namespace Credit.System.App.Models
 {

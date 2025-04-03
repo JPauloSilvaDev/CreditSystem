@@ -1,12 +1,11 @@
 ﻿using Credit.System.App.CustomAttributes;
 using Credit.System.App.Mapper;
 using Credit.System.App.Models;
-using DataBase.Operations.Interfaces;
-using DataBase.Operations.Tables.ServiceSystem;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Credit.System.App;
-using Utils;
+using Platform.Entity.Interfaces;
+using Platform.Entity.ServiceSystem;
+using Platform.Utils;
 namespace Credit.System.App.Controllers
 {
     
@@ -88,7 +87,7 @@ namespace Credit.System.App.Controllers
 
                 UserSessionModel sessionModel = new UserSessionModel()
                 {
-                    UserId = user.Id,
+                    UserId = user.UserId,
                     Name = user.Name,
                     CompanyId = user.CompanyId,
                     Email = user.Email,

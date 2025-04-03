@@ -1,8 +1,8 @@
-using Credit.System.App.Repository;
-using DataBase.Operations;
-using DataBase.Operations.Interfaces;
-using DataBase.Operations.Repository;
 using Microsoft.EntityFrameworkCore;
+using Platform.Entity.Interfaces;
+using Platform.Repository;
+using Platform.Transactional.Operations;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

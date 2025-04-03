@@ -1,6 +1,6 @@
-﻿using DataBase.Operations.Tables.ServiceSystem;
+﻿using Platform.Entity.ServiceSystem;
 
-namespace DataBase.Operations.Interfaces
+namespace Platform.Entity.Interfaces
 {
     public interface IUserOperations
     {

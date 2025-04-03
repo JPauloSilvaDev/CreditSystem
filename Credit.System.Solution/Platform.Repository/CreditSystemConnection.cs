@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace DataBase.Operations.Repository
+namespace Platform.Repository
 {
     public class CreditSystemConnection : DbContext
     {

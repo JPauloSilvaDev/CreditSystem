@@ -1,10 +1,9 @@
-﻿using System.Net.Security;
-using Credit.System.App.Repository;
-using DataBase.Operations.Interfaces;
-using DataBase.Operations.Tables.ServiceSystem;
+﻿using Platform.Repository;
+using Platform.Entity.Interfaces;
+using Platform.Entity.ServiceSystem;
 using Utils.Security;
 
-namespace DataBase.Operations
+namespace Platform.Transactional.Operations
 {
     public class UserOperations : IUserOperations
     {
