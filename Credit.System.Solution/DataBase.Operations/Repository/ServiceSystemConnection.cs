@@ -1,5 +1,4 @@
-﻿using DataBase.Operations.Tables;
-using DataBase.Operations.Tables.ServiceSystem;
+﻿using DataBase.Operations.Tables.ServiceSystem;
 using Microsoft.EntityFrameworkCore;
 
 namespace Credit.System.App.Repository
