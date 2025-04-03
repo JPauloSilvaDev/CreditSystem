@@ -14,13 +14,26 @@ namespace DataBase.Operations
             _serviceSystemConnection = serviceSystemConnection;
         }
 
-
         public List<Company> GetAllCompanies() {
 
             try
             {
                 List<Company> companies = _serviceSystemConnection.Company.ToList();
                 return companies;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        
+        }
+
+        public void InsertCompany(Company company)
+        {
+            try
+            {
+                company.CreationDate = DateTime.Now;
+                _serviceSystemConnection.Add(company);
             }
             catch (Exception)
             {

@@ -11,6 +11,7 @@ namespace DataBase.Operations.Interfaces
     {
     
         public List<Company> GetAllCompanies();
-    
+
+        public void InsertCompany(Company company);
     }
 }

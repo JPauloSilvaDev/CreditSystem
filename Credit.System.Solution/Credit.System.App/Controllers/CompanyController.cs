@@ -1,7 +1,4 @@
-﻿using Credit.System.App.Mapper;
-using Credit.System.App.Models;
-using Credit.System.App.Repository;
-using DataBase.Operations;
+﻿using Credit.System.App.Models;
 using DataBase.Operations.Interfaces;
 using DataBase.Operations.Tables.ServiceSystem;
 using Microsoft.AspNetCore.Mvc;
@@ -11,14 +8,11 @@ namespace Credit.System.App.Controllers
 {
     public class CompanyController : Controller
     {
-        private readonly IUserOperations _userOperations;
-        private readonly ServiceSystemConnection _serviceSystemConnection;
+        private readonly ICompanyOperations _companyOperations;
 
-        public CompanyController(IUserOperations userOperations, ServiceSystemConnection serviceSystemConnection)
+        public CompanyController(ICompanyOperations companyOperations)
         {
-            _userOperations = userOperations;
-            _serviceSystemConnection = serviceSystemConnection;
-
+            _companyOperations = companyOperations;
         }
 
         public IActionResult Index()
@@ -33,11 +27,7 @@ namespace Credit.System.App.Controllers
             {
                 UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
 
-                company.CreationDate = DateTime.Now;
-               
-
-                _serviceSystemConnection.Add(company);
-                _serviceSystemConnection.SaveChanges();
+                _companyOperations.InsertCompany(company);
 
             }
             catch (CSException exc)
