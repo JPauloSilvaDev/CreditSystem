@@ -8,7 +8,6 @@ using Platform.Entity.ServiceSystem;
 using Platform.Utils;
 namespace Credit.System.App.Controllers
 {
-
     public class UserController : Controller
     {
         private readonly IUserOperations _userOperations;
@@ -71,12 +70,12 @@ namespace Credit.System.App.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Login(string login, string password)
+
+        public IActionResult Login([FromBody]LoginModel loginInfo)
         {
             try
             {
-                User user = _userOperations.GetUserByLoginAndPassword(login, password);
+                User user = _userOperations.GetUserByLoginAndPassword(loginInfo.Login, loginInfo.Password);
 
                 if (user == null)
                     throw new CSException(CustomExceptionMessage.UserMessage0001);
@@ -93,16 +92,16 @@ namespace Credit.System.App.Controllers
 
                 HttpContext.Session.SetString("UserLogged", json);
 
-                return RedirectToAction("Index", "Home");
+                return Json(new { success = true, message = string.Empty });
 
             }
             catch (CSException csEx)
             {
-                return Json(new { success = "true", message = csEx.Message });
+                return Json(new { success = false, message = csEx.Message });
             }
             catch (Exception)
             {
-                return Json(new { success = "true", message = CustomExceptionMessage.GenericMessage0001, });
+                return Json(new { success = false, message = CustomExceptionMessage.GenericMessage0001, });
             }
         }
 

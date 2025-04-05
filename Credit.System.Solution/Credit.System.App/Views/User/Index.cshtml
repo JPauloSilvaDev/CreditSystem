@@ -8,45 +8,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-
+    <link href="~/css/styles.css" rel="stylesheet" />
+    <link href="~/css/style.min.css" rel="stylesheet" />
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/User.css" rel="stylesheet">
     <script src="/js/jquery-3.7.1.min.js"></script>
     <script src="/js/jquery.maskedinput.min.js"></script>
     <script src="/js/Utils.js"></script>
+    <script src="/js/User.js"></script>
     <style>
    
     </style>
 </head>
 <body style="background-color: royalblue">
 
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="loginModalLabel">Login</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                 
                 </div>
                 <div class="modal-body">
-                    <form asp-action="Login" method="post">
+               @*      <form asp-action="Login" method="post" id="loginForm"> *@
                         <div class="mb-3">
                             <label for="loginInput" class="form-label">CPF</label>
-                            <input type="text" id="loginInput" name="login" maxlength="14" class="form-control" required>
+                            <input type="text" id="loginInput" name="Login" maxlength="14" class="form-control" required>
                         </div>
                         <div class="mb-3">
                             <label for="passwordInput" class="form-label">Senha</label>
-                            <input type="password" name="password" class="form-control" required>
+                            <input type="password" id="passwordInput" name="Password" class="form-control" required>
                         </div>
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-secondary">Login</button>
+                            <button type="submit" onclick="UserLogin()"class="btn btn-secondary">Login</button>
                         </div>
-                    </form>
+                    @* </form> *@
                 </div>
             </div>
         </div>
     </div>
 
- 
+    <div id="alert-container">
+    </div>
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/js/jquery-3.7.1.min.js"></script>
 

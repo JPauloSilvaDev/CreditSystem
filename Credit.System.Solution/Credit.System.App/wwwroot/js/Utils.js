@@ -53,7 +53,7 @@ jQuery(function ($) {
 
 
 function getAntiForgeryToken() {
-    return document.querySelector('input[name="__RequestVerificationToken"]').value;
+    return document.getElementById('antiForgeryToken').value;
 }
 
 

@@ -13,7 +13,7 @@
     <script src="~/js/jquery.maskedinput.min.js"></script>
     <script src="~/js/scripts.js"></script>
     <script src="~/js/all.js"></script>
-
+    <script src="/js/Utils.js"></script>
 </head>
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -156,7 +156,15 @@
             </div>
         </div>
     </div>
-    <div id="alert-container"></div>
+    
+    <div id="alert-container">
+
+    </div>
+   
+    @Html.AntiForgeryToken()
+    <!-- or -->
+    <input type="hidden" id="antiForgeryToken" name="__RequestVerificationToken"
+           value="@Html.AntiForgeryToken()" />
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
