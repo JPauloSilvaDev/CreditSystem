@@ -99,7 +99,7 @@ function UserLogin() {
                 window.location.href = "/Home/Index";  // This will redirect to the Home/Index page
             } else {
                 // If the response is not successful, show the error message
-                showAlert("Não foi possível concluir a solicitação no momento", 'error', 5000);
+                showAlert(data.message, 'error', 5000);
                 console.log(data.message);
             }
             

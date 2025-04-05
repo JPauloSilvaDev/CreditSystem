@@ -64,7 +64,7 @@ namespace Platform.Transactional.Operations
             }
             catch
             {
-                return false; // Or rethrow depending on your requirements
+                return false;
             }
         }
 

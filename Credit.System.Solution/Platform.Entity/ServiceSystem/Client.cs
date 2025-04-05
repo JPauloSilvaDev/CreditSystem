@@ -21,9 +21,11 @@ namespace Platform.Entity.ServiceSystem
 
         [Description("Telefone 2")]
         public string? SecondPhone { get;set; }
-
+       
+        [Description("Cep")]
         public string? Zipcode { get; set; }
-        
+
+        [Description("Rua")]
         public string? Street { get; set; }
 
         [Description("Número")]
