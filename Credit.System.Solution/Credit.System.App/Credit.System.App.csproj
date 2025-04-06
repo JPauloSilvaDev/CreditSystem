@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataBase.Operations\Platform.Transactional.csproj" />
+    <ProjectReference Include="..\Platform.Entity\Platform.Entity.csproj" />
     <ProjectReference Include="..\Platform.Repository\Platform.Repository.csproj" />
     <ProjectReference Include="..\Utils\Platform.Utils.csproj" />
   </ItemGroup>
