@@ -34,6 +34,7 @@ namespace Platform.Transactional.Operations
             {
                 company.CreationDate = DateTime.Now;
                 _serviceSystemConnection.Add(company);
+                _serviceSystemConnection.SaveChanges();
             }
             catch (Exception)
             {

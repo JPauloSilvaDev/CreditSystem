@@ -28,6 +28,8 @@ namespace Credit.System.App.Controllers
                 UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
 
                 _companyOperations.InsertCompany(company);
+                
+                
 
             }
             catch (CSException exc)
