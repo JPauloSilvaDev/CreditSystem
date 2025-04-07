@@ -1,6 +1,7 @@
 ﻿using Platform.Entity.Interfaces;
 using Platform.Entity.ServiceSystem;
 using Platform.Repository;
+using System.Text.Json.Nodes;
 
 namespace Platform.Transactional.Operations
 {
@@ -16,15 +17,17 @@ namespace Platform.Transactional.Operations
 
         public void InsertClient(Client client)
         {
-			try
-			{
-				client.CreationDate = DateTime.Now;
+            try
+            {
+                client.CreationDate = DateTime.Now;
                 _serviceSystemConnection.Add(client);
-			}
-			catch (Exception)
-			{
-				throw;
-			}
+                _serviceSystemConnection.SaveChanges();
+            }
+
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
 

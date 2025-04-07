@@ -1,35 +1,5 @@
 ﻿function RegisterNewUser() {
-    debugger
     
-    //const PrimaryName = document.getElementById("PrimaryName").value;
-    //const SecondName = document.getElementById("SecondName").value;
-    //const Document = document.getElementById("Document").value;
-    //const PrimaryPhone = document.getElementById("PrimaryPhone").value;
-    //const SecondPhone = document.getElementById("SecondPhone").value;
-    //const Email = document.getElementById("Email").value;
-    //const ZipCode = document.getElementById("ZipCode").value;
-    //const AddressNumber = document.getElementById("AddressNumber").value;
-    //const City = document.getElementById("City").value;
-    //const State = document.getElementById("State").value;
-    //const Observation = document.getElementById("Observation").value;
-    //const Neighborhood = document.getElementById("Neighborhood").value;
-
-    //if (cpf == "") {
-    //    showAlert("Insira um CPF válido.", 'warning', 5000);
-    //    return;
-    //}
-
-    //if (email == "") {
-    //    showAlert("Insira um Email válido.", 'warning', 5000);
-    //    return;
-    //}
-
-    //if (name == "") {
-    //    showAlert("Insira um nome válido.", 'warning', 5000);
-    //    return;
-    //}
-
-    // Prepare the data to send in the request
     const data = {
         
         PrimaryName: document.getElementById("PrimaryName").value,
