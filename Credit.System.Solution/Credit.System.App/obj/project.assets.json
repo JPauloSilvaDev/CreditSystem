@@ -2855,6 +2855,7 @@
       "Microsoft.EntityFrameworkCore >= 9.0.3",
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.3",
       "Newtonsoft.Json >= 13.0.3",
+      "Platform.Entity >= 1.0.0",
       "Platform.Repository >= 1.0.0",
       "Platform.Transactional >= 1.0.0",
       "Platform.Utils >= 1.0.0"
@@ -2897,6 +2898,9 @@
           "projectReferences": {
             "C:\\Users\\Odin\\Documents\\Projetos\\CreditSystem\\Credit.System.Solution\\DataBase.Operations\\Platform.Transactional.csproj": {
               "projectPath": "C:\\Users\\Odin\\Documents\\Projetos\\CreditSystem\\Credit.System.Solution\\DataBase.Operations\\Platform.Transactional.csproj"
+            },
+            "C:\\Users\\Odin\\Documents\\Projetos\\CreditSystem\\Credit.System.Solution\\Platform.Entity\\Platform.Entity.csproj": {
+              "projectPath": "C:\\Users\\Odin\\Documents\\Projetos\\CreditSystem\\Credit.System.Solution\\Platform.Entity\\Platform.Entity.csproj"
             },
             "C:\\Users\\Odin\\Documents\\Projetos\\CreditSystem\\Credit.System.Solution\\Platform.Repository\\Platform.Repository.csproj": {
               "projectPath": "C:\\Users\\Odin\\Documents\\Projetos\\CreditSystem\\Credit.System.Solution\\Platform.Repository\\Platform.Repository.csproj"

@@ -1,14 +1,17 @@
 ﻿
 function validateForm() {
     const fields = ["inputCpfCnpj", "firstName", "primaryPhone"];
-
+ 
     fields.forEach(Id => {
         const input = document.getElementById(Id);
 
         if (input.value == "") {
             input.classList.add("is-invalid");
+            button.disabled = true;
+
         } else {
             input.classList.remove("is-invalid");
+            button.disabled = false;
         }
 
     });
@@ -18,11 +21,6 @@ function validateForm() {
 
 
 function RegisterClient() {
-
-
-    
-    
-    
 
     const data = {
         name: document.getElementById("firstName").value,
@@ -38,7 +36,7 @@ function RegisterClient() {
         city: document.getElementById("inputCity").value,
         neighborhood: document.getElementById("inputNeighborhood").value
     }
-  
+        
 
 
     // Send the data to the server using Fetch API
