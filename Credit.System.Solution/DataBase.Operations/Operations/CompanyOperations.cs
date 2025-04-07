@@ -1,6 +1,7 @@
 ﻿using Platform.Repository;
 using Platform.Entity.Interfaces;
 using Platform.Entity.ServiceSystem;
+using Microsoft.EntityFrameworkCore;
 
 namespace Platform.Transactional.Operations
 {
@@ -18,7 +19,9 @@ namespace Platform.Transactional.Operations
 
             try
             {
-                List<Company> companies = _serviceSystemConnection.Company.ToList();
+                List<Company> companies = _serviceSystemConnection.Company.AsNoTracking().ToList();
+                    
+                    //_serviceSystemConnection.Company.ToList();
                 return companies;
             }
             catch (Exception)
