@@ -11156,6 +11156,10 @@ body {
   border-collapse: collapse;
 }
 
+table.dataTable tbody > tr.selected,
+table.dataTable tbody > tr > .selected {
+    background-color: #919ca7 !important;
+}
 .datatable-table > tbody > tr > td,
 .datatable-table > tbody > tr > th,
 .datatable-table > tfoot > tr > td,

@@ -2,20 +2,15 @@
 @using Platform.Entity.Interfaces;
 @using Platform.Entity.ServiceSystem
 
-
-
-
 <div class="container">
-   
     
     <div class="container-fluid px-4">
-        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#registerModal">
+        <button type="button" class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#registerModal">
             <i class="fas fa-user-plus me-2"></i>Adicionar
         </button>
-   @*      <button type="submit" onclick="RegisterNewUser()" id="btnRegisterUser" class="btn btn-secondary btn-lg">
-            Registrar
-        </button> *@
-
+        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#registerModal">
+            <i class="fas fa-user-plus me-2"></i>Editar
+        </button>
         <br />
         <br />
   
@@ -30,43 +25,24 @@
                         <tr>
                             <th>Nome</th>
                             <th>Email</th>
-                            <th>Telefone</th>
+                            <th>Cargo</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>John Doe</td>
-                            <td>john.doe@example.com</td>
-                            <td>(555) 123-4567</td>
+                            <td>John Nobody</td>
+                            <td>emailtemplate@hotmail.com</td>
+                            <td>Cobrador</td>
                         </tr>
-                        <tr>
-                            <td>Jane Smith</td>
-                            <td>jane.smith@example.com</td>
-                            <td>(555) 987-6543</td>
-                        </tr>
-                        <tr>
-                            <td>Mark Johnson</td>
-                            <td>mark.johnson@example.com</td>
-                            <td>(555) 246-8102</td>
-                        </tr>
-                        <tr>
-                            <td>Emily Brown</td>
-                            <td>emily.brown@example.com</td>
-                            <td>(555) 135-7924</td>
-                        </tr>
+                        
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
     
-    
-    
     <div class="row justify-content-center">
-        <!-- Button to trigger modal -->
-    
-
-        <!-- Modal -->
+      
         <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -75,19 +51,12 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        
-                            <!-- CPF Field -->
+                          
                             <div class="mb-3">
                                 <label for="cpfInput" class="form-label">CPF</label>
-                                <input type="text" id="cpfInput" name="Login" onfocus="applyCpfMask('cpfInput')" class="form-control"
-                                       pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
-                                       placeholder="000.000.000-00" required>
-                                <div class="invalid-feedback">
-                                    Por favor, insira um CPF válido.
-                                </div>
+                                <input type="text" id="cpfInput" name="Login" onfocus="applyCpfMask('cpfInput')" class="form-control">
                             </div>
-
-                            <!-- Email Field -->
+                          
                             <div class="mb-3">
                                 <label for="emailInput" class="form-label">Email</label>
                                 <input type="email" id="emailInput" name="Email" class="form-control"
@@ -97,17 +66,11 @@
                                 </div>
                             </div>
 
-                            <!-- Name Field -->
                             <div class="mb-3">
                                 <label for="nameInput" class="form-label">Nome Completo</label>
-                                <input type="text" id="nameInput" name="Name" class="form-control"
-                                       placeholder="Nome Sobrenome" required>
-                                <div class="invalid-feedback">
-                                    Por favor, insira seu nome completo.
-                                </div>
+                                <input type="text" id="nameInput" name="Name" class="form-control">
                             </div>
 
-                            <!-- Conditional Company Field -->
                             @if (Model.CompanyId == 1)
                             {
                                 <div class="mb-3">
@@ -122,7 +85,6 @@
                                 </div>
                             }
 
-                            <!-- Submit Button -->
                             <div class="d-grid mt-4">
                                 <button type="submit" onclick="RegisterNewUser()" id="btnRegisterUser" class="btn btn-secondary btn-lg">
                                     <i class="fas fa-user-plus me-2"></i>Registrar

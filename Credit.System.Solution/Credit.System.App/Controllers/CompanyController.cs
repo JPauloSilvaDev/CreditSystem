@@ -36,7 +36,6 @@ namespace Credit.System.App.Controllers
             {
                 return StatusCode(422, new { success = false, message = exc.Message });
             }
-
             catch (Exception)
             {
                 throw;
