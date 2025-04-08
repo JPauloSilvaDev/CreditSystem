@@ -235,34 +235,62 @@
             values: @Json.Serialize(Model.Categorias.Select(c => c.Valor)),
             labels: @Json.Serialize(Model.Categorias.Select(c => c.Nome)),
             type: 'pie',
-            textinfo: 'label+percent',
-            insidetextorientation: 'radial',
+            textinfo: 'percent',
+            hoverinfo: 'label+percent+value',
+            hovertemplate: '%{label}: <br>%{percent} <br>Valor: %{value}<extra></extra>',
             textposition: 'inside',
-            marker: {
-                colors: colors.colorArray
+            textfont: {
+                size: 14,
+                color: 'white',
+                weight: 'bold'
             },
-            hole: 0.4
+            marker: {
+                colors: ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c'],
+                line: {
+                    color: 'white',
+                    width: 2
+                }
+            },
+            hole: 0.5,
+            pull: [0.05, 0, 0, 0, 0],
+            direction: 'clockwise',
+            rotation: 45,
+            sort: true
         }];
 
         var layoutPizza = {
             autosize: true,
-            margin: { l: 20, r: 20, t: 30, b: 20 },
+            margin: { l: 10, r: 10, t: 30, b: 10 },
             showlegend: true,
             legend: {
-                orientation: 'h',
-                y: -0.2,
-                x: 0.5,
-                xanchor: 'center'
+                orientation: 'v',
+                x: 1.05,
+                y: 0.5,
+                xanchor: 'left',
+                yanchor: 'middle',
+                bgcolor: 'rgba(255,255,255,0.8)',
+                bordercolor: '#ddd',
+                borderwidth: 1,
+                font: { size: 12 }
             },
             annotations: [{
                 text: 'Categorias',
                 showarrow: false,
                 font: {
-                    size: 16
-                }
+                    size: 16,
+                    color: '#34495e',
+                    family: 'Arial, sans-serif'
+                },
+                x: 0.5,
+                y: 0.5
             }],
             plot_bgcolor: 'rgba(0,0,0,0)',
-            paper_bgcolor: 'rgba(0,0,0,0)'
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            hoverlabel: {
+                bgcolor: 'white',
+                bordercolor: '#ddd',
+                font: { size: 13, family: 'Arial, sans-serif' }
+            }
         };
 
         Plotly.newPlot('graficoPizza', dataPizza, layoutPizza, config);
