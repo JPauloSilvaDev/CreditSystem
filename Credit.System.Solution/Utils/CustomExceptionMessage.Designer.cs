@@ -88,6 +88,15 @@ namespace Platform.Utils {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Usuário de CPF {0} está cadastrado para essa empresa..
+        /// </summary>
+        public static string UserMessage0000 {
+            get {
+                return ResourceManager.GetString("UserMessage0000", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Senha incorreta ou usuário não cadastrado, verifique e tente novamente..
         /// </summary>
         public static string UserMessage0001 {

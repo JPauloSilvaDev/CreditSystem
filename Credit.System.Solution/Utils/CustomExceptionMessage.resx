@@ -75,6 +75,11 @@
     <value>Senha incorreta ou usuário não cadastrado, verifique e tente novamente.</value>
     <comment></comment>
   </data>
+	<data name="UserMessage0000" xml:space="preserve">
+    <value>Usuário de CPF {0} está cadastrado para essa empresa.</value>
+  </data>
+
+
 	<!-- Add more exception messages like this -->
 	<data name="ERR_1001" xml:space="preserve">
     <value>Invalid user credentials provided</value>

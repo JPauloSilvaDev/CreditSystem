@@ -26,10 +26,10 @@ namespace Credit.System.App.Controllers
             try
             {
                 UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
-
+                
+                //Criar e chamar classe validator, validando os campos obrigatórios, CPF e CNPJ.
+                
                 _companyOperations.InsertCompany(company);
-                
-                
 
             }
             catch (CSException exc)
@@ -37,15 +37,13 @@ namespace Credit.System.App.Controllers
                 return StatusCode(422, new { success = false, message = exc.Message });
             }
 
-            catch (Exception ex)
+            catch (Exception)
             {
-                return StatusCode(500, new { success = false, message = ex.Message });
+                throw;
             }
 
-            return Ok(new { success = true, message = "Usuário cadastrado com sucesso!" });
+            return Ok(new { success = true, message = "Cliente cadastrado com sucesso!" });
         }
-
-
-
+    
     }
 }

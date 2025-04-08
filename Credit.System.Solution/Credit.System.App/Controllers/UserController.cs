@@ -50,7 +50,7 @@ namespace Credit.System.App.Controllers
                 bool userExists = _userOperations.UserExistsAtCompany(userModel.Login, userModel.CompanyId.Value);
 
                 if (userExists)
-                    throw new CSException("Usuário já está cadastrado na empresa.");
+                    throw new CSException(string.Format(CustomExceptionMessage.UserMessage0000, userModel.Login));
 
                 User newUser = UserMapper.MapRegisterUserModelToUser(userModel);
 
@@ -58,12 +58,12 @@ namespace Credit.System.App.Controllers
             }
             catch (CSException exc)
             {
-                return StatusCode(422, new { success = false, message = exc.Message });
+                return Json(new { success = false, message = exc.Message });
             }
 
             catch (Exception ex)
             {
-                return StatusCode(500, new { success = false, message = ex.Message });
+                return Json(new { success = false, message = ex.Message });
             }
 
             return Ok(new { success = true, message = "Usuário cadastrado com sucesso!" });

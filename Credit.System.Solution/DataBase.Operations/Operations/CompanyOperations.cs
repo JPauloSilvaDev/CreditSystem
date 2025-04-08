@@ -19,7 +19,7 @@ namespace Platform.Transactional.Operations
 
             try
             {
-                List<Company> companies = _serviceSystemConnection.Company.AsNoTracking().ToList();
+                List<Company> companies = _serviceSystemConnection.Company.ToList();
                     
                     //_serviceSystemConnection.Company.ToList();
                 return companies;

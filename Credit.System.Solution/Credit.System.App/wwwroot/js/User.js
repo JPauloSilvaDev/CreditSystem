@@ -1,4 +1,40 @@
-﻿function RegisterNewUser() {
+﻿
+
+$(document).ready(function () {
+/*    $('#datatablesSimple').DataTable();*/
+
+    var table = $('#datatablesSimple').DataTable({
+        paging: false,
+        searching: false,
+        lengthMenu: [5, 10, 25, 50],
+        language: {
+            search: "Pesquisar:",
+         /*   lengthMenu: "Registros por página _MENU_",*/
+            zeroRecords: "Nenhum registro encontrado",
+            info: "", 
+        }
+    });
+
+        // Add event listener for row selection
+    $('#datatablesSimple tbody').on('click', 'tr', function () {
+            // Toggle selected class on click
+            $(this).toggleClass('selected');
+
+        // You can also get data from the selected row if needed
+        var data = table.row(this).data();
+        console.log('Selected row data:', data);
+    });
+ 
+   
+
+
+
+});
+
+
+
+
+function RegisterNewUser() {
     debugger
     // Gather input values
     const cpf = document.getElementById("cpfInput").value;
@@ -109,9 +145,6 @@ function UserLogin() {
             showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
         });
 
-
-   
-    
     
 
 
