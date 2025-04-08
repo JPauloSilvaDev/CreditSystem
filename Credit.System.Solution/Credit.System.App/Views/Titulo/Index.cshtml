@@ -1,0 +1,217 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<Credit.System.App.Models.TituloViewModel>
+@{
+    ViewData["Title"] = "Títulos";
+}
+
+<div class="container-fluid px-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Títulos</h1>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#novoTituloModal">
+            <i class="fas fa-plus me-2"></i>Novo Título
+        </button>
+    </div>
+
+    <!-- Cards de Resumo -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100" style="background: linear-gradient(45deg, #4e73df, #224abe);">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-white text-uppercase mb-1">
+                                Total de Títulos
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-white">@Model.Count()</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-file-invoice fa-2x text-white-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100" style="background: linear-gradient(45deg, #1cc88a, #13855c);">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-white text-uppercase mb-1">
+                                Títulos Pagos
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-white">@Model.Count(t => t.Status == "Pago")</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-check-circle fa-2x text-white-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100" style="background: linear-gradient(45deg, #f6c23e, #dda20a);">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-white text-uppercase mb-1">
+                                Títulos Pendentes
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-white">@Model.Count(t => t.Status == "Pendente")</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clock fa-2x text-white-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-0 shadow-sm h-100" style="background: linear-gradient(45deg, #36b9cc, #258391);">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-white text-uppercase mb-1">
+                                Em Andamento
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-white">@Model.Count(t => t.Status == "Em Andamento")</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-sync fa-2x text-white-50"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabela Moderna -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex justify-content-between align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary">
+                <i class="fas fa-table me-2"></i>Lista de Títulos
+            </h6>
+            <div class="d-flex">
+                <div class="input-group me-2">
+                    <span class="input-group-text bg-light border-0">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input type="text" class="form-control border-0 bg-light" id="searchInput" placeholder="Pesquisar...">
+                </div>
+                <button class="btn btn-light" id="refreshTable">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table id="datatablesSimple" class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Número</th>
+                            <th>Cliente</th>
+                            <th>Valor</th>
+                            <th>Vencimento</th>
+                            <th>Status</th>
+                            <th class="text-end">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var titulo in Model)
+                        {
+                            <tr>
+                                <td class="align-middle">@titulo.Numero</td>
+                                <td class="align-middle">@titulo.Cliente</td>
+                                <td class="align-middle">R$ @titulo.Valor.ToString("N2")</td>
+                                <td class="align-middle">@titulo.Vencimento.ToString("dd/MM/yyyy")</td>
+                                <td class="align-middle">
+                                    <span class="badge bg-@(titulo.Status == "Pago" ? "success" : titulo.Status == "Pendente" ? "warning" : "info")">
+                                        @titulo.Status
+                                    </span>
+                                </td>
+                                <td class="text-end">
+                                    <div class="btn-group btn-group-sm">
+                                        <button class="btn btn-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="editarTitulo(@titulo.Id)">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Deletar" onclick="excluirTitulo(@titulo.Id)">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                        <button class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Acordos" onclick="excluirTitulo(@titulo.Id)">
+                                            <i class="fa fa-handshake"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Novo Título -->
+<div class="modal fade" id="novoTituloModal" tabindex="-1" aria-labelledby="novoTituloModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="novoTituloModalLabel">Novo Título</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulário será adicionado aqui -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Inicializa o DataTable
+            var table = $('#datatablesSimple').DataTable({
+                responsive: true,
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/pt-BR.json'
+                },
+                dom: '<"top"p>rt<"bottom"i>',
+                pageLength: 10,
+                order: [[3, 'asc']],
+                columnDefs: [
+                    { orderable: false, targets: 5 }
+                ]
+            });
+
+            // Inicializa os tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            });
+
+            // Pesquisa personalizada
+            $('#searchInput').on('keyup', function() {
+                table.search(this.value).draw();
+            });
+
+            // Botão de refresh
+            $('#refreshTable').click(function() {
+                location.reload();
+            });
+        });
+
+        function editarTitulo(id) {
+            // Implementar lógica de edição
+        }
+
+        function excluirTitulo(id) {
+            // Implementar lógica de exclusão
+        }
+    </script>
+    <script src="~/js/datatables.js"></script>
+}
