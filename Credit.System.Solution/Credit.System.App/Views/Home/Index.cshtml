@@ -1,8 +1,302 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model Credit.System.App.Models.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    :root {
+        --primary: #3498db;
+        --secondary: #2ecc71;
+        --danger: #e74c3c;
+        --warning: #f39c12;
+        --info: #1abc9c;
+        --dark: #34495e;
+        --light: #f5f5f5;
+    }
+    
+    body {
+        background-color: #f8f9fa;
+    }
+    
+    .dashboard-header {
+        background: linear-gradient(135deg, var(--primary), var(--info));
+        color: white;
+        padding: 25px 0;
+        margin-bottom: 30px;
+        border-radius: 0 0 10px 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .dashboard-container {
+        padding: 0 20px 20px 20px;
+    }
+    
+    .chart-container {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        margin-bottom: 25px;
+        padding: 20px;
+        transition: transform 0.3s;
+    }
+    
+    .chart-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+    
+    .chart-wrapper {
+        width: 100%;
+        height: 100%;
+        min-height: 350px;
+    }
+    
+    .chart-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--dark);
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .card-stats {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        padding: 20px;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+    
+    .card-stats .number {
+        font-size: 32px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    
+    .card-stats .label {
+        color: #777;
+        font-size: 14px;
+        text-transform: uppercase;
+    }
+</style>
+
+<div class="dashboard-header">
+    <div class="container-fluid">
+        <h1 class="display-5">Dashboard Financeiro</h1>
+        <p class="lead">Visão geral dos principais indicadores de desempenho</p>
+    </div>
 </div>
+
+<div class="dashboard-container">
+    <!-- Cards de Estatísticas -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card-stats">
+                <div class="number" style="color: var(--primary)">@Model.Vendas.Last().ToString("C0")</div>
+                <div class="label">Vendas do Mês</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card-stats">
+                <div class="number" style="color: var(--secondary)">@((Model.Vendas.Last() - Model.Despesas.Last()).ToString("C0"))</div>
+                <div class="label">Lucro do Mês</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card-stats">
+                <div class="number" style="color: var(--warning)">@Model.Produtos.OrderByDescending(p => p.Quantidade).First().Nome</div>
+                <div class="label">Produto Mais Vendido</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card-stats">
+                <div class="number" style="color: var(--info)">@Model.Categorias.OrderByDescending(c => c.Valor).First().Nome</div>
+                <div class="label">Categoria Principal</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gráficos -->
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="chart-container">
+                <div class="chart-title">Vendas vs Despesas</div>
+                <div id="graficoLinha" class="chart-wrapper"></div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="chart-container">
+                <div class="chart-title">Distribuição por Categoria</div>
+                <div id="graficoPizza" class="chart-wrapper"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="chart-container">
+                <div class="chart-title">Vendas por Produto</div>
+                <div id="graficoBarras" class="chart-wrapper"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/plotly-3.0.1.min.js"></script>
+    <script>
+        // Função para redimensionar os gráficos
+        function resizeCharts() {
+            Plotly.Plots.resize('graficoLinha');
+            Plotly.Plots.resize('graficoPizza');
+            Plotly.Plots.resize('graficoBarras');
+        }
+
+        // Adiciona listener para redimensionamento da janela
+        window.addEventListener('resize', resizeCharts);
+
+        // Definição de cores
+        const colors = {
+            primary: '#3498db',
+            secondary: '#2ecc71',
+            danger: '#e74c3c',
+            warning: '#f39c12',
+            info: '#1abc9c',
+            colorArray: ['#3498db', '#2ecc71', '#e74c3c', '#f39c12', '#1abc9c', '#9b59b6']
+        };
+
+        // Gráfico de Linha
+        var trace1 = {
+            x: @Json.Serialize(Model.Meses),
+            y: @Json.Serialize(Model.Vendas),
+            type: 'scatter',
+            name: 'Vendas',
+            mode: 'lines+markers',
+            line: { 
+                color: colors.primary,
+                width: 3
+            },
+            marker: {
+                size: 8,
+                color: colors.primary
+            }
+        };
+
+        var trace2 = {
+            x: @Json.Serialize(Model.Meses),
+            y: @Json.Serialize(Model.Despesas),
+            type: 'scatter',
+            name: 'Despesas',
+            mode: 'lines+markers',
+            line: { 
+                color: colors.danger,
+                width: 3
+            },
+            marker: {
+                size: 8,
+                color: colors.danger
+            }
+        };
+
+        var data = [trace1, trace2];
+        var layout = {
+            autosize: true,
+            margin: { l: 50, r: 30, t: 30, b: 80 },
+            hovermode: 'closest',
+            xaxis: { 
+                title: 'Mês',
+                tickfont: { size: 12 }
+            },
+            yaxis: { 
+                title: 'Valor (R$)',
+                tickprefix: 'R$ ',
+                tickfont: { size: 12 }
+            },
+            legend: {
+                orientation: 'h',
+                y: -0.2,
+                x: 0.5,
+                xanchor: 'center'
+            },
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            paper_bgcolor: 'rgba(0,0,0,0)'
+        };
+
+        var config = {
+            responsive: true,
+            displayModeBar: false
+        };
+
+        Plotly.newPlot('graficoLinha', data, layout, config);
+
+        // Gráfico de Pizza
+        var dataPizza = [{
+            values: @Json.Serialize(Model.Categorias.Select(c => c.Valor)),
+            labels: @Json.Serialize(Model.Categorias.Select(c => c.Nome)),
+            type: 'pie',
+            textinfo: 'label+percent',
+            insidetextorientation: 'radial',
+            textposition: 'inside',
+            marker: {
+                colors: colors.colorArray
+            },
+            hole: 0.4
+        }];
+
+        var layoutPizza = {
+            autosize: true,
+            margin: { l: 20, r: 20, t: 30, b: 20 },
+            showlegend: true,
+            legend: {
+                orientation: 'h',
+                y: -0.2,
+                x: 0.5,
+                xanchor: 'center'
+            },
+            annotations: [{
+                text: 'Categorias',
+                showarrow: false,
+                font: {
+                    size: 16
+                }
+            }],
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            paper_bgcolor: 'rgba(0,0,0,0)'
+        };
+
+        Plotly.newPlot('graficoPizza', dataPizza, layoutPizza, config);
+
+        // Gráfico de Barras
+        var dataBarras = [{
+            x: @Json.Serialize(Model.Produtos.Select(p => p.Nome)),
+            y: @Json.Serialize(Model.Produtos.Select(p => p.Quantidade)),
+            type: 'bar',
+            marker: {
+                color: colors.colorArray,
+                line: {
+                    width: 1,
+                    color: '#fff'
+                }
+            }
+        }];
+
+        var layoutBarras = {
+            autosize: true,
+            margin: { l: 50, r: 30, t: 30, b: 80 },
+            xaxis: { 
+                title: 'Produtos',
+                tickangle: -45,
+                tickfont: { size: 12 }
+            },
+            yaxis: { 
+                title: 'Quantidade Vendida',
+                tickfont: { size: 12 }
+            },
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            paper_bgcolor: 'rgba(0,0,0,0)'
+        };
+
+        Plotly.newPlot('graficoBarras', dataBarras, layoutBarras, config);
+    </script>
+}
