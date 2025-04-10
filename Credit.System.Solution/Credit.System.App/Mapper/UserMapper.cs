@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Linq;
-using Credit.System.App.Models;
+﻿using Credit.System.App.Models;
 using Platform.Entity.ServiceSystem;
 
 namespace Credit.System.App.Mapper

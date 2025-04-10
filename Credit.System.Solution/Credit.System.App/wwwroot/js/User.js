@@ -53,7 +53,6 @@ function RegisterNewUser() {
         Name: name,
         CompanyId: companyId
     };
-
     fetch("/User/Register", {
         method: "POST",
         headers: {
@@ -62,19 +61,35 @@ function RegisterNewUser() {
         },
         body: JSON.stringify(data)
     })
-        .then(response => response.json()) // Parse the JSON response
+        .then(response => {
+            // First check if the response is OK (status 200-299)
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json(); // Parse the JSON only if response is OK
+        })
         .then(data => {
-
             if (data.success) {
-                showAlert("Usuário cadastrado com sucesso!", 'success', 5000);
+                showAlert(data.message || "Usuário cadastrado com sucesso!", 'success', 5000);
+                // Optional: Close the modal on success
+                $('#registerModal').modal('hide');
+
+                setTimeout(function () {
+                    location.reload();
+                }, 3000);
+                // Optional: Refresh data or reset form
+                
             } else {
-                showAlert("Não foi possível concluir a solicitação no momento", 'error', 5000);
-                console.log(data.message)
+                showAlert(data.message, 'error', 5000);
+                console.error("Server error:", data.message);
             }
         })
         .catch(error => {
+            console.error("Fetch error:", error);
             showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
         });
+
+   
 }
 
 function GetEditUserModal(user) {

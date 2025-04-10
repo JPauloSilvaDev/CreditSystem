@@ -60,7 +60,7 @@ jQuery(function ($) {
 
 
 function getAntiForgeryToken() {
-    return document.getElementById('antiForgeryToken').value;
+    return document.querySelector('input[name="__RequestVerificationToken"]').value;
 }
 
 

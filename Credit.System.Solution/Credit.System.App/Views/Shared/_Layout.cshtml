@@ -156,8 +156,11 @@
    
     @Html.AntiForgeryToken()
     <!-- or -->
+    
+    
+@*     
     <input type="hidden" id="antiForgeryToken" name="__RequestVerificationToken"
-           value="@Html.AntiForgeryToken()" />
+           value="@Html.AntiForgeryToken()" /> *@
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
