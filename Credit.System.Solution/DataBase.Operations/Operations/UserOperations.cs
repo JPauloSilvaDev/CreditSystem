@@ -68,5 +68,20 @@ namespace Platform.Transactional.Operations
             }
         }
 
+        public List<User> GetAllUsersByCompanyId(long companyId)
+        {
+            List<User> users = new List<User>();
+
+            try
+            {
+                users = _serviceSystemConnection.User.Where(x => x.CompanyId == companyId).ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+           
+            return users;
+        }
     }
 }

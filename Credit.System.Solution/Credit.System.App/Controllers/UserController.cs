@@ -29,10 +29,21 @@ namespace Credit.System.App.Controllers
         {
             UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
 
-            if (userLogged.CompanyId == 1)
-                userLogged.CompanyList = _companyOperations.GetAllCompanies();
+            RegisterUserModel registerModel = new RegisterUserModel();
 
-            return View(userLogged);
+            registerModel.CompanyId = userLogged.CompanyId;
+
+            if (userLogged.CompanyId == 1)
+                registerModel.CompanyList = _companyOperations.GetAllCompanies();
+
+
+            List<User> userList = _userOperations.GetAllUsersByCompanyId(userLogged.CompanyId);
+
+            List<UserViewModel> userViewModelList = UserMapper.MapUserListToUserViewModelList(userList);
+
+            registerModel.Users = userViewModelList;
+
+            return View(registerModel);
         }
 
         [CheckUserSession]
@@ -47,7 +58,7 @@ namespace Credit.System.App.Controllers
                 if (userModel.CompanyId == null)
                     userModel.CompanyId = userLogged.CompanyId;
 
-                bool userExists = _userOperations.UserExistsAtCompany(userModel.Login, userModel.CompanyId.Value);
+                bool userExists = _userOperations.UserExistsAtCompany(userModel.Login, userModel.CompanyId);
 
                 if (userExists)
                     throw new CSException(string.Format(CustomExceptionMessage.UserMessage0000, userModel.Login));
@@ -71,7 +82,7 @@ namespace Credit.System.App.Controllers
 
         [HttpPost]
 
-        public IActionResult Login([FromBody]LoginModel loginInfo)
+        public IActionResult Login([FromBody] LoginModel loginInfo)
         {
             try
             {

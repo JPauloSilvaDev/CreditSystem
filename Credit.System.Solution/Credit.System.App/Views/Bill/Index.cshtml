@@ -1,11 +1,9 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@model IEnumerable<Credit.System.App.Models.TituloViewModel>
+﻿
+@model IEnumerable<Credit.System.App.Models.BillViewModel>
 @{
     ViewData["Title"] = "Títulos";
 }
-
+@using static Platform.Entity.Enums.Enums;
 <div class="container-fluid px-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3 mb-0 text-gray-800">Títulos</h1>
@@ -41,7 +39,7 @@
                             <div class="text-xs font-weight-bold text-white text-uppercase mb-1">
                                 Títulos Pagos
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-white">@Model.Count(t => t.Status == "Pago")</div>
+                            <div class="h5 mb-0 font-weight-bold text-white">@Model.Count(t => t.Status == BillStatus.Settled)</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-check-circle fa-2x text-white-50"></i>
@@ -58,7 +56,7 @@
                             <div class="text-xs font-weight-bold text-white text-uppercase mb-1">
                                 Títulos Pendentes
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-white">@Model.Count(t => t.Status == "Pendente")</div>
+                            <div class="h5 mb-0 font-weight-bold text-white">@Model.Count(t => t.Status == BillStatus.Pending)</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-clock fa-2x text-white-50"></i>
@@ -75,7 +73,7 @@
                             <div class="text-xs font-weight-bold text-white text-uppercase mb-1">
                                 Em Andamento
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-white">@Model.Count(t => t.Status == "Em Andamento")</div>
+                            <div class="h5 mb-0 font-weight-bold text-white">@Model.Count(t => t.Status == BillStatus.Ongoing)</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-sync fa-2x text-white-50"></i>
@@ -121,24 +119,24 @@
                         @foreach (var titulo in Model)
                         {
                             <tr>
-                                <td class="align-middle">@titulo.Numero</td>
-                                <td class="align-middle">@titulo.Cliente</td>
-                                <td class="align-middle">R$ @titulo.Valor.ToString("N2")</td>
-                                <td class="align-middle">@titulo.Vencimento.ToString("dd/MM/yyyy")</td>
+                                <td class="align-middle">@titulo.Number</td>
+                                <td class="align-middle">@titulo.Client</td>
+                                <td class="align-middle">R$ @titulo.Value.ToString("N2")</td>
+                                <td class="align-middle">@titulo.DueDate.ToString("dd/MM/yyyy")</td>
                                 <td class="align-middle">
-                                    <span class="badge bg-@(titulo.Status == "Pago" ? "success" : titulo.Status == "Pendente" ? "warning" : "info")">
+                                    <span class="badge bg-@(titulo.Status == BillStatus.Settled ? "success" : titulo.Status == BillStatus.Pending ? "warning" : "info")">
                                         @titulo.Status
                                     </span>
                                 </td>
                                 <td class="text-end">
                                     <div class="btn-group btn-group-sm">
-                                        <button class="btn btn-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="editarTitulo(@titulo.Id)">
+                                        <button class="btn btn-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="editarTitulo(@titulo.BillId)">
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Deletar" onclick="excluirTitulo(@titulo.Id)">
+                                        <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Deletar" onclick="excluirTitulo(@titulo.BillId)">
                                             <i class="fas fa-trash"></i>
                                         </button>
-                                        <button class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Acordos" onclick="excluirTitulo(@titulo.Id)">
+                                        <button class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Acordos" onclick="excluirTitulo(@titulo.BillId)">
                                             <i class="fa fa-handshake"></i>
                                         </button>
                                     </div>

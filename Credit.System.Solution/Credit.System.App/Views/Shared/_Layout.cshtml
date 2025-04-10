@@ -16,7 +16,7 @@
     <script src="/js/Utils.js"></script>
 </head>
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="background-color:midnightblue">
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="index.html">Sistema de Cobrança</a>
         <!-- Sidebar Toggle-->
@@ -50,7 +50,7 @@
 
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" style="background-color:royalblue"id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                   @*       <div class="sb-sidenav-menu-heading">Core</div> *@
@@ -67,7 +67,7 @@
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" asp-area="" asp-controller="" asp-action="">Devedores</a>
-                                <a class="nav-link" asp-area="" asp-controller="Titulo" asp-action="Index">Títulos</a>
+                                <a class="nav-link" asp-area="" asp-controller="Bill" asp-action="Index">Títulos</a>
                             </nav>
                         </div>
                         @* <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
@@ -118,9 +118,9 @@
 
                         <div class="collapse" id="collapseConfig" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" asp-area="" asp-controller="Client" asp-action="Register">Cliente</a>
-                                <a class="nav-link" asp-area="" asp-controller="Company" asp-action="Index">Empresa</a>
-                                <a class="nav-link" asp-area="" asp-controller="User" asp-action="Register">Usuário</a>
+                                <a class="nav-link" asp-area="" asp-controller="Client" asp-action="Register">Clientes</a>
+                                <a class="nav-link" asp-area="" asp-controller="Company" asp-action="Index">Minha Empresa</a>
+                                <a class="nav-link" asp-area="" asp-controller="User" asp-action="Register">Usuários</a>
                             </nav>
                         </div>
                       

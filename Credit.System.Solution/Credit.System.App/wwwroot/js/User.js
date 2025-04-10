@@ -10,17 +10,17 @@ $(document).ready(function () {
         language: {
             search: "Pesquisar:",
             zeroRecords: "Nenhum registro encontrado",
-            info: "", 
-        }
+            info: "",
+        },
+        responsive: true, // Enable responsive feature
+        //autoWidth: false, // Disable automatic width calculation
+        //scrollX: true, // Enable horizontal scrolling if needed
+        dom: '<"top"f>rt<"bottom"lip><"clear">'
+
     });
 
-    $('#datatablesSimple tbody').on('click', 'tr', function () {
-
-        $('tr.selected').removeClass('selected');
-
-        $(this).addClass('selected');
-
-         selectedRowData = table.row(this).data();
+    $('#datatablesSimple td').on('click', 'tr', function () {
+        selectedRowData = table.row(this).data();
     });
 
 });
@@ -36,7 +36,7 @@ function RegisterNewUser() {
         showAlert("Insira um CPF válido.", 'warning', 5000);
         return;
     }
-        
+
     if (email == "") {
         showAlert("Insira um Email válido.", 'warning', 5000);
         return;
@@ -69,7 +69,7 @@ function RegisterNewUser() {
                 showAlert("Usuário cadastrado com sucesso!", 'success', 5000);
             } else {
                 showAlert("Não foi possível concluir a solicitação no momento", 'error', 5000);
-                console.log(data.message)    
+                console.log(data.message)
             }
         })
         .catch(error => {
@@ -77,11 +77,29 @@ function RegisterNewUser() {
         });
 }
 
-function EditUser() {
-    if (selectedRowData == undefined) {
-        showAlert("Selecione ao menos um registro para editar.", 'warning', 5000)
-        return;
-    }
+function GetEditUserModal(user) {
+    debugger
+
+
+    $("#editModal").modal("show");
+    
+
+
+    $('#cpfInput').val(user.Login);
+    $('#emailInput').val(user.Email);
+    $('#nameInput').val(user.Name);
+    $('#companyId')?.val(user.companyId);
+
+
+    //const data = {
+
+    //    Login: ,
+    //    Email: email,
+    //    Name: name,
+    //    CompanyId: companyId
+
+    //}
+
 }
 
 function UserLogin() {
@@ -89,7 +107,7 @@ function UserLogin() {
     debugger
     const loginInput = $('#loginInput').val();
     const passwordInput = $('#passwordInput').val();
-        
+
     if (loginInput == "") {
         showAlert("Digite seu login", 'warning', 5000);
         return;
@@ -110,7 +128,7 @@ function UserLogin() {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-          
+
         },
         body: JSON.stringify(data)
     })
@@ -127,14 +145,14 @@ function UserLogin() {
                 showAlert(data.message, 'error', 5000);
                 console.log(data.message);
             }
-            
+
         })
         .catch(error => {
             //console.error("Error:", error);
             showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
         });
 
-    
+
 
 
 

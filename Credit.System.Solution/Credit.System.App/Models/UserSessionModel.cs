@@ -12,7 +12,7 @@ namespace Credit.System.App.Models
 
         public string Email { get; set; }
     
-        public List<Company> CompanyList { get; set; }  
+
     
     }
 }

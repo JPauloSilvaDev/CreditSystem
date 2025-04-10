@@ -9,5 +9,8 @@ namespace Platform.Entity.Interfaces
         public User GetUserByLoginAndPassword(string user, string password);
 
         public bool UserExistsAtCompany(string login, long companyId);
+
+        public List<User> GetAllUsersByCompanyId(long companyId);
+
     }
 }

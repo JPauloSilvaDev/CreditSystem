@@ -1,4 +1,7 @@
-﻿using Credit.System.App.Models;
+﻿using System.Collections.Generic;
+using System.ComponentModel.Design;
+using System.Linq;
+using Credit.System.App.Models;
 using Platform.Entity.ServiceSystem;
 
 namespace Credit.System.App.Mapper
@@ -14,7 +17,7 @@ namespace Credit.System.App.Mapper
                     Email = userModel.Email,
                     Login = userModel.Login,
                     Name = userModel.Name,
-                    CompanyId = userModel.CompanyId.Value,
+                    CompanyId = userModel.CompanyId,
                 };
             }
             catch (Exception)
@@ -23,7 +26,33 @@ namespace Credit.System.App.Mapper
             }
 
         }
-    
-    
+        public static List<UserViewModel> MapUserListToUserViewModelList(List<User> userModel)
+        {
+            try
+            {
+                List<UserViewModel> userViewModelList = new List<UserViewModel>();
+
+                foreach (User user in userModel)
+                {
+                    UserViewModel userViewModel = new UserViewModel()
+                    {
+                        Email = user.Email,
+                        Login = user.Login,
+                        Name = user.Name,
+                        isActive = user.IsActive,
+                    };
+               
+                    userViewModelList.Add(userViewModel);
+                }
+                
+                return userViewModelList;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
     }
 }

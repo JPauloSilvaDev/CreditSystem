@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Credit.System.App.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Credit.System.App.Controllers
 {
@@ -14,27 +15,32 @@ namespace Credit.System.App.Controllers
             if (userLogged == null)
                 return RedirectToAction("Index", "User");
 
+
+            UserSessionModel userLoggedModel = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
+
+            ViewData["CompanyId"] = userLoggedModel.CompanyId;
+
             // Aqui você pode buscar os dados reais do seu banco de dados
             var dashboardData = new DashboardViewModel
             {
-                Meses = new List<string> { "Jan", "Fev", "Mar", "Abr", "Mai", "Jun" },
-                Vendas = new List<decimal> { 1000, 1500, 2000, 1800, 2200, 2500 },
-                Despesas = new List<decimal> { 800, 1200, 1500, 1400, 1800, 2000 },
-                Categorias = new List<CategoriaViewModel>
+                Months = new List<string> { "Jan", "Fev", "Mar", "Abr", "Mai", "Jun" },
+                Sales = new List<decimal> { 1000, 1500, 2000, 1800, 2200, 2500 },
+                Expenses = new List<decimal> { 800, 1200, 1500, 1400, 1800, 2000 },
+                Categories = new List<CategoriaViewModel>
                 {
-                    new CategoriaViewModel { Nome = "Categoria A", Valor = 30 },
-                    new CategoriaViewModel { Nome = "Categoria B", Valor = 25 },
-                    new CategoriaViewModel { Nome = "Categoria C", Valor = 20 },
-                    new CategoriaViewModel { Nome = "Categoria D", Valor = 15 },
-                    new CategoriaViewModel { Nome = "Categoria E", Valor = 10 }
+                    new CategoriaViewModel { Name = "Categoria A", Value = 30 },
+                    new CategoriaViewModel { Name = "Categoria B", Value = 25 },
+                    new CategoriaViewModel {Name = "Categoria C", Value = 20},
+                    new CategoriaViewModel {Name = "Categoria D", Value = 15},
+                    new CategoriaViewModel { Name = "Categoria E", Value = 10 }
                 },
-                Produtos = new List<ProdutoViewModel>
+                Products = new List<ProdutoViewModel>
                 {
-                    new ProdutoViewModel { Nome = "Produto 1", Quantidade = 500 },
-                    new ProdutoViewModel { Nome = "Produto 2", Quantidade = 300 },
-                    new ProdutoViewModel { Nome = "Produto 3", Quantidade = 400 },
-                    new ProdutoViewModel { Nome = "Produto 4", Quantidade = 200 },
-                    new ProdutoViewModel { Nome = "Produto 5", Quantidade = 600 }
+                    new ProdutoViewModel { Name = "Produto 1", Quantity = 500 },
+                    new ProdutoViewModel { Name = "Produto 2", Quantity = 300 },
+                    new ProdutoViewModel { Name = "Produto 3", Quantity = 400 },
+                    new ProdutoViewModel { Name = "Produto 4", Quantity = 200 },
+                    new ProdutoViewModel { Name = "Produto 5", Quantity = 600 }
                 }
             };
 

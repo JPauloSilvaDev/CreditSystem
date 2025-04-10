@@ -94,25 +94,25 @@
     <div class="row mb-4">
         <div class="col-md-3">
             <div class="card-stats">
-                <div class="number" style="color: var(--primary)">@Model.Vendas.Last().ToString("C0")</div>
+                <div class="number" style="color: var(--primary)">@Model.Sales.Last().ToString("C0")</div>
                 <div class="label">Vendas do Mês</div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card-stats">
-                <div class="number" style="color: var(--secondary)">@((Model.Vendas.Last() - Model.Despesas.Last()).ToString("C0"))</div>
+                <div class="number" style="color: var(--secondary)">@((Model.Sales.Last() - Model.Expenses.Last()).ToString("C0"))</div>
                 <div class="label">Lucro do Mês</div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card-stats">
-                <div class="number" style="color: var(--warning)">@Model.Produtos.OrderByDescending(p => p.Quantidade).First().Nome</div>
+                <div class="number" style="color: var(--warning)">@Model.Products.OrderByDescending(p => p.Quantity).First().Name</div>
                 <div class="label">Produto Mais Vendido</div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card-stats">
-                <div class="number" style="color: var(--info)">@Model.Categorias.OrderByDescending(c => c.Valor).First().Nome</div>
+                <div class="number" style="color: var(--info)">@Model.Categories.OrderByDescending(c => c.Value).First().Name</div>
                 <div class="label">Categoria Principal</div>
             </div>
         </div>
@@ -168,8 +168,8 @@
 
         // Gráfico de Linha
         var trace1 = {
-            x: @Json.Serialize(Model.Meses),
-            y: @Json.Serialize(Model.Vendas),
+            x: @Json.Serialize(Model.Months),
+            y: @Json.Serialize(Model.Sales),
             type: 'scatter',
             name: 'Vendas',
             mode: 'lines+markers',
@@ -184,8 +184,8 @@
         };
 
         var trace2 = {
-            x: @Json.Serialize(Model.Meses),
-            y: @Json.Serialize(Model.Despesas),
+            x: @Json.Serialize(Model.Months),
+            y: @Json.Serialize(Model.Expenses),
             type: 'scatter',
             name: 'Despesas',
             mode: 'lines+markers',
@@ -232,8 +232,8 @@
 
         // Gráfico de Pizza
         var dataPizza = [{
-            values: @Json.Serialize(Model.Categorias.Select(c => c.Valor)),
-            labels: @Json.Serialize(Model.Categorias.Select(c => c.Nome)),
+            values: @Json.Serialize(Model.Categories.Select(c => c.Value)),
+            labels: @Json.Serialize(Model.Categories.Select(c => c.Name)),
             type: 'pie',
             textinfo: 'percent',
             hoverinfo: 'label+percent+value',
@@ -297,8 +297,8 @@
 
         // Gráfico de Barras
         var dataBarras = [{
-            x: @Json.Serialize(Model.Produtos.Select(p => p.Nome)),
-            y: @Json.Serialize(Model.Produtos.Select(p => p.Quantidade)),
+            x: @Json.Serialize(Model.Products.Select(p => p.Name)),
+            y: @Json.Serialize(Model.Products.Select(p => p.Quantity)),
             type: 'bar',
             marker: {
                 color: colors.colorArray,
@@ -326,5 +326,13 @@
         };
 
         Plotly.newPlot('graficoBarras', dataBarras, layoutBarras, config);
-    </script>
+
+            companyId = @ViewData["CompanyId"];
+            console.log(companyId);
+            
+            </script>
 }
+
+
+
+            

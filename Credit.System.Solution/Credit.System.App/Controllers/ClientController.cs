@@ -10,7 +10,6 @@ namespace Credit.System.App.Controllers
     [CheckUserSession]
     public class ClientController : Controller
     {
-
         private readonly IClientOperations _clientOperations;
 
         public ClientController(IClientOperations clientOperations)
@@ -30,17 +29,6 @@ namespace Credit.System.App.Controllers
 
             return View();
 
-        }
-        public IActionResult GetClientsList()
-        {
-
-            //var userLogged = HttpContext.Session.GetString("UserLogged");
-
-            //if (userLogged == null)
-            //    return RedirectToAction("Index", "User");
-
-
-            return View();//model do cliente
         }
         
         [HttpPost]
