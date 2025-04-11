@@ -80,8 +80,48 @@ namespace Credit.System.App.Controllers
             return Ok(new { success = true, message = "Usuário cadastrado com sucesso!" });
         }
 
-        [HttpPost]
 
+        [CheckUserSession]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditUser([FromBody] UserViewModel userViewModel)
+        {
+            try
+            {
+                User user = UserMapper.MapUserViewModelToUser(userViewModel);
+
+                _userOperations.UpdateUser(user);
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false, message = CustomExceptionMessage.GenericMessage0001 });
+            }
+           
+
+            return Json(new { success = true, message = "Alterações salvas com sucesso."});
+        }
+
+        [CheckUserSession]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult RemoveUser([FromBody] UserViewModel userViewModel)
+        {
+            try
+            {
+                _userOperations.DeleteUser(userViewModel.UserId);
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false, message = CustomExceptionMessage.GenericMessage0001});
+            }
+           
+
+            return Json(new { success = true, message = "Alterações salvas com sucesso." });
+        }
+      
+
+
+        [HttpPost]
         public IActionResult Login([FromBody] LoginModel loginInfo)
         {
             try

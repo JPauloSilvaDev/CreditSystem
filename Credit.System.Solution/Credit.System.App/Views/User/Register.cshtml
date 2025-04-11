@@ -7,12 +7,11 @@
 <div class="container" style="">
 
 	<div class="container-fluid px-4">
-		<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#registerModal">
-			<i class="fas fa-user-plus me-2"></i>Adicionar
-		</button>
-
-
-		<br />
+		<div class="text-end">
+			<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal">
+				<i class="fas fa-user-plus me-2"></i>Adicionar
+			</button>
+		</div>
 		<br />
 
 		<div class="card shadow mb-4">
@@ -41,6 +40,7 @@
 								<th>Login</th>
 								<th>Email</th>
 								<th>Cargo</th>
+								<th>Ativo</th>
 								<th class="text-end">Ações</th>
 							</tr>
 						</thead>
@@ -52,18 +52,33 @@
 									<td class="align-middle">@user.Login</td>
 									<td class="align-middle">@user.Email</td>
 									<td class="align-middle">N/A</td>
+									<td class="align-middle">@(user.isActive == true ?  "Sim" : "Não")</td>
 
 									<td class="text-end">
 										<div class="btn-group btn-group-sm">
 											<button class="btn btn-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="GetEditUserModal(@JsonConvert.SerializeObject(user))">
 												<i class="fas fa-edit"></i>
 											</button>
-											<button class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Remover" @* onclick="excluirTitulo(@JsonConvert.SerializeObject(user.UserId) *@">
+											<button class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Remover" onclick="GetRemoveUserModal(@JsonConvert.SerializeObject(user))">
 												<i class="fas fa-trash"></i>
 											</button>
-											<button class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Acordos" @* onclick="excluirTitulo(@user.UserId) *@">
-												<i class="fa fa-lock"></i>
-											</button>
+
+											@{
+												if (user.isActive)
+												{
+													<button class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Bloquear">
+														<i class="fa fa-lock"></i>
+													</button>
+												}
+												else
+												{
+													<button class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Desbloquear">
+														<i class="fa fa-lock-open"></i>
+													</button>
+												}
+											
+											}
+										
 										</div>
 									</td>
 								</tr>
@@ -76,39 +91,60 @@
 	</div>
 
 	<div class="row justify-content-center">
-
-		<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
-			<div class="modal-dialog">
+		<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
-					<div class="modal-header bg-secondary text-white">
-						<h5 class="modal-title" id="editModalLabel">Editar Usuário</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+					<div class="modal-header bg-dark text-white">
+						<h5 class="modal-title" id="registerModalLabel">Registrar Usuário</h5>
 					</div>
+
 					<div class="modal-body">
+						<div class="row g-3">
+							<div class="col-md-3">
+								<div class="form-floating">
+									<input type="text" id="editCpfInput" name="Login" class="form-control"
+										   placeholder="000.000.000-00" onfocus="applyCpfMask('editCpfInput')">
+									<label for="cpfInput" class="fw-bold">CPF</label>
+								</div>
+							</div>
 
-						<div class="mb-3">
-							<label for="cpfInput" class="form-label">CPF</label>
-							<input type="text" id="editCpfInput" name="Login" onfocus="applyCpfMask('editCpfInput')" class="form-control">
+							<div class="col-md-5">
+								<div class="form-floating">
+									<input type="text" id="editNameInput" name="Name" class="form-control" placeholder=" ">
+									<label for="nameInput" class="fw-bold">Nome Completo</label>
+								</div>
+							</div>
+
+							<div class="col-md-4">
+								<div class="form-floating">
+									<input type="email" id="editEmailInput" name="Email" class="form-control" placeholder=" " required>
+									<label for="emailInput" class="fw-bold">Email</label>
+								</div>
+							</div>
+
+							<input type="hidden" id="userId"/>
+							<div class="col-md-4">
+								<div class="form-floating">
+									<select class="form-select" id="roleId">
+										<option value="">Selecione</option>
+										<option value="">Cobrador</option>
+										<option value="">Administrador</option>
+									</select>
+									<label for="roleId" class="fw-bold">Cargo</label>
+								</div>
+							</div>
+
+						
 						</div>
-
-						<div class="mb-3">
-							<label for="emailInput" class="form-label">Email</label>
-							<input type="email" id="editEmailInput" name="Email" class="form-control"
-								   placeholder="seu@email.com" required>
-						</div>
-
-						<div class="mb-3">
-							<label for="editNameInput" class="form-label">Nome Completo</label>
-							<input type="text" id="editNameInput" name="Name" class="form-control">
-						</div>
-
 					</div>
-				
-				</div>
-				<div class="modal-footer">
-					<div class="d-grid mt-4">
-						<button type="submit" onclick="RegisterNewUser()" id="btnRegisterUser" class="btn btn-secondary btn-lg">
-							<i class="fas fa-user-plus me-2"></i>Registrar
+
+					<div class="modal-footer bg-light">
+						<button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+							Cancelar
+						</button>
+						<button type="submit" onclick="EditUser()" class="btn btn-success">
+							Salvar
 						</button>
 					</div>
 				</div>
@@ -120,26 +156,21 @@
 		<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
-					<!-- Header -->
+					
 					<div class="modal-header bg-dark text-white">
 						<h5 class="modal-title" id="registerModalLabel">Registrar Usuário</h5>
 					</div>
 
-					<!-- Body -->
 					<div class="modal-body">
 						<div class="row g-3">
-							<!-- Added gutter spacing (g-3) -->
-							<!-- Column 1 -->
 							<div class="col-md-3">
 								<div class="form-floating">
-									<!-- Better input styling -->
 									<input type="text" id="cpfInput" name="Login" class="form-control"
 										   placeholder="000.000.000-00" onfocus="applyCpfMask('cpfInput')">
 									<label for="cpfInput" class="fw-bold">CPF</label>
 								</div>
 							</div>
 
-							<!-- Column 2 -->
 							<div class="col-md-5">
 								<div class="form-floating">
 									<input type="text" id="nameInput" name="Name" class="form-control" placeholder=" ">
@@ -147,23 +178,19 @@
 								</div>
 							</div>
 
-							<!-- Column 3 -->
 							<div class="col-md-4">
 								<div class="form-floating">
 									<input type="email" id="emailInput" name="Email" class="form-control" placeholder=" " required>
 									<label for="emailInput" class="fw-bold">Email</label>
-									<div class="invalid-feedback">Por favor, insira um email válido.</div>
 								</div>
 							</div>
 
-							<!-- Column 4 -->
 							<div class="col-md-4">
 								<div class="form-floating">
 									<select class="form-select" id="roleId">
 										<option value="">Selecione</option>
 										<option value="">Cobrador</option>
 										<option value="">Administrador</option>
-										<!-- Options here -->
 									</select>
 									<label for="roleId" class="fw-bold">Cargo</label>
 								</div>
@@ -171,7 +198,6 @@
 
 							@if (Model.CompanyId == 1)
 							{
-								<!-- Column 5 -->
 								<div class="col-md-4">
 									<div class="form-floating">
 										<select class="form-select" id="companyId">
@@ -187,10 +213,8 @@
 							}
 						</div>
 					</div>
-
-					<!-- CORRECT FOOTER PLACEMENT -->
+				
 					<div class="modal-footer bg-light">
-						<!-- Light background for contrast -->
 						<button type="button" class="btn btn-danger" data-bs-dismiss="modal">
 							Cancelar
 						</button>
@@ -203,7 +227,36 @@
 		</div>
 	</div>
 
+	<div class="row justify-content-center">
+		<div class="modal fade" id="removeUserModal" tabindex="-1" aria-labelledby="removeUserModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
 
+					<!-- Modal Header -->
+					<div class="modal-header bg-dark text-white">
+						<h5 class="modal-title" id="removeUserModalLabel">Remover Usuário</h5>
+						<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+
+					<!-- Modal Body -->
+					<div class="modal-body">
+						<p class="mb-4 text-center"><b>Deseja remover o usuário selecionado?</b></p>
+
+						<div class="d-flex justify-content-end gap-2">
+							<button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+								Cancelar
+							</button>
+							<button type="button" onclick="RemoveUser()" class="btn btn-success">
+								Sim
+							</button>
+						</div>
+					</div>
+
+					<!-- Modal Footer (Removed redundant buttons) -->
+				</div>
+			</div>
+		</div>
+	</div>
 
 </div>
 

@@ -12,5 +12,11 @@ namespace Platform.Entity.Interfaces
 
         public List<User> GetAllUsersByCompanyId(long companyId);
 
+        public void UpdateUser(User user);
+
+        public void DeleteUser(long userId);
+
+        public User GetUserByid(long userId);
+
     }
 }

@@ -94,27 +94,11 @@ function RegisterNewUser() {
 
 function GetEditUserModal(user) {
     debugger
-
-
     $("#editModal").modal("show");
-    
-
-
-    $('#cpfInput').val(user.Login);
-    $('#emailInput').val(user.Email);
-    $('#nameInput').val(user.Name);
-    $('#companyId')?.val(user.companyId);
-
-
-    //const data = {
-
-    //    Login: ,
-    //    Email: email,
-    //    Name: name,
-    //    CompanyId: companyId
-
-    //}
-
+    $('#editCpfInput').val(user.Login);
+    $('#editEmailInput').val(user.Email);
+    $('#editNameInput').val(user.Name);
+    $('#userId').val(user.UserId);
 }
 
 function UserLogin() {
@@ -168,11 +152,120 @@ function UserLogin() {
         });
 
 
+}
 
+function EditUser() {
 
+    
+    const editCpf = $('#editCpfInput').val();
+    const editEmail = $('#editEmailInput').val();
+    const editName = $('#editNameInput').val();
+    const userId = $('#userId').val();
 
+    if (editCpf == "") {
+        showAlert("Insira um CPF válido.", 'warning', 5000);
+        return;
+    }
+
+    if (editEmail == "") {
+        showAlert("Insira um Email válido.", 'warning', 5000);
+        return;
+    }
+
+    if (editName == "") {
+        showAlert("Insira um nome válido.", 'warning', 5000);
+        return;
+    }
+
+    const data = {
+        Login: editCpf,
+        Email: editEmail,
+        Name: editName,
+        UserId: userId
+    };
+    fetch("/User/EditUser", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "RequestVerificationToken": getAntiForgeryToken()
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            // First check if the response is OK (status 200-299)
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json(); // Parse the JSON only if response is OK
+        })
+        .then(data => {
+            if (data.success) {
+                showAlert(data.message || "Usuário cadastrado com sucesso!", 'success', 5000);
+                // Optional: Close the modal on success
+                $('#registerModal').modal('hide');
+
+                setTimeout(function () {
+                    location.reload();
+                }, 3000);
+                // Optional: Refresh data or reset form
+
+            } else {
+                showAlert(data.message, 'error', 5000);
+                console.error("Server error:", data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Fetch error:", error);
+            showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
+        });
+
+}
+
+function GetRemoveUserModal(user){
+
+    $("#removeUserModal").modal("show");
+    $("#userId").val(user.UserId);
+
+}
+function RemoveUser() {
+
+    const data = {
+        UserId: $('#userId').val()
+    };
+
+    fetch("/User/RemoveUser", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "RequestVerificationToken": getAntiForgeryToken()
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            // First check if the response is OK (status 200-299)
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json(); // Parse the JSON only if response is OK
+        })
+        .then(data => {
+            if (data.success) {
+                showAlert(data.message, 'success', 5000);
+
+                setTimeout(function () {
+                    location.reload();
+                }, 3000);
+
+            } else {
+                showAlert(data.message, 'error', 5000);
+                console.error("Server error:", data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Fetch error:", error);
+            showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
+        });
 
 
 
 }
-

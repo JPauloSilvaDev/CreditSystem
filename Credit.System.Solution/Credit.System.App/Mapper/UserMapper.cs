@@ -9,7 +9,7 @@ namespace Credit.System.App.Mapper
         {
             try
             {
-                return new User 
+                return new User
                 {
                     Email = userModel.Email,
                     Login = userModel.Login,
@@ -33,15 +33,16 @@ namespace Credit.System.App.Mapper
                 {
                     UserViewModel userViewModel = new UserViewModel()
                     {
+                        UserId = user.UserId,
                         Email = user.Email,
                         Login = user.Login,
                         Name = user.Name,
                         isActive = user.IsActive,
                     };
-               
+
                     userViewModelList.Add(userViewModel);
                 }
-                
+
                 return userViewModelList;
             }
             catch (Exception)
@@ -50,6 +51,35 @@ namespace Credit.System.App.Mapper
             }
 
         }
+
+        public static User MapUserViewModelToUser(UserViewModel userViewModel)
+        {
+            try
+            {
+                User user = new User()
+                {
+                    UserId = userViewModel.UserId,
+                    Email = userViewModel.Email,
+                    Login = userViewModel.Login,
+                    Name = userViewModel.Name,
+                    IsActive = userViewModel.isActive
+                };
+
+                return user;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
+
+
+
+
+
+
 
     }
 }

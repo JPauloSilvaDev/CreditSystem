@@ -2,6 +2,7 @@
 using Platform.Entity.Interfaces;
 using Platform.Entity.ServiceSystem;
 using Utils.Security;
+using System.ComponentModel.Design;
 
 namespace Platform.Transactional.Operations
 {
@@ -44,7 +45,7 @@ namespace Platform.Transactional.Operations
 
             try
             {
-                user = _serviceSystemConnection.User.Where(x => x.Login == login && x.Password == Security.Encrypt(password)).FirstOrDefault();
+                user = _serviceSystemConnection.User.Where(x => x.Login == login && x.Password == Security.Encrypt(password) && x.IsActive == true && x.DeletionDate == null).FirstOrDefault();
             }
             catch (Exception)
             {
@@ -60,7 +61,7 @@ namespace Platform.Transactional.Operations
             try
             {
                 return _serviceSystemConnection.User
-                    .Any(x => x.Login == login && x.CompanyId == companyId);
+                    .Any(x => x.Login == login && x.CompanyId == companyId && x.DeletionDate == null);
             }
             catch
             {
@@ -74,7 +75,7 @@ namespace Platform.Transactional.Operations
 
             try
             {
-                users = _serviceSystemConnection.User.Where(x => x.CompanyId == companyId).ToList();
+                users = _serviceSystemConnection.User.Where(x => x.CompanyId == companyId && x.DeletionDate == null).ToList();
             }
             catch (Exception)
             {
@@ -83,5 +84,52 @@ namespace Platform.Transactional.Operations
            
             return users;
         }
+
+        public void UpdateUser(User editedData)
+        {
+            try
+            {
+                User userToEdit = GetUserByid(editedData.UserId);
+
+                userToEdit.Login = editedData.Login;
+                userToEdit.Email = editedData.Email;
+                userToEdit.Name = editedData.Name;
+                userToEdit.UpdateDate = DateTime.Now;
+                
+                _serviceSystemConnection.Update(userToEdit);
+                _serviceSystemConnection.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public User GetUserByid(long userId)
+        {
+            try
+            {
+                User user = _serviceSystemConnection.User.Where(x => x.UserId == userId).FirstOrDefault();
+                return user;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        public void DeleteUser(long userId)
+        {
+            User userToRemove = GetUserByid(userId);
+            
+            userToRemove.DeletionDate = DateTime.Now;
+            userToRemove.IsActive = false;
+
+            _serviceSystemConnection.Update(userToRemove);
+            _serviceSystemConnection.SaveChanges();
+        }
+
+
+
     }
 }

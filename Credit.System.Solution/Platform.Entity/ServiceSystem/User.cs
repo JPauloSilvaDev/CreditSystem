@@ -12,7 +12,6 @@ namespace Platform.Entity.ServiceSystem
 
         public string Email { get; set; }
 
-        [JsonIgnore]
         public string Password { get; set; }
       
         public bool IsActive { get; set; }
