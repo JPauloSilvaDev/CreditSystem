@@ -233,6 +233,98 @@ function RemoveUser() {
         UserId: $('#userId').val()
     };
 
+    fetch("/User/BlockUserAccess", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "RequestVerificationToken": getAntiForgeryToken()
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            // First check if the response is OK (status 200-299)
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json(); // Parse the JSON only if response is OK
+        })
+        .then(data => {
+            if (data.success) {
+                showAlert(data.message, 'success', 5000);
+
+                setTimeout(function () {
+                    location.reload();
+                }, 3000);
+
+            } else {
+                showAlert(data.message, 'error', 5000);
+                console.error("Server error:", data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Fetch error:", error);
+            showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
+        });
+
+
+
+}
+
+
+
+
+
+function BlockUserAccess() {
+
+    const data = {
+        UserId: $('#userId').val()
+    };
+
+    fetch("/User/RemoveUser", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "RequestVerificationToken": getAntiForgeryToken()
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            // First check if the response is OK (status 200-299)
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json(); // Parse the JSON only if response is OK
+        })
+        .then(data => {
+            if (data.success) {
+                showAlert(data.message, 'success', 5000);
+
+                setTimeout(function () {
+                    location.reload();
+                }, 3000);
+
+            } else {
+                showAlert(data.message, 'error', 5000);
+                console.error("Server error:", data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Fetch error:", error);
+            showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
+        });
+
+
+
+}
+
+
+
+function UnblockUserAccess() {
+
+    const data = {
+        UserId: $('#userId').val()
+    };
+
     fetch("/User/RemoveUser", {
         method: "POST",
         headers: {

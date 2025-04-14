@@ -30,6 +30,19 @@ namespace Platform.Transactional.Operations
             }
         }
 
+        public List<Client> GetClientsByCompanyId(long companyId)
+        {
+            try
+            {
+
+                List<Client> clients = _serviceSystemConnection.Client.Where(x=>x.CompanyId == companyId).ToList();
+                return clients;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
     }
 }

@@ -10,7 +10,8 @@ namespace Platform.Entity.Interfaces
     public interface IClientOperations
     {
         public void InsertClient(Client client);
-    
+        
+        public List<Client> GetClientsByCompanyId(long companyId);
     
     }
 }

@@ -1,5 +1,281 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using Credit.System.App.Enums
+@using System.ComponentModel
+@model List<Platform.Entity.ServiceSystem.Client>;
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link href="~/css/bootstrap.min.css" rel="stylesheet">
+	<script src="~/js/client.js"></script>
+
+	<style type="text/css" id="operaUserStyle">
+
+		
+		.dataTables_filter {
+			display: none;
+		}
+
+		body {
+			background-color: #F8F9FA;
+		}
+
+		#main-container {
+			padding: 10px;
+		}
+
+		label {
+			font-size: 0.8rem;
+			color: #595C5F
+		}
+
+		#titClientRegister {
+			background-color: #212529;
+			color: #F8F9FA;
+			padding: 8px;
+			padding-bottom: .5px;
+			align-items: center;
+			align-content: center;
+			border-radius: 11px;
+			display: flex;
+			margin-bottom: 1rem;
+		}
+
+		#dadosPessoais {
+			background-color: #F2F2F2;
+			border-radius: 11px;
+			padding: 10px;
+			margin-bottom: 1rem;
+		}
+
+		#adress {
+			background-color: #F2F2F2;
+			border-radius: 11px;
+			padding: 10px;
+			margin-bottom: 1rem;
+		}
+
+		p {
+			color: #5C636A;
+		}
+	</style>
+
+</head>
+
 @{
+	var states = Enum.GetValues(typeof(States)).Cast<States>().ToList();
 }
+
+<div class="text-end">
+	<button class="btn btn-secondary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClientForm" aria-expanded="false" aria-controls="collapseClientForm">
+		Novo Cliente
+	</button>
+	<button class="btn btn-success mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClientForm" aria-expanded="false" aria-controls="collapseClientForm">
+		Editar Cliente
+	</button>
+</div>
+<!-- Toggle Button -->
+
+
+<!-- Collapsible Container -->
+<div class="collapse" id="collapseClientForm" style="transition: height 1s ease !important;">
+	<div class="shadow p-3 mb-5 bg-body-tertiary rounded" id="main-container">
+		<div id="titClientRegister">
+			<h4 class="mb-3">Cadastrar Cliente</h4>
+		</div>
+
+		<div class="container" id="dadosPessoais">
+			<div class="row">
+				<p>Dados pessoais:</p>
+				<div class="col-md-3 mb-3">
+					<label for="firstName">Razão Social/Nome</label>
+					<input type="text" class="form-control" id="firstName" placeholder="Digite o nome">
+					<div class="invalid-feedback" id="firstNameError">O documento é obrigatório.</div>
+				</div>
+
+				<div class="col-md-3 mb-3">
+					<label for="lastName">Nome Fantasia</label>
+					<input onblur="validateForm()" type="text" class="form-control" id="lastName" placeholder="(Opcional)" required="">
+					<div class="invalid-feedback">É necessário informar o nome</div>
+				</div>
+
+				<div class="col-md-3 mb-3">
+					<label for="email">Email</label>
+					<input type="text" class="form-control" id="email" placeholder="Digite um email válido" required="">
+					<div class="invalid-feedback">Valid last name is required.</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-2 mb-3">
+					<label for="username">CPF/CNPJ</label>
+					<input onblur="validateForm()" type="text" class="form-control" id="inputCpfCnpj" placeholder="CPF/CNPJ" required="">
+					<div class="invalid-feedback">É necessário informar um documento válido.</div>
+				</div>
+
+				<div class="col-md-2 mb-3">
+					<label for="PrimaryPhone">Contato 1</label>
+					<input onblur="validateForm()" class="form-control" id="primaryPhone" placeholder="Número">
+					<div class="invalid-feedback">É necessário informar um contato.</div>
+				</div>
+
+				<div class="col-md-2 mb-3">
+					<label for="SecondPhone">Contato 2</label>
+					<input class="form-control" id="secondPhone" placeholder="Número">
+				</div>
+			</div>
+		</div>
+
+		<div class="container" id="adress">
+			<p>Endereço:</p>
+			<div class="row">
+				<div class="col-md-2 mb-3">
+					<label for="zipCode">Cep</label>
+					<input type="text" class="form-control" id="txtCep" placeholder="Digite um Cep" required="">
+					<div class="invalid-feedback">Zip code required.</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-3 mb-3">
+					<label>Logradouro</label>
+					<input type="text" class="form-control" id="inputStreet" required="">
+					<div class="invalid-feedback">Zip code required.</div>
+				</div>
+
+				<div class="col-md-1 mb-3">
+					<label>Número</label>
+					<input type="text" class="form-control" id="inputStreetNumber" required="">
+					<div class="invalid-feedback">Zip code required.</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-3 mb-3">
+					<label>Observação</label>
+					<input type="text" class="form-control" id="inputObservation" required="">
+					<div class="invalid-feedback">Zip code required.</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-1 mb-3">
+					<label>Estado</label>
+					<input type="text" class="form-control" id="inputState" required="">
+					<div class="invalid-feedback">Zip code required.</div>
+				</div>
+
+				<div class="col-md-3 mb-3">
+					<label>Municipio</label>
+					<input type="text" class="form-control" id="inputCity" required="">
+					<div class="invalid-feedback">Zip code required.</div>
+				</div>
+
+				<div class="col-md-2 mb-3">
+					<label>Bairro</label>
+					<input type="text" class="form-control" id="inputNeighborhood" required="">
+					<div class="invalid-feedback">Zip code required.</div>
+				</div>
+			</div>
+		</div>
+
+		<button id="registerClientBtn" onclick="RegisterClient()" class="btn btn-secondary">Cadastrar</button>
+	</div>
+</div>
+<div class="card shadow mb-4">
+	<div class="card-header py-3 d-flex justify-content-between align-items-center">
+		<h6 class="m-0 font-weight-bold text-primary">
+			<i class="fas fa-table me-2"></i>Clientes
+		</h6>
+		<div class="d-flex">
+			<div class="input-group me-2">
+				<span class="input-group-text bg-light border-0">
+					<i class="fas fa-search"></i>
+				</span>
+				<input type="text" class="form-control border-0 bg-light" id="searchInput" placeholder="Pesquisar...">
+			</div>
+			<button class="btn btn-light" id="refreshTable">
+				<i class="fas fa-sync-alt"></i>
+			</button>
+		</div>
+	</div>
+	<div class="card-body">
+		<div class="table-responsive">
+			<table id="dataTableClient" class="table table-hover table-striped" >
+				<thead class="table-light">
+					<tr>
+						<th>Nome</th>
+						<th>Telefone</th>
+						<th>Telefone 2</th>
+						<th>Email</th>
+						<th>Cidade</th>
+						<th>Estado</th>
+						<th>Bairro</th>
+						<th>Rua</th>
+						<th>Nº</th>
+						<th>Cep</th>
+						<th>Observação</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					@foreach (Client client in Model)
+					{
+						<tr>
+							<td class="align-middle text-nowrap">@client.Name</td>
+							<td class="align-middle text-nowrap">@client.PrimaryPhone</td>
+							<td class="align-middle">@client.SecondPhone</td>
+							<td class="align-middle">@client.Email</td>
+							<td class="align-middle">@client.City</td>
+							<td class="align-middle">@client.State</td>
+							<td class="align-middle">@client.Neighborhood</td>
+							<td class="align-middle">@client.Street</td>
+							<td class="align-middle">@client.StreetNumber</td>
+							<td class="align-middle">@client.Zipcode</td>
+							<td class="align-middle">@client.Observation</td>
+							
+							
+
+						@* 	<td class="text-end">
+								       <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="GetEditUserModal(@JsonConvert.SerializeObject(user))">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Remover" onclick="GetRemoveUserModal(@JsonConvert.SerializeObject(user))">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+
+                                    @{
+                                        if (user.isActive)
+                                        {
+                                            <button class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Bloquear">
+                                                <i class="fa fa-lock"></i>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button class="btn btn-success btn-sm" data-bs-toggle="tooltip" onclick="UnblockUserAccess('@user.UserId')" data-bs-placement="top" title="Desbloquear">
+                                                <i class="fa fa-lock-open"></i>
+                                            </button>
+                                        }
+
+                                    }
+
+                                </div> 
+							</td> *@
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+@* </div> *@
+
+
+
+
+
+

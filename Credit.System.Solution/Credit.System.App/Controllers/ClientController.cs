@@ -11,15 +11,27 @@ namespace Credit.System.App.Controllers
     public class ClientController : Controller
     {
         private readonly IClientOperations _clientOperations;
+        private readonly IUserOperations _userOperations;
 
-        public ClientController(IClientOperations clientOperations)
+
+        public ClientController(IClientOperations clientOperations, IUserOperations userOperations)
         {
             _clientOperations = clientOperations;
+            _userOperations = userOperations;
         }
 
         public IActionResult Index()
         {
-            return View();
+            UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
+            
+            List<Client> clients = _clientOperations.GetClientsByCompanyId(userLogged.CompanyId);
+            
+            if(clients == null)
+            {
+                return View(new List<Client>());
+            }
+
+            return View(clients);
         }
         
         

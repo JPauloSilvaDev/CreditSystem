@@ -70,129 +70,123 @@
 }
 
 @* <body class="bg-light" style="background-color:#F8F9FA"> *@
-
-<div class="shadow p-3 mb-5 bg-body-tertiary rounded" id="main-container">
+@* 
+<div class="shadow p-3 mb-5 bg-body-tertiary rounded" id="main-container"> *@
 
     
-    <div id="titClientRegister">
-        <h4 class="mb-3">Cadastrar Cliente</h4>
+    <!-- Toggle Button -->
+    <button class="btn btn-primary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClientForm" aria-expanded="false" aria-controls="collapseClientForm">
+        Cadastrar Novo Cliente
+    </button>
+
+    <!-- Collapsible Container -->
+    <div class="collapse" id="collapseClientForm">
+        <div class="shadow p-3 mb-5 bg-body-tertiary rounded" id="main-container">
+            <div id="titClientRegister">
+                <h4 class="mb-3">Cadastrar Cliente</h4>
+            </div>
+
+            <div class="container" id="dadosPessoais">
+                <div class="row">
+                    <p>Dados pessoais:</p>
+                    <div class="col-md-3 mb-3">
+                        <label for="firstName">Razão Social/Nome</label>
+                        <input type="text" class="form-control" id="firstName" placeholder="Digite o nome">
+                        <div class="invalid-feedback" id="firstNameError">O documento é obrigatório.</div>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label for="lastName">Nome Fantasia</label>
+                        <input onblur="validateForm()" type="text" class="form-control" id="lastName" placeholder="(Opcional)" required="">
+                        <div class="invalid-feedback">É necessário informar o nome</div>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" id="email" placeholder="Digite um email válido" required="">
+                        <div class="invalid-feedback">Valid last name is required.</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 mb-3">
+                        <label for="username">CPF/CNPJ</label>
+                        <input onblur="validateForm()" type="text" class="form-control" id="inputCpfCnpj" placeholder="CPF/CNPJ" required="">
+                        <div class="invalid-feedback">É necessário informar um documento válido.</div>
+                    </div>
+
+                    <div class="col-md-2 mb-3">
+                        <label for="PrimaryPhone">Contato 1</label>
+                        <input onblur="validateForm()" class="form-control" id="primaryPhone" placeholder="Número">
+                        <div class="invalid-feedback">É necessário informar um contato.</div>
+                    </div>
+
+                    <div class="col-md-2 mb-3">
+                        <label for="SecondPhone">Contato 2</label>
+                        <input class="form-control" id="secondPhone" placeholder="Número">
+                    </div>
+                </div>
+            </div>
+
+            <div class="container" id="adress">
+                <p>Endereço:</p>
+                <div class="row">
+                    <div class="col-md-2 mb-3">
+                        <label for="zipCode">Cep</label>
+                        <input type="text" class="form-control" id="txtCep" placeholder="Digite um Cep" required="">
+                        <div class="invalid-feedback">Zip code required.</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <label>Logradouro</label>
+                        <input type="text" class="form-control" id="inputStreet" required="">
+                        <div class="invalid-feedback">Zip code required.</div>
+                    </div>
+
+                    <div class="col-md-1 mb-3">
+                        <label>Número</label>
+                        <input type="text" class="form-control" id="inputStreetNumber" required="">
+                        <div class="invalid-feedback">Zip code required.</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <label>Observação</label>
+                        <input type="text" class="form-control" id="inputObservation" required="">
+                        <div class="invalid-feedback">Zip code required.</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-1 mb-3">
+                        <label>Estado</label>
+                        <input type="text" class="form-control" id="inputState" required="">
+                        <div class="invalid-feedback">Zip code required.</div>
+                    </div>
+
+                    <div class="col-md-3 mb-3">
+                        <label>Municipio</label>
+                        <input type="text" class="form-control" id="inputCity" required="">
+                        <div class="invalid-feedback">Zip code required.</div>
+                    </div>
+
+                    <div class="col-md-2 mb-3">
+                        <label>Bairro</label>
+                        <input type="text" class="form-control" id="inputNeighborhood" required="">
+                        <div class="invalid-feedback">Zip code required.</div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="registerClientBtn" onclick="RegisterClient()" class="btn btn-secondary">Cadastrar</button>
+        </div>
     </div>
-   
-    <div class="container" id="dadosPessoais">
-
-            <div class="row">
-                <p>Dados pessoais: </p>
-                <div class="col-md-3 mb-3">
-                    <label for="firstName">Razão Social/Nome</label>
-                    <input type="text" class="form-control" id="firstName" placeholder="Digite o nome">
-                    <div class="invalid-feedback" id="firstNameError">O documento é obrigatório.</div>
-                </div>
-
-            <div class="col-md-3 mb-3">
-                <label for="lastName">Nome Fantasia</label>
-                <input onblur="validateForm()"  type="text" class="form-control" id="lastName" placeholder="(Opcional)" value="" required="">
-                <div class="invalid-feedback">É necessário informar o nome</div>
-            </div>
 
 
-                <div class="col-md-3 mb-3">
-                    <label for="lastName">Email</label>
-                    <input type="text" class="form-control" id="email" placeholder="Digite um email válido" value="" required="">
-                    <div class="invalid-feedback">Valid last name is required.</div>
-                </div>
-            </div>
-
-            <div class="row">
-                <!-- CPF/CNPJ, Endereço, and Number side by side -->
-                <div class="col-md-2 mb-3">
-                    <label for="username">CPF/CNPJ</label>
-                <input onblur="validateForm()" type="text" class="form-control" id="inputCpfCnpj" name="inputCpf" placeholder="CPF/CNPJ" required="">
-                    <div class="invalid-feedback" style="width: 100%;">É necessário informar um documento válido.</div>
-                </div>
-
-                @*  <div class="col-md-6 mb-3">
-                    <label for="address">Endereço</label>
-                    <input type="text" class="form-control" id="address" placeholder="Digite um endereço" required="">
-                </div> *@
-
-                <div class="col-md-2 mb-3">
-                <label for="PrimaryPhone">Contato 1</label>
-                <input onblur="validateForm()" class="form-control" id="primaryPhone" placeholder="Número">
-                <div class="invalid-feedback" style="width: 100%;">É necessário informar um contato.</div>
-                </div>
-
-                <div class="col-md-2 mb-3">
-                <label for="SecondPhone">Contato 2</label>
-                <input class="form-control" id="secondPhone" placeholder="Número">
-                </div>
-            </div>
-
-     </div>
-
-    <div class="container" id="adress">
-            
-            <p>Endereço: </p>
-        
-            <div class="row">
-
-                <div class="col-md-2 mb-3">
-                    <label for="zipCode">Cep</label>
-                    <input type="text" class="form-control" id="txtCep" placeholder="Digite um Cep" required="">
-                    <div class="invalid-feedback">Zip code required.</div>
-                </div>
-            </div>
-
-            <div class="row">
-                
-                <div class="col-md-3 mb-3">
-                    <label>Logradouro</label>
-                <input type="text" class="form-control" id="inputStreet" placeholder="" required="">
-                    <div class="invalid-feedback">Zip code required.</div>
-                </div>
-
-                <div class="col-md-1 mb-3">
-                    <label>Número</label>
-                <input type="text" class="form-control" id="inputStreetNumber" placeholder="" required="">
-                    <div class="invalid-feedback">Zip code required.</div>
-                </div>
-                
-
-            </div>
-
-            <div class="row">
-            <div class="col-md-3 mb-3">
-                <label>Observação</label>
-                <input type="text" class="form-control" id="inputObservation" placeholder="" required="">
-                <div class="invalid-feedback">Zip code required.</div>
-            </div>
-        </div>
-
-            <div class="row">
-                <div class="col-md-1 mb-3">
-                    <label>Estado</label>
-                <input type="text" class="form-control" id="inputState" placeholder="" required="">
-                    <div class="invalid-feedback">Zip code required.</div>
-                </div>
-
-                <div class="col-md-3 mb-3">
-                    <label>Municipio</label>
-                <input type="text" class="form-control" id="inputCity" placeholder="" required="">
-                    <div class="invalid-feedback">Zip code required.</div>
-                </div>
-
-                <div class="col-md-2 mb-3">
-                    <label>Bairro</label>
-                <input type="text" class="form-control" id="inputNeighborhood" placeholder="" required="">
-                    <div class="invalid-feedback">Zip code required.</div>
-                </div>
-
-            </div>
-
-        </div>
-
-    <button id="registerClientBtn" onclick="RegisterClient()" class="btn btn-secondary">Cadastrar</button>
-
-</div>
+@* </div> *@
 
 
    

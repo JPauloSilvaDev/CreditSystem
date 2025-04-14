@@ -1,4 +1,48 @@
 ﻿
+$(document).ready(function () {
+
+    var table = $('#dataTableClient').DataTable({
+        paging: false,
+        searching: true,
+        lengthMenu: [5, 10, 25, 50],
+        language: {
+            search: "Pesquisar:",
+            zeroRecords: "Nenhum registro encontrado",
+            info: "",
+            infoFiltered: "Filtrado de _MAX_ registros"
+        },
+
+        responsive: true, // Enable responsive feature
+        //autoWidth: false, // Disable automatic width calculation
+        //scrollX: true, // Enable horizontal scrolling if needed
+        dom: '<"top"f>rt<"bottom"lip><"clear">'
+
+    });
+
+    $('#searchInput').on('keyup', function () {
+        table.search(this.value).draw();  // Apply the search to the table
+    });
+
+
+    $('#dataTableClient tbody').on('click', 'tr', function () {
+         selectedRowData = table.row(this).data();
+        $('#dataTableClient tbody tr').removeClass('table-active');
+
+        // Add 'table-active' to the clicked row
+        $(this).addClass('table-active');
+
+        console.log(selectedRowData);
+
+    });
+
+    document.getElementById('dt-search-0').style.display = 'none';
+    document.querySelector('label[for="dt-search-0"]').style.display = 'none';
+    table.columns.adjust();
+});
+
+
+
+
 function validateForm() {
     const fields = ["inputCpfCnpj", "firstName", "primaryPhone"];
  
@@ -120,8 +164,7 @@ function UserLogin() {
         });
 
 
-
-
+  
 
 
 
