@@ -30,8 +30,9 @@
                  
                 </div>
                 <div class="modal-body">
-               @*      <form asp-action="Login" method="post" id="loginForm"> *@
-                        <div class="mb-3">
+                        
+                    
+                   <div class="mb-3">
                             <label for="loginInput" class="form-label">CPF</label>
                             <input type="text" id="loginInput" name="Login" maxlength="14" class="form-control" required>
                         </div>
@@ -39,9 +40,17 @@
                             <label for="passwordInput" class="form-label">Senha</label>
                             <input type="password" id="passwordInput" name="Password" class="form-control" required>
                         </div>
-                        <div class="d-grid gap-2">
-                            <button type="submit" onclick="UserLogin()"class="btn btn-secondary">Login</button>
-                        </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" onclick="UserLogin()" class="btn btn-secondary">
+                            <span id="globalSpinner"
+                                  class="spinner-border spinner-border-sm me-2 d-none"
+                                  role="status"
+                                  aria-hidden="true">
+                            </span>
+                            Login
+                        </button>
+                    </div>
+
                     @* </form> *@
                 </div>
             </div>

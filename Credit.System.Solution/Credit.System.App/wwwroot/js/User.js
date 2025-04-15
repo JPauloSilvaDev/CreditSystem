@@ -127,6 +127,7 @@ function UserLogin() {
         password: passwordInput,
     };
 
+    IsLoadingBody(true);
 
     fetch("/User/Login", {
         method: "POST",
@@ -139,6 +140,7 @@ function UserLogin() {
         .then(response => response.json()) // Parse the JSON response
         .then(data => {
             console.log(data)
+            IsLoadingBody(false);
             debugger
             // Optionally, redirect to another page or reset the form
             if (data.success) {
@@ -152,7 +154,7 @@ function UserLogin() {
 
         })
         .catch(error => {
-            //console.error("Error:", error);
+            IsLoadingBody(false);//console.error("Error:", error);
             showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
         });
 
