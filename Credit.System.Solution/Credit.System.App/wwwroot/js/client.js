@@ -2,9 +2,9 @@
 $(document).ready(function () {
 
     var table = $('#dataTableClient').DataTable({
-        paging: false,
+       /* paging: false,*/
         searching: true,
-        lengthMenu: [5, 10, 25, 50],
+        pageLength: 10,
         language: {
             search: "Pesquisar:",
             zeroRecords: "Nenhum registro encontrado",
@@ -15,7 +15,7 @@ $(document).ready(function () {
         responsive: true, // Enable responsive feature
         //autoWidth: false, // Disable automatic width calculation
         //scrollX: true, // Enable horizontal scrolling if needed
-        dom: '<"top"f>rt<"bottom"lip><"clear">'
+        dom: '<"top"p>rt<"bottom"i>'
 
     });
 
@@ -35,9 +35,9 @@ $(document).ready(function () {
 
     });
 
-    document.getElementById('dt-search-0').style.display = 'none';
-    document.querySelector('label[for="dt-search-0"]').style.display = 'none';
-    table.columns.adjust();
+    //document.getElementById('dt-search-0').style.display = 'none';
+    //document.querySelector('label[for="dt-search-0"]').style.display = 'none';
+    
 });
 
 

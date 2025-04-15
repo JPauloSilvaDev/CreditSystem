@@ -35,7 +35,7 @@ namespace Platform.Transactional.Operations
             try
             {
 
-                List<Client> clients = _serviceSystemConnection.Client.Where(x=>x.CompanyId == companyId).ToList();
+                List<Client> clients = _serviceSystemConnection.Client.Where(x=>x.CompanyId == companyId && x.DeletionDate == null).ToList();
                 return clients;
             }
             catch (Exception)
