@@ -10,10 +10,10 @@
         Email: document.getElementById("Email").value,
         ZipCode: document.getElementById("ZipCode").value,
         AddressNumber: document.getElementById("AddressNumber").value,
-        City: document.getElementById("City").value,
-        State: document.getElementById("State").value,
+        City: document.getElementById("inputCity").value,
+        State: document.getElementById("inputState").value,
         Observation: document.getElementById("Observation").value,
-        Neighborhood: document.getElementById("Neighborhood").value
+        Neighborhood: document.getElementById("inputNeighborhood").value
     };
 
     // Send the data to the server using Fetch API

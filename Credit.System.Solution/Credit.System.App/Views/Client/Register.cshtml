@@ -9,6 +9,9 @@
     <meta name="author" content="">
     <link href="~/css/bootstrap.min.css" rel="stylesheet">
     <script src="~/js/client.js"></script>
+    <script src="~/js/Utils.js"></script>
+    
+    
     
     <style type="text/css" id="operaUserStyle">
     
@@ -133,7 +136,7 @@
                 <div class="row">
                     <div class="col-md-2 mb-3">
                         <label for="zipCode">Cep</label>
-                        <input type="text" class="form-control" id="txtCep" placeholder="Digite um Cep" required="">
+                    <input type="text" onblur="getPostalCode()" class="form-control" id="ZipCode" placeholder="Digite um Cep" required="">
                         <div class="invalid-feedback">Zip code required.</div>
                     </div>
                 </div>
@@ -147,7 +150,7 @@
 
                     <div class="col-md-1 mb-3">
                         <label>Número</label>
-                        <input type="text" class="form-control" id="inputStreetNumber" required="">
+                        <input type="text" class="form-control" id="AdressNumber" required="">
                         <div class="invalid-feedback">Zip code required.</div>
                     </div>
                 </div>
@@ -184,9 +187,6 @@
             <button id="registerClientBtn" onclick="RegisterClient()" class="btn btn-secondary">Cadastrar</button>
         </div>
     </div>
-
-
-@* </div> *@
 
 
    
