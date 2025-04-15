@@ -1,12 +1,13 @@
 ﻿@using Credit.System.App.Enums
 @using System.ComponentModel
-@model List<Platform.Entity.ServiceSystem.Client>;
+@* @model List<Platform.Entity.ServiceSystem.Client> = ; *@
 
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<meta name="author" content="">
+	<link href="~/css/bootstrap.min.css" rel="stylesheet">
 	<script src="~/js/client.js"></script>
 
 	<style type="text/css" id="operaUserStyle">
@@ -63,20 +64,18 @@
 
 <div class="text-end">
 	<button class="btn btn-secondary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClientForm" aria-expanded="false" aria-controls="collapseClientForm">
-		Novo Cliente
+		Novo Devedor
 	</button>
 	<button class="btn btn-success mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClientForm" aria-expanded="false" aria-controls="collapseClientForm">
-		Editar Cliente
+		Editar
 	</button>
 </div>
 <!-- Toggle Button -->
-
-
 <!-- Collapsible Container -->
 <div class="collapse" id="collapseClientForm" style="transition: height 1s ease !important;">
 	<div class="shadow p-3 mb-5 bg-body-tertiary rounded" id="main-container">
 		<div id="titClientRegister">
-			<h4 class="mb-3">Cadastrar Cliente</h4>
+			<h4 class="mb-3">Cadastrar Devedor</h4>
 		</div>
 
 		<div class="container" id="dadosPessoais">
@@ -180,7 +179,7 @@
 <div class="card shadow mb-4">
 	<div class="card-header py-3 d-flex justify-content-between align-items-center">
 		<h6 class="m-0 font-weight-bold text-primary">
-			<i class="fas fa-table me-2"></i>Clientes
+			<i class="fas fa-table me-2"></i>Devedores
 		</h6>
 		<div class="d-flex">
 			<div class="input-group me-2">
@@ -196,42 +195,42 @@
 	</div>
 	<div class="card-body">
 		<div class="table-responsive">
-			<table id="dataTableClient" class="table table-hover table-striped" >
+			<table id="dataTableClient" class="table table-hover table-striped">
 				<thead class="table-light">
 					<tr>
 						<th>Nome</th>
 						<th>Telefone</th>
 						<th>Telefone 2</th>
 						<th>Email</th>
-						<th>Cidade</th>
+				@* 		<th>Cidade</th>
 						<th>Estado</th>
 						<th>Bairro</th>
 						<th>Rua</th>
 						<th>Nº</th>
 						<th>Cep</th>
-						<th>Observação</th>
+						<th>Observação</th> *@
 					</tr>
 				</thead>
 				<tbody>
 
-					@foreach (Client client in Model)
-					{
+					@* @foreach (Client client in Model)
+					{ *@
 						<tr>
-							<td class="align-middle text-nowrap">@client.Name</td>
-							<td class="align-middle text-nowrap">@client.PrimaryPhone</td>
-							<td class="align-middle text-nowrap">@client.SecondPhone</td>
-							<td class="align-middle text-nowrap">@client.Email</td>
-							<td class="align-middle text-nowrap">@client.City</td>
+							<td class="align-middle text-nowrap">Nome</td>
+							<td class="align-middle text-nowrap">2121212121</td>
+							<td class="align-middle text-nowrap">212121212</td>
+							<td class="align-middle text-nowrap">2121212@gmail.com</td>
+					@* 		<td class="align-middle text-nowrap">@client.City</td>
 							<td class="align-middle text-nowrap">@client.State</td>
 							<td class="align-middle text-nowrap">@client.Neighborhood</td>
 							<td class="align-middle text-nowrap">@client.Street</td>
 							<td class="align-middle text-nowrap">@client.StreetNumber</td>
 							<td class="align-middle text-nowrap">@client.Zipcode</td>
-							<td class="align-middle text-nowrap">@client.Observation</td>
-							
-							
+							<td class="align-middle text-nowrap">@client.Observation</td> *@
 
-						@* 	<td class="text-end">
+
+
+							@* 	<td class="text-end">
 								       <div class="btn-group btn-group-sm">
                                     <button class="btn btn-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar" onclick="GetEditUserModal(@JsonConvert.SerializeObject(user))">
                                         <i class="fas fa-edit"></i>
@@ -259,7 +258,7 @@
                                 </div> 
 							</td> *@
 						</tr>
-					}
+					@* } *@
 				</tbody>
 			</table>
 		</div>
