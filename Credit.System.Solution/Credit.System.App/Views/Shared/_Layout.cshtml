@@ -1,77 +1,77 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <link href="~/css/styles.css" rel="stylesheet" />
-    <link href="~/css/style.min.css" rel="stylesheet" />
-    <script src="~/js/jquery-3.7.1.min.js"></script>
-    <script src="~/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/jquery.maskedinput.min.js"></script>
-    <script src="~/js/scripts.js"></script>
-    <script src="~/js/all.js"></script>
-    <script src="/js/Utils.js"></script>
-    <script src="~/js/datatables.js"></script>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<link href="~/css/styles.css" rel="stylesheet" />
+	<link href="~/css/style.min.css" rel="stylesheet" />
+	<script src="~/js/jquery-3.7.1.min.js"></script>
+	<script src="~/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/jquery.maskedinput.min.js"></script>
+	<script src="~/js/scripts.js"></script>
+	<script src="~/js/all.js"></script>
+	<script src="~/js/Utils.js"></script>
+	<script src="~/js/datatables.js"></script>
 </head>
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="index.html">Sistema de Cobrança</a>
-        <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!">
-            <i class="fas fa-bars"></i>
-        </button>
-        <!-- Navbar Search-->
-        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            <div class="input-group">
-                <input class="form-control" type="text" placeholder="Procurar..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                <button class="btn btn-primary" id="btnNavbarSearch" type="button">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-        </form>
-        <!-- Navbar-->
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-user fa-fw"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">Configurações</a></li>
-                   @*  <li><a class="dropdown-item" href="#!">Activity Log</a></li> *@
-                    <li><hr class="dropdown-divider" /></li>
-                    <li><a class="dropdown-item" asp-controller="User" asp-action="Logout">Sair</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
+	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+		<!-- Navbar Brand-->
+		<a class="navbar-brand ps-3" href="index.html">Sistema de Cobrança</a>
+		<!-- Sidebar Toggle-->
+		<button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!">
+			<i class="fas fa-bars"></i>
+		</button>
+		<!-- Navbar Search-->
+		<form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+			<div class="input-group">
+				<input class="form-control" type="text" placeholder="Procurar..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+				<button class="btn btn-primary" id="btnNavbarSearch" type="button">
+					<i class="fas fa-search"></i>
+				</button>
+			</div>
+		</form>
+		<!-- Navbar-->
+		<ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					<i class="fas fa-user fa-fw"></i>
+				</a>
+				<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+					<li><a class="dropdown-item" href="#!">Configurações</a></li>
+					@*  <li><a class="dropdown-item" href="#!">Activity Log</a></li> *@
+					<li><hr class="dropdown-divider" /></li>
+					<li><a class="dropdown-item" asp-controller="User" asp-action="Logout">Sair</a></li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
 
-    <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
-                    <div class="nav">
-                  @*       <div class="sb-sidenav-menu-heading">Core</div> *@
-                      @*   <a class="nav-link" href="index.html">
+	<div id="layoutSidenav">
+		<div id="layoutSidenav_nav">
+			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+				<div class="sb-sidenav-menu">
+					<div class="nav">
+						@*       <div class="sb-sidenav-menu-heading">Core</div> *@
+						@*   <a class="nav-link" href="index.html">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a> *@
-                        @* <div class="sb-sidenav-menu-heading">Interface</div> *@
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Operações
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" asp-area="" asp-controller="Debtor" asp-action="Index">Devedores</a>
-                                <a class="nav-link" asp-area="" asp-controller="Bill" asp-action="Index">Títulos</a>
-                            </nav>
-                        </div>
-                        @* <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+						@* <div class="sb-sidenav-menu-heading">Interface</div> *@
+						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+							<div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+							Operações
+							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+						</a>
+						<div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+							<nav class="sb-sidenav-menu-nested nav">
+								<a class="nav-link" asp-area="" asp-controller="Debtor" asp-action="Index">Devedores</a>
+								<a class="nav-link" asp-area="" asp-controller="Bill" asp-action="Index">Títulos</a>
+							</nav>
+						</div>
+						@* <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                             <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                             Usuário
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -111,66 +111,74 @@
                             </nav>
         </div>*@
 
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseConfig" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-user-tie"></i></div>
-                            Administrativo
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
+						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseConfig" aria-expanded="false" aria-controls="collapseLayouts">
+							<div class="sb-nav-link-icon"><i class="fas fa-user-tie"></i></div>
+							Administrativo
+							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+						</a>
 
-                        <div class="collapse" id="collapseConfig" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" asp-area="" asp-controller="Client" asp-action="Index">Clientes</a>
-                                <a class="nav-link" asp-area="" asp-controller="Company" asp-action="Index">Minha Empresa</a>
-                                <a class="nav-link" asp-area="" asp-controller="User" asp-action="Register">Usuários</a>
-                            </nav>
-                        </div>
-                      
-                    </div>
-                </div>
-                <div class="sb-sidenav-footer">
-                    <div class="small" id="loggedInUser"></div>
-                    Usuário Logado
-                </div>
-            </nav>
-        </div>
+						<div class="collapse" id="collapseConfig" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+							<nav class="sb-sidenav-menu-nested nav">
+								<a class="nav-link" asp-area="" asp-controller="Client" asp-action="Index">Clientes</a>
+								<a class="nav-link" asp-area="" asp-controller="Company" asp-action="Index">Minha Empresa</a>
+								<a class="nav-link" asp-area="" asp-controller="User" asp-action="Register">Usuários</a>
+							</nav>
+						</div>
 
-
-        <div class="d-flex justify-content-center">
-            <div class="spinner-border" id="spinnerId" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-        </div>
+					</div>
+				</div>
+				<div class="sb-sidenav-footer">
+					<div class="small" id="loggedInUser"></div>
+					Usuário Logado
+				</div>
+			</nav>
+		</div>
 
 
-        <div id="layoutSidenav_content">
-            <div class="content-wrapper">
-                <div class="container">
-                    <main role="main" class="pb-3">
-                        @RenderBody()
-                    </main>
-                </div>
+		<div class="d-flex justify-content-center">
+			<div class="spinner-border" id="spinnerId" role="status">
+				<span class="visually-hidden">Loading...</span>
+			</div>
+		</div>
 
-                <footer class="border-top footer text-muted">
-                    <div class="container">
-                        &copy; @DateTime.Now.Year - Sistema de Cobrança - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </div>
-                </footer>
-            </div>
-        </div>
-    </div>
-    
-    <div id="alert-container">
 
-    </div>
-   
-    @Html.AntiForgeryToken()
-    <!-- or -->
-    
-    
-@*     
+		<div id="layoutSidenav_content">
+			<div class="content-wrapper">
+				<div class="container">
+					<main role="main" class="pb-3">
+						@RenderBody()
+					</main>
+				</div>
+
+				<footer class="border-top footer text-muted">
+					<div class="container">
+						&copy; @DateTime.Now.Year - Sistema de Cobrança - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+					</div>
+				</footer>
+			</div>
+		</div>
+	</div>
+
+	<div id="alert-container">
+	</div>
+
+	<div id="globalSpinner"
+		 class="d-none position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex justify-content-center"
+		 style="z-index: 1100; align-items: flex-start; padding-top: 30vh;">
+
+		<div class="spinner-border text-light spinner-wave" role="status" style="width: 3.0rem; height: 3.0rem; animation-delay: 0.5s;"></div>
+	@* 	<div class="spinner-grow text-light spinner-wave" role="status" style="width: 3.0rem; height: 3.0rem; animation-delay: 1.5s;"></div>
+		<div class="spinner-grow text-light spinner-wave" role="status" style="width: 3.0rem; height: 3.0rem; animation-delay: 2.5s"></div> *@
+	</div>
+
+	@Html.AntiForgeryToken()
+	<!-- or -->
+
+
+	@*     
     <input type="hidden" id="antiForgeryToken" name="__RequestVerificationToken"
            value="@Html.AntiForgeryToken()" /> *@
 
-    @await RenderSectionAsync("Scripts", required: false)
+	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

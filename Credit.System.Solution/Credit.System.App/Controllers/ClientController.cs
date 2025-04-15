@@ -11,13 +11,10 @@ namespace Credit.System.App.Controllers
     public class ClientController : Controller
     {
         private readonly IClientOperations _clientOperations;
-        private readonly IUserOperations _userOperations;
 
-
-        public ClientController(IClientOperations clientOperations, IUserOperations userOperations)
+        public ClientController(IClientOperations clientOperations)
         {
             _clientOperations = clientOperations;
-            _userOperations = userOperations;
         }
 
         public IActionResult Index()
@@ -34,13 +31,10 @@ namespace Credit.System.App.Controllers
             return View(clients);
         }
         
-        
         public IActionResult Register()
         {
             UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
-
             return View();
-
         }
         
         [HttpPost]

@@ -36,13 +36,9 @@ jQuery(function ($) {
     //$("#txtIP").mask('099.099.099.099');
 });
 
-
-
 function getAntiForgeryToken() {
     return document.querySelector('input[name="__RequestVerificationToken"]').value;
 }
-
-
 
 // Alert System Functions
 function showAlert(message, type = 'success', duration = 5000) {
@@ -130,3 +126,15 @@ function getPostalCode() {
 
 }
 
+
+
+function IsLoadingBody(isLoading)
+{
+    if (isLoading) {
+
+        $('#globalSpinner').removeClass('d-none');
+    }
+    else {
+        $('#globalSpinner').addClass('d-none');
+    }
+}

@@ -53,6 +53,9 @@ function RegisterNewUser() {
         Name: name,
         CompanyId: companyId
     };
+
+    IsLoadingBody(true);
+
     fetch("/User/Register", {
         method: "POST",
         headers: {
@@ -70,6 +73,7 @@ function RegisterNewUser() {
         })
         .then(data => {
             if (data.success) {
+                IsLoadingBody(false);
                 showAlert(data.message || "Usuário cadastrado com sucesso!", 'success', 5000);
                 // Optional: Close the modal on success
                 $('#registerModal').modal('hide');
@@ -81,6 +85,7 @@ function RegisterNewUser() {
                 
             } else {
                 showAlert(data.message, 'error', 5000);
+                IsLoadingBody(false);
                 console.error("Server error:", data.message);
             }
         })
@@ -233,7 +238,7 @@ function RemoveUser() {
         UserId: $('#userId').val()
     };
 
-    fetch("/User/BlockUserAccess", {
+    fetch("/User/RemoveUser", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

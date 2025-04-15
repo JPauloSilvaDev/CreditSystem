@@ -1,5 +1,7 @@
 ﻿function RegisterNewUser() {
-    
+
+    IsLoadingBody(true);
+
     const data = {
         
         PrimaryName: document.getElementById("PrimaryName").value,
@@ -28,6 +30,8 @@
         .then(response => response.json()) // Parse the JSON response
         .then(data => {
 
+            IsLoadingBody(false);
+
             debugger
             if (data.success) {
                 showAlert("Usuário cadastrado com sucesso!", 'success', 5000);
@@ -38,7 +42,7 @@
             }
         })
         .catch(error => {
-            //console.error("Error:", error);
+            IsLoadingBody(false);
             showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
         });
 }

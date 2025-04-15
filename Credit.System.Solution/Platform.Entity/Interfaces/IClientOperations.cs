@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Platform.Entity.ServiceSystem;
+﻿using Platform.Entity.ServiceSystem;
 
 namespace Platform.Entity.Interfaces
 {
     public interface IClientOperations
     {
         public void InsertClient(Client client);
-        
+
+        public void UpdateClient(Client client);
+
         public List<Client> GetClientsByCompanyId(long companyId);
     
     }
