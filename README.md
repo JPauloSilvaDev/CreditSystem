@@ -5,7 +5,7 @@ Its developed using .net 9 MVC, HTML, CSS and JS (JQuery too) and SQL Server as 
 
 
 
-## 🇧🇷 Português
+## PORTUGUÊS
 
 # 📊 Admin Web App - Gestão de Clientes Inadimplentes
 
@@ -37,9 +37,20 @@ O projeto foi desenvolvido aplicando:
 
 ## 📁 Estrutura do Projeto
 
-# 📊 Admin Web App - Delinquent Clients Management
 
-A web-based administrative application built to help manage **delinquent clients**, enabling:
+
+
+## ENGLISH
+
+
+
+
+
+
+
+# 📊 Admin Web App - Company Debtors Management
+
+A web-based administrative application built to help manage ** a clients debtor**, enabling:
 
 - Organization of **debts** and **payments**
 - Registration of **clients** and **debtors**
