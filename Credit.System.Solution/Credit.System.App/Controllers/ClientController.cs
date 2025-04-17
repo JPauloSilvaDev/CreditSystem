@@ -1,9 +1,13 @@
-﻿using Credit.System.App.CustomAttributes;
+﻿using System;
+using Credit.System.App.CustomAttributes;
+using Credit.System.App.Mapper;
 using Credit.System.App.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Platform.Entity.Interfaces;
 using Platform.Entity.ServiceSystem;
+using Platform.Utils;
+using Platform.Utils.Validators;
 
 namespace Credit.System.App.Controllers
 {
@@ -20,46 +24,73 @@ namespace Credit.System.App.Controllers
         public IActionResult Index()
         {
             UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
-            
-            List<Client> clients = _clientOperations.GetClientsByCompanyId(userLogged.CompanyId);
-            
-            if(clients == null)
+
+            List<Client>? clients = null;
+            List<ClientViewModel>? viewModelClients = null;
+
+            try
             {
-                return View(new List<Client>());
+                clients = _clientOperations.GetClientsByCompanyId(userLogged.CompanyId);
+
+                if (clients == null)
+                    return View(new List<ClientViewModel>());
+
+                viewModelClients = ClientMapper.MapClientToClientViewModel(clients);
+
+            }
+            catch (Exception)
+            {
+                Json(new { success = false, message = CustomExceptionMessage.GenericMessage0001 });
             }
 
-            return View(clients);
+            return View(viewModelClients);
+
         }
-        
-        public IActionResult Register()
-        {
-            UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
-            return View();
-        }
-        
+
         [HttpPost]
-        public IActionResult RegisterClient([FromBody]Client client)   
+        public IActionResult RegisterClient([FromBody] ClientViewModel clientViewModel)
         {
             try
             {
                 UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
+                
+                Client client = ClientMapper.MapClientViewModelToClient(clientViewModel);
+
                 client.CompanyId = userLogged.CompanyId;
+
+                if (!UtilsValidators.IsValidDocument(client.Document))
+                    throw new CSException();
+
                 _clientOperations.InsertClient(client);
             }
 
-            catch (CSException ex2)
+            catch (CSException exception)
             {
-                Json(new { success = false, message = ex2.Message });
+                Json(new { success = false, message = exception.Message });
             }
 
-            catch (Exception exc)
+            catch (Exception)
             {
-                Json(new { success = false, message = exc.Message });
+                Json(new { success = false, message = CustomExceptionMessage.GenericMessage0001 });
             }
 
             return Ok(new { success = true, message = "Cliente cadastrado com sucesso!" });
 
         }
 
+        public IActionResult RemoveClient([FromBody] Client client)
+        {
+            try
+            {
+                _clientOperations.DeleteClient(client);
+            }
+            catch (Exception)
+            {
+                Json(new { success = false, message = CustomExceptionMessage.GenericMessage0001 });
+            }
+
+            return Json(new { success = true, message = string.Empty});
+        }
+    
     }
 }

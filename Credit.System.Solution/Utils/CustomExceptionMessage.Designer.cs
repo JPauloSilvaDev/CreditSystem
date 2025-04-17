@@ -61,6 +61,15 @@ namespace Platform.Utils {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cliente cadastrado com sucesso!.
+        /// </summary>
+        public static string ClientMessage0000 {
+            get {
+                return ResourceManager.GetString("ClientMessage0000", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid user credentials provided.
         /// </summary>
         public static string ERR_1001 {

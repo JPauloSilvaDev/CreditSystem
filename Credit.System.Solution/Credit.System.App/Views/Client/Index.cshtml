@@ -1,6 +1,6 @@
 ﻿@using Credit.System.App.Enums
 @using System.ComponentModel
-@model List<Platform.Entity.ServiceSystem.Client>;
+@model List<ClientViewModel>;
 @using Newtonsoft.Json
 <head>
 	<meta charset="utf-8">
@@ -301,12 +301,13 @@
 	</div>
 	<div class="card-body">
 		<div class="table-responsive">
-			<table id="dataTableClient" class="table table-hover table-striped">
+			<table id="dataTableClient" class="table table-hover table-bordered">
 				<thead class="table-light">
 					<tr>
-						<th>Nome</th>
-						<th>Telefone</th>
-						<th>Telefone 2</th>
+						<th class="text-nowrap">Razão Social</th>
+						<th class="text-nowrap">Nome Fantasia</th>
+						<th class="text-nowrap">Telefone</th>
+						<th class="text-nowrap">Telefone 2</th>
 						<th>Email</th>
 						<th>Cidade</th>
 						<th>Estado</th>
@@ -320,12 +321,13 @@
 				</thead>
 				<tbody>
 
-					@foreach (Client client in Model)
+					@foreach (ClientViewModel client in Model)
 					{
 						<tr>
-							<td class="align-middle text-nowrap">@client.Name</td>
+							<td class="align-middle text-nowrap">@client.PrimaryName</td>
+							<td class="align-middle text-nowrap">@client.SecondaryName</td>
 							<td class="align-middle text-nowrap">@client.PrimaryPhone</td>
-							<td class="align-middle text-nowrap">@client.SecondPhone</td>
+							<td class="align-middle text-nowrap">@client.SecondaryPhone</td>
 							<td class="align-middle text-nowrap">@client.Email</td>
 							<td class="align-middle text-nowrap">@client.City</td>
 							<td class="align-middle text-nowrap">@client.State</td>
@@ -337,26 +339,14 @@
 
 							<td class="text-end">
 								<div class="btn-group btn-group-sm">
+									
 									<button class="btn btn-primary btn-sm" data-bs-placement="top" title="Editar" data-bs-toggle="collapse" data-bs-target="#collapseEditClient" aria-expanded="false" aria-controls="collapseEditClient" onclick="SetEditClient(@JsonConvert.SerializeObject(client))">
 										<i class="fas fa-edit"></i>
 									</button>
-									<button class="btn btn-danger btn-sm" style="cursor:pointer"data-bs-toggle="tooltip" data-bs-placement="top" title="Remover" onclick="GetRemoveClientModal()">
+									
+									<button class="btn btn-danger btn-sm" style="cursor:pointer"data-bs-toggle="tooltip" data-bs-placement="top" title="Remover" onclick="GetRemoveClientModal(@client.ClientId)">
 										<i class="fas fa-trash"></i>
 									</button>
-
-
-
-									@*    <button class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Bloquear">
-                                                <i class="fa fa-lock"></i>
-                                            </button>
-
-
-                                            <button class="btn btn-success btn-sm" data-bs-toggle="tooltip" onclick="UnblockUserAccess()" data-bs-placement="top" title="Desbloquear">
-                                                <i class="fa fa-lock-open"></i>
-                                            </button> *@
-
-
-
 
 								</div>
 							</td>
@@ -369,7 +359,38 @@
 </div>
 
 @* </div> *@
+<div class="row justify-content-center">
+	<div class="modal fade" id="removeClientModal" tabindex="-1" aria-labelledby="removeClientModal" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
 
+				<input type="hidden" id="clientId">
+
+				<!-- Modal Header -->
+				<div class="modal-header bg-dark text-white">
+					<h5 class="modal-title" id="removeUserModalLabel">Remover Cliente</h5>
+					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+
+				<!-- Modal Body -->
+				<div class="modal-body">
+					<p class="mb-4 text-center"><b>Deseja remover o cliente selecionado?</b></p>
+
+					<div class="d-flex justify-content-end gap-2">
+						<button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+							Cancelar
+						</button>
+						<button type="button" onclick="RemoveClient()" class="btn btn-success">
+							Sim
+						</button>
+					</div>
+				</div>
+
+				<!-- Modal Footer (Removed redundant buttons) -->
+			</div>
+		</div>
+	</div>
+</div>
 
 
 

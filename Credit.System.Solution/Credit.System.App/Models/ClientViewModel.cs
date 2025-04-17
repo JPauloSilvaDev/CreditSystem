@@ -1,18 +1,19 @@
 ﻿using System.ComponentModel;
 
-
-namespace Platform.Entity.ServiceSystem
+namespace Credit.System.App.Models
 {
-    public class Client : BaseEntity
+    public class ClientViewModel
     {
         public long ClientId { get; set; }
-       
+
         public long CompanyId { get; set; }
         
+        [Description("Razão Social")]
         public string PrimaryName { get; set; }
-
-        public string? SecondaryName { get; set; }
         
+        [Description("Nome Fantasia")]
+        public string? SecondaryName { get; set; }
+
         public string Email { get; set; }
 
         [Description("CPF/CNPJ")]
@@ -22,8 +23,8 @@ namespace Platform.Entity.ServiceSystem
         public string? PrimaryPhone { get; set; }
 
         [Description("Telefone 2")]
-        public string? SecondaryPhone { get;set; }
-       
+        public string? SecondaryPhone { get; set; }
+
         [Description("Cep")]
         public string? Zipcode { get; set; }
 
@@ -32,7 +33,7 @@ namespace Platform.Entity.ServiceSystem
 
         [Description("Número")]
         public short? StreetNumber { get; set; }
-        
+
         [Description("Observação")]
         public string? Observation { get; set; }
 
@@ -41,9 +42,12 @@ namespace Platform.Entity.ServiceSystem
 
         [Description("Cidade")]
         public string? City { get; set; }
-        
+
         [Description("Bairro")]
         public string? Neighborhood { get; set; }
 
+
     }
+
+
 }

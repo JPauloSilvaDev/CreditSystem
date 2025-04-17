@@ -233,6 +233,9 @@ function GetRemoveUserModal(user){
     $("#removeUserModal").modal("show");
     $("#userId").val(user.UserId);
 
+
+   
+
 }
 function RemoveUser() {
 

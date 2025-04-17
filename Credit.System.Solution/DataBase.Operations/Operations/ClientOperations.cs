@@ -47,7 +47,12 @@ namespace Platform.Transactional.Operations
         {
             try
             {
-
+                //get client by clientid.
+                
+                
+                client.DeletionDate = DateTime.Now;
+                client.UpdateDate = DateTime.Now;
+                _serviceSystemConnection.Client.Update(client);
             }
             catch (Exception)
             {

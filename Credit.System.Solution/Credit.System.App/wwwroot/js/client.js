@@ -1,7 +1,4 @@
-﻿var selectedClient = {};
-
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
 
     var table = $('#dataTableClient').DataTable({
         /* paging: false,*/
@@ -14,9 +11,7 @@ $(document).ready(function () {
             infoFiltered: "Filtrado de _MAX_ registros"
         },
 
-        responsive: true, // Enable responsive feature
-        //autoWidth: false, // Disable automatic width calculation
-        //scrollX: true, // Enable horizontal scrolling if needed
+        responsive: true, 
         dom: '<"top"p>rt<"bottom"i>'
 
     });
@@ -30,23 +25,10 @@ $(document).ready(function () {
         selectedRowData = table.row(this).data();
         $('#dataTableClient tbody tr').removeClass('table-active');
 
-        // Add 'table-active' to the clicked row
-        $(this).addClass('table-active');
-
         console.log(selectedRowData);
 
     });
-
-    // Função para atribuir os valores dos inputs para a div colapsável de editar o cliente.
-    $('#collapseEditClient').one('shown.bs.collapse', function () {
-        debugger
-        //setTimeout(function () {
-
-        /* }, 50);*/
-    });
-    //document.getElementById('dt-search-0').style.display = 'none';
-    //document.querySelector('label[for="dt-search-0"]').style.display = 'none';
-
+ 
 });
 
 function validateForm() {
@@ -71,11 +53,11 @@ function validateForm() {
 function RegisterClient() {
 
     const data = {
-        name: $('#firstName').val(),
+        primaryName: $('#firstName').val(),
         email: $('#email').val(),
         document: $('#inputCpfCnpj').val(),
         primaryPhone: $('#primaryPhone').val(),
-        secondPhone: $('#secondPhone').val(),
+        secondaryPhone: $('#secondPhone').val(),
         zipcode: $('#txtCep').val(),
         street: $('#inputStreet').val(),
         streetNumber: $('#inputStreetNumber').val(),
@@ -116,8 +98,8 @@ function RegisterClient() {
 }
 
 function SetEditClient(client) {
-    $('#editPrimaryName').val(client.Name);
-    $('#editSecondaryName').val(client.Name);
+    $('#editPrimaryName').val(client.PrimaryName);
+    $('#editSecondaryName').val(client.SecondaryName);
     $('#editEmail').val(client.Email);
     $('#editCpfCnpj').val(client.Document);
     $('#editEmail').val(client.Email);
@@ -234,3 +216,38 @@ function ValidateRegisterClient(data) {
     return true;
 }
 
+function RemoveClient() {
+
+    var clientId = $("#clientId").val();
+
+    var data = { clientId: clientId}
+
+
+    fetch("/Client/RemoveClient", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.json()) // Parse the JSON response
+        .then(data => {
+
+            debugger
+            if (data.success) {
+                showAlert("Usuário cadastrado com sucesso!", 'success', 5000);
+            } else {
+                showAlert("Não foi possível concluir a solicitação no momento", 'error', 5000);
+                console.log(data.message)
+            }
+        })
+        .catch(error => {
+            showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
+        });
+}
+
+function GetRemoveClientModal(clientId) {
+    $("#removeClientModal").modal("show");
+    $("#clientId").val(clientId);
+}
