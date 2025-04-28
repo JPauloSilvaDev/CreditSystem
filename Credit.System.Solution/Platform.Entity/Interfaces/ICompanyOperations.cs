@@ -8,6 +8,8 @@ namespace Platform.Entity.Interfaces
     
         public List<Company> GetAllCompanies();
 
+        public Company GetCompanyById(long id);
+
         public void InsertCompany(Company company);
     }
 }

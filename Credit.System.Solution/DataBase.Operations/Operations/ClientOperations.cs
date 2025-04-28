@@ -47,11 +47,20 @@ namespace Platform.Transactional.Operations
         {
             try
             {
-                //get client by clientid.
-                
-                
-                client.DeletionDate = DateTime.Now;
-                client.UpdateDate = DateTime.Now;
+
+                //using (var connection = new SqlConnection(_connectionString))
+                //{
+                //    return connection.QueryFirstOrDefault<Client>(
+                //        "SELECT * FROM Clients WHERE ClientId = @ClientId", new { ClientId = clientId });
+                //}
+
+
+
+                //Client clientToEdit = _serviceSystemConnection.Client.Where(x => x.ClientId == client.ClientId && x.DeletionDate == null).FirstOrDefault();//get client by clientid.
+
+                //clientToEdit.DeletionDate = DateTime.Now;
+                //clientToEdit.UpdateDate = DateTime.Now;
+
                 _serviceSystemConnection.Client.Update(client);
             }
             catch (Exception)
@@ -64,15 +73,25 @@ namespace Platform.Transactional.Operations
         {
             try
             {
-                List<Client> clients = _serviceSystemConnection.Client.Where(x=>x.CompanyId == companyId && x.DeletionDate == null).ToList();
-                return clients;
+                return _serviceSystemConnection.Client.Where(x => x.CompanyId == companyId && x.DeletionDate == null).ToList();
             }
             catch (Exception)
             {
                 throw;
             }
         }
-      
 
+        public Client GetClientById(long clientId)
+        {
+            try
+            {
+                return _serviceSystemConnection.Client.Where(x => x.ClientId == clientId && x.DeletionDate == null).FirstOrDefault();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
     }
 }

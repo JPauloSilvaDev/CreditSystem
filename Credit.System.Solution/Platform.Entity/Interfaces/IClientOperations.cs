@@ -11,6 +11,8 @@ namespace Platform.Entity.Interfaces
         public void DeleteClient(Client client);
 
         public List<Client> GetClientsByCompanyId(long companyId);
+
+        public Client GetClientById(long clientId);   
     
     }
 }
