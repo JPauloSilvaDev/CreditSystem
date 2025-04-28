@@ -1,0 +1,126 @@
+﻿@using Credit.System.App.Enums
+@using System.ComponentModel
+@model Company
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/Company.css" rel="stylesheet">
+  
+</head>
+
+@{
+    var states = Enum.GetValues(typeof(States)).Cast<States>().ToList();
+}
+
+<div class="shadow p-3 mb-5 bg-body-tertiary rounded" id="main-container">
+
+    <div id="titClientRegister">
+        <h4 class="mb-3">Minha Empresa</h4>
+    </div>
+
+    <div class="container" id="dadosPessoais">
+
+        <div class="row">
+            <p>Dados</p>
+            
+            <div class="col-md-3 mb-3">
+                <label for="firstName">Razão Social</label>
+                <input type="text" value="@Model.PrimaryName"class="form-control" id="PrimaryName" placeholder="Digite o nome">
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <label for="firstName">Nome fantasia</label>
+                <input type="text" class="form-control" id="SecondName" placeholder="Nome fantasia" value="@Model.SecondaryName">
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <label for="lastName">Email</label>
+                <input type="text" class="form-control" id="Email" value="@Model.Email" placeholder="Digite um email válido">
+            </div>
+        
+        </div>
+
+        <div class="row">
+            <div class="col-md-2 mb-3">
+                <label for="username">CNPJ</label>
+                <input type="text" class="form-control" value="@Model.Document" id="Document" placeholder="CPF/CNPJ" disabled>
+            </div>
+
+            <div class="col-md-2 mb-3">
+                <label for="addressNumber">Contato 1</label>
+                <input class="form-control" id="PrimaryPhone" value="@Model.PrimaryPhone" placeholder="Número">
+            </div>
+
+            <div class="col-md-2 mb-3">
+                <label for="addressNumber">Contato 2</label>
+                <input class="form-control" id="SecondPhone" value="@Model.SecondaryPhone" placeholder="Número">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container" id="adress">
+
+        <p>Endereço: </p>
+
+        <div class="row">
+
+            <div class="col-md-2 mb-3">
+                <label for="zipCode">Cep</label>
+                <input onblur="getPostalCode()" type="text" value="@Model.ZipCode" class="form-control" id="ZipCode" placeholder="Digite um Cep">
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-3 mb-3">
+                <label>Logradouro</label>
+                <input type="text" class="form-control" id="inputStreet">
+            </div>
+
+            <div class="col-md-1 mb-3">
+                <label>Número</label>
+                <input type="text" class="form-control" value="@Model.AddressNumber" id="AddressNumber" placeholder="">
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <label>Observação</label>
+                <input type="text" class="form-control" id="Observation" value="@Model.Observation" placeholder="">
+            </div>
+        </div>
+
+        <div class="row">
+            
+            <div class="col-md-1 mb-3">
+                <label>Estado</label>
+                <input type="text" class="form-control" id="inputState" value="@Model.State">
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <label>Municipio</label>
+                <input type="text" class="form-control" id="inputCity" value="@Model.City">
+            </div>
+
+            <div class="col-md-2 mb-3">
+                <label>Bairro</label>
+                <input type="text" class="form-control" id="inputNeighborhood" value="@Model.Neighborhood">
+            </div>
+
+        </div>
+
+    </div>
+
+    <button class="btn btn-success" onclick="RegisterNewUser()">Salvar Alterações</button>
+
+</div>
+
+<script src="~/js/Utils.js"></script>
+<script src="~/js/Company.js"></script>
+

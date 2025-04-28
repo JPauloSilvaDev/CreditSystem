@@ -19,10 +19,7 @@ namespace Platform.Transactional.Operations
 
             try
             {
-                List<Company> companies = _serviceSystemConnection.Company.ToList();
-                    
-                    //_serviceSystemConnection.Company.ToList();
-                return companies;
+                return _serviceSystemConnection.Company.ToList();
             }
             catch (Exception)
             {
@@ -30,6 +27,20 @@ namespace Platform.Transactional.Operations
             }
         
         }
+
+        public Company GetCompanyById(long id)
+        {
+            try
+            {
+               return _serviceSystemConnection.Company.Where(x => x.CompanyId == id).FirstOrDefault();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
 
         public void InsertCompany(Company company)
         {

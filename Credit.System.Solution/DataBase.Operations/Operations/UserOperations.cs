@@ -94,6 +94,7 @@ namespace Platform.Transactional.Operations
                 userToEdit.Login = editedData.Login;
                 userToEdit.Email = editedData.Email;
                 userToEdit.Name = editedData.Name;
+                userToEdit.Password = userToEdit.Password;
                 userToEdit.UpdateDate = DateTime.Now;
                 
                 _serviceSystemConnection.Update(userToEdit);

@@ -1,0 +1,44 @@
+﻿body {
+    background-color: #F8F9FA;
+}
+
+#main-container {
+    padding: 10px;
+}
+
+label {
+    font-size: 0.8rem;
+    color: #595C5F
+}
+
+#titClientRegister {
+    background-color: #212529;
+    color: #F8F9FA;
+    padding: 8px;
+    padding-bottom: .5px;
+    align-items: center;
+    align-content: center;
+    border-radius: 11px;
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+#dadosPessoais {
+    background-color: #F2F2F2;
+    border-radius: 11px;
+    padding: 10px;
+    margin-bottom: 1rem;
+}
+
+#adress {
+    background-color: #F2F2F2;
+    border-radius: 11px;
+    padding: 10px;
+    margin-bottom: 1rem;
+}
+
+p {
+    color: #5C636A;
+}
+
+*@

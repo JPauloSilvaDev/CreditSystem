@@ -3,6 +3,8 @@ using Platform.Entity.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Platform.Entity.ServiceSystem;
+using Credit.System.App.CustomAttributes;
+using Platform.Utils;
 
 namespace Credit.System.App.Controllers
 {
@@ -14,10 +16,23 @@ namespace Credit.System.App.Controllers
         {
             _companyOperations = companyOperations;
         }
-
+        [CheckUserSession]
         public IActionResult Index()
         {
-            return View("CompanyRegister");
+            try
+            {
+                UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
+                
+                Company company = _companyOperations.GetCompanyById(userLogged.CompanyId);
+
+                return View(company);
+
+            }
+            catch (Exception)
+            {
+                return Json(new {success = false, message = CustomExceptionMessage.GenericMessage0001});
+            }
+           
         }
 
         [HttpPost]
