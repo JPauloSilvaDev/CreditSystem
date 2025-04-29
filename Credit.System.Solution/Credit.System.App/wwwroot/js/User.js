@@ -65,28 +65,28 @@ function RegisterNewUser() {
         body: JSON.stringify(data)
     })
         .then(response => {
-            // First check if the response is OK (status 200-299)
+            
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            return response.json(); // Parse the JSON only if response is OK
+            return response.json(); 
         })
         .then(data => {
             if (data.success) {
                 IsLoadingBody(false);
                 showAlert(data.message || "Usuário cadastrado com sucesso!", 'success', 5000);
-                // Optional: Close the modal on success
+                
                 $('#registerModal').modal('hide');
 
                 setTimeout(function () {
                     location.reload();
                 }, 3000);
-                // Optional: Refresh data or reset form
+                
                 
             } else {
                 showAlert(data.message, 'error', 5000);
                 IsLoadingBody(false);
-                console.error("Server error:", data.message);
+                console.error("Detalhes do erro:", data.message);
             }
         })
         .catch(error => {
@@ -232,10 +232,6 @@ function GetRemoveUserModal(user){
 
     $("#removeUserModal").modal("show");
     $("#userId").val(user.UserId);
-
-
-   
-
 }
 function RemoveUser() {
 

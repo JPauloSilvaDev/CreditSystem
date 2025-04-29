@@ -55,8 +55,12 @@ namespace Credit.System.App.Controllers
             {
                 UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
 
+                #region Verificando se o usuário logado pertence a empresa do sistema
                 if (userModel.CompanyId == null)
                     userModel.CompanyId = userLogged.CompanyId;
+
+                #endregion
+
 
                 bool userExists = _userOperations.UserExistsAtCompany(userModel.Login, userModel.CompanyId);
 
@@ -114,9 +118,8 @@ namespace Credit.System.App.Controllers
             {
                 return Json(new { success = false, message = CustomExceptionMessage.GenericMessage0001});
             }
-           
 
-            return Json(new { success = true, message = "Alterações salvas com sucesso." });
+            return Json(new { success = true, message = CustomExceptionMessage.SaveChangesMessage });
         }
       
 

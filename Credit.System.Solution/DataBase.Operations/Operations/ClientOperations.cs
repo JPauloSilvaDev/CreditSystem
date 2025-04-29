@@ -37,31 +37,21 @@ namespace Platform.Transactional.Operations
             }
             catch (Exception)
             {
-
                 throw;
             }
 
         }
 
-        public void DeleteClient(Client client)
+        public void DeleteClient(long clientId)
         {
             try
             {
+                Client client = _serviceSystemConnection.Client.Where(x => x.ClientId == clientId && x.DeletionDate == null).FirstOrDefault();//get client by clientid.
 
-                //using (var connection = new SqlConnection(_connectionString))
-                //{
-                //    return connection.QueryFirstOrDefault<Client>(
-                //        "SELECT * FROM Clients WHERE ClientId = @ClientId", new { ClientId = clientId });
-                //}
+                client.DeletionDate = DateTime.Now;
+                client.UpdateDate = DateTime.Now;
 
-
-
-                //Client clientToEdit = _serviceSystemConnection.Client.Where(x => x.ClientId == client.ClientId && x.DeletionDate == null).FirstOrDefault();//get client by clientid.
-
-                //clientToEdit.DeletionDate = DateTime.Now;
-                //clientToEdit.UpdateDate = DateTime.Now;
-
-                _serviceSystemConnection.Client.Update(client);
+                _serviceSystemConnection.SaveChanges();
             }
             catch (Exception)
             {

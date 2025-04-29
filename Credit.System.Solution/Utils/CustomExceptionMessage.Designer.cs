@@ -97,6 +97,33 @@ namespace Platform.Utils {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cliente removido com sucesso!.
+        /// </summary>
+        public static string RemovedClientMessage {
+            get {
+                return ResourceManager.GetString("RemovedClientMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usuário removido com sucesso!.
+        /// </summary>
+        public static string RemovedUserMessage {
+            get {
+                return ResourceManager.GetString("RemovedUserMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alterações salvas com sucesso!.
+        /// </summary>
+        public static string SaveChangesMessage {
+            get {
+                return ResourceManager.GetString("SaveChangesMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Usuário de CPF {0} está cadastrado para essa empresa..
         /// </summary>
         public static string UserMessage0000 {

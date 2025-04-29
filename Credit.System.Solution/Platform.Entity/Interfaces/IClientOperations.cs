@@ -8,7 +8,7 @@ namespace Platform.Entity.Interfaces
 
         public void UpdateClient(Client client);
         
-        public void DeleteClient(Client client);
+        public void DeleteClient(long clientId);
 
         public List<Client> GetClientsByCompanyId(long companyId);
 

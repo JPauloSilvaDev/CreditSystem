@@ -220,30 +220,26 @@ function RemoveClient() {
 
     var clientId = $("#clientId").val();
 
-    var data = { clientId: clientId}
-
-
-    fetch("/Client/RemoveClient", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-
-        },
-        body: JSON.stringify(data)
+    fetch(`/Client/RemoveClient?clientId=${clientId}`, {
+        method: "POST"
+        // No headers or body needed
     })
-        .then(response => response.json()) // Parse the JSON response
+        .then(response => {
+            if (!response.ok) throw new Error("Network error");
+            return response.json();
+        })
         .then(data => {
 
-            debugger
             if (data.success) {
-                showAlert("Usuário cadastrado com sucesso!", 'success', 5000);
-            } else {
-                showAlert("Não foi possível concluir a solicitação no momento", 'error', 5000);
-                console.log(data.message)
+                showAlert(data.message, 'success', 5000);
             }
+            else {
+                showAlert(data.message, 'error', 5000);
+            }
+            console.log("Success:", data);
         })
         .catch(error => {
-            showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
+            console.error("Error:", error);
         });
 }
 

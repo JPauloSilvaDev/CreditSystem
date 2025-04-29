@@ -82,7 +82,15 @@
     <value>Cliente cadastrado com sucesso!</value>
   </data>
 
-	<!-- Add more exception messages like this -->
+	<data name="RemovedClientMessage" xml:space="preserve">
+    <value>Cliente removido com sucesso!</value>
+  </data>
+	<data name="SaveChangesMessage" xml:space="preserve">
+    <value>Alterações salvas com sucesso!</value>
+  </data>
+	<data name="RemovedUserMessage" xml:space="preserve">
+    <value>Usuário removido com sucesso!</value>
+  </data>
 	<data name="ERR_1001" xml:space="preserve">
     <value>Invalid user credentials provided</value>
   </data>

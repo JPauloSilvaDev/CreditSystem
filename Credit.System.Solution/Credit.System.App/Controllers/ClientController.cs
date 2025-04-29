@@ -77,19 +77,19 @@ namespace Credit.System.App.Controllers
             return Ok(new { success = true, message = "Cliente cadastrado com sucesso!" });
 
         }
-
-        public IActionResult RemoveClient([FromBody] Client client)
+        [HttpPost]
+        public IActionResult RemoveClient(long clientId)
         {
             try
             {
-                _clientOperations.DeleteClient(client);
+                _clientOperations.DeleteClient(clientId);
             }
             catch (Exception)
             {
                 Json(new { success = false, message = CustomExceptionMessage.GenericMessage0001 });
             }
 
-            return Json(new { success = true, message = string.Empty});
+            return Json(new { success = true, message = CustomExceptionMessage.RemovedClientMessage });
         }
     
     }
