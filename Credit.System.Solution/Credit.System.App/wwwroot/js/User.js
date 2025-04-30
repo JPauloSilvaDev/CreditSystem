@@ -276,17 +276,13 @@ function RemoveUser() {
 
 }
 
-
-
-
-
 function BlockUserAccess() {
 
     const data = {
         UserId: $('#userId').val()
     };
 
-    fetch("/User/RemoveUser", {
+    fetch("/User/BlockUserAccess", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -331,7 +327,7 @@ function UnblockUserAccess() {
         UserId: $('#userId').val()
     };
 
-    fetch("/User/RemoveUser", {
+    fetch("/User/UnblockUserAccess", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

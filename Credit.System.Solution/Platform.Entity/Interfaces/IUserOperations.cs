@@ -17,6 +17,8 @@ namespace Platform.Entity.Interfaces
         public void DeleteUser(long userId);
 
         public User GetUserByid(long userId);
+        public void BlockUserAccess(long userId);
+        public void UnblockUserAccess(long userId);
 
     }
 }

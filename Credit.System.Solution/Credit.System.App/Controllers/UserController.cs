@@ -158,6 +158,38 @@ namespace Credit.System.App.Controllers
                 return Json(new { success = false, message = CustomExceptionMessage.GenericMessage0001, });
             }
         }
+        
+        [CheckUserSession]
+        [ValidateAntiForgeryToken]
+        public IActionResult BlockUserAccess(long userId)
+        {
+            try
+            {
+                _userOperations.BlockUserAccess(userId);
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false, message = CustomExceptionMessage.GenericMessage0001 });
+            }
+
+            return Json(new {success = true, message = ""  }); //message bloqueado acesso do usuário
+        }
+       
+        [CheckUserSession]
+        [ValidateAntiForgeryToken]
+        public IActionResult UnblockUserAccess(long userId)
+        {
+            try
+            {
+                _userOperations.UnblockUserAccess(userId);
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false, message = CustomExceptionMessage.GenericMessage0001 });
+            }
+
+            return Json(new { success = true, message = "" }); //message bloqueado acesso do usuário
+        }
 
         public IActionResult Logout()
         {

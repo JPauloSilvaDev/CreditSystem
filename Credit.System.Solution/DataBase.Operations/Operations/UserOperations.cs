@@ -97,7 +97,6 @@ namespace Platform.Transactional.Operations
                 userToEdit.Password = userToEdit.Password;
                 userToEdit.UpdateDate = DateTime.Now;
                 
-                _serviceSystemConnection.Update(userToEdit);
                 _serviceSystemConnection.SaveChanges();
             }
             catch (Exception)
@@ -126,11 +125,42 @@ namespace Platform.Transactional.Operations
             userToRemove.DeletionDate = DateTime.Now;
             userToRemove.IsActive = false;
 
-            _serviceSystemConnection.Update(userToRemove);
             _serviceSystemConnection.SaveChanges();
         }
 
+        public void BlockUserAccess(long userId)
+        {
+            try
+            {
+                User user = GetUserByid(userId);
 
+                user.IsActive = false;
+
+                _serviceSystemConnection.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
+        public void UnblockUserAccess(long userId)
+        {
+            try
+            {
+                User user = GetUserByid(userId);
+
+                user.IsActive = true;
+                
+                _serviceSystemConnection.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
 
     }
 }
