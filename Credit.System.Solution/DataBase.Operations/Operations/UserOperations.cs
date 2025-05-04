@@ -41,11 +41,16 @@ namespace Platform.Transactional.Operations
 
         public User GetUserByLoginAndPassword(string login, string password)
         {
-            User user = new User();
+            User? user = new User();
 
             try
             {
-                user = _serviceSystemConnection.User.Where(x => x.Login == login && x.Password == Security.Encrypt(password) && x.IsActive == true && x.DeletionDate == null).FirstOrDefault();
+                user = _serviceSystemConnection.User.
+                FirstOrDefault(x =>
+                x.Login == login && 
+                x.Password == Security.Encrypt(password) && 
+                x.IsActive == true && 
+                x.DeletionDate == null);
             }
             catch (Exception)
             {
@@ -61,7 +66,8 @@ namespace Platform.Transactional.Operations
             try
             {
                 return _serviceSystemConnection.User
-                    .Any(x => x.Login == login && x.CompanyId == companyId && x.DeletionDate == null);
+                    .Any(x => x.Login == login && x.CompanyId == companyId &&
+                    x.DeletionDate == null);
             }
             catch
             {
@@ -75,7 +81,8 @@ namespace Platform.Transactional.Operations
 
             try
             {
-                users = _serviceSystemConnection.User.Where(x => x.CompanyId == companyId && x.DeletionDate == null).ToList();
+                users = _serviceSystemConnection.User.Where(x => x.CompanyId == companyId && 
+                x.DeletionDate == null).ToList();
             }
             catch (Exception)
             {

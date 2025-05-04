@@ -11,5 +11,7 @@ namespace Platform.Entity.Interfaces
         public Company GetCompanyById(long id);
 
         public void InsertCompany(Company company);
+        
+        public void UpdateCompany(Company company);
     }
 }

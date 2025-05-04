@@ -57,5 +57,36 @@ namespace Platform.Transactional.Operations
         
         }
 
+
+        public void UpdateCompany(Company company)
+        {
+            try
+            {
+                Company editCompany = GetCompanyById(company.CompanyId);
+
+                editCompany.PrimaryName = company.PrimaryName;
+                editCompany.SecondaryName = company.SecondaryName;
+                editCompany.PrimaryPhone = company.PrimaryPhone;
+                editCompany.SecondaryPhone = company.SecondaryPhone;
+                editCompany.Email = company.Email;
+                editCompany.ZipCode = company.ZipCode;
+                editCompany.AddressNumber = company.AddressNumber;
+                editCompany.City = company.City;
+                editCompany.State = company.State;
+                editCompany.Observation = company.Observation;
+                editCompany.Neighborhood = company.Neighborhood;
+                editCompany.AddressNumber = company.AddressNumber;
+                editCompany.UpdateDate = DateTime.Now;
+             
+                _serviceSystemConnection.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
+
     }
 }

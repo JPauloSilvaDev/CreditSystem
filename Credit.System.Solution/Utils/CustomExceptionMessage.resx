@@ -67,7 +67,7 @@
 	</resheader>
 
 	<!-- Your exception messages -->
-	<data name="GenericMessage0001" xml:space="preserve">
+	<data name="DefaultExceptionMessage" xml:space="preserve">
     <value>Não foi possível atender a solicitação no momento, tente novamente mais tarde.</value>
     
   </data>
@@ -81,7 +81,9 @@
 	<data name="ClientMessage0000" xml:space="preserve">
     <value>Cliente cadastrado com sucesso!</value>
   </data>
-
+	<data name="OperationSuccessMessage" xml:space="preserve">
+    <value>Operação realizada com sucesso!</value>
+  </data>
 	<data name="RemovedClientMessage" xml:space="preserve">
     <value>Cliente removido com sucesso!</value>
   </data>

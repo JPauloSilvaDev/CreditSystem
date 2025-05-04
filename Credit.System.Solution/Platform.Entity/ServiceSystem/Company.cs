@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Platform.Entity.ServiceSystem
 {
@@ -25,15 +24,17 @@ namespace Platform.Entity.ServiceSystem
         public string? Email { get; set; }
        
         public string? ZipCode { get; set; }
-       
+        
+        [Description("Número da Rua")]
         public short? AddressNumber { get; set; }
-       
+        
         public string? City { get; set; }
        
         public string? State { get; set; }
        
         public string? Observation { get; set; }
         
+        [Description("Bairro")]
         public string? Neighborhood { get; set; }
 
 

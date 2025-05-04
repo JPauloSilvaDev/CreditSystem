@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Platform.Entity.ServiceSystem;
 using Credit.System.App.CustomAttributes;
 using Platform.Utils;
+using Platform.Utils.Validators;
 
 namespace Credit.System.App.Controllers
 {
@@ -30,7 +31,7 @@ namespace Credit.System.App.Controllers
             }
             catch (Exception)
             {
-                return Json(new {success = false, message = CustomExceptionMessage.GenericMessage0001});
+                return Json(new {success = false, message = CustomExceptionMessage.DefaultExceptionMessage });
             }
            
         }
@@ -41,23 +42,55 @@ namespace Credit.System.App.Controllers
             try
             {
                 UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
-                
+
+                if (!UtilsValidators.IsValidDocument(company.Document))
+                    throw new CSException("Documento informado é inválido");
                 //Criar e chamar classe validator, validando os campos obrigatórios, CPF e CNPJ.
                 
                 _companyOperations.InsertCompany(company);
 
             }
-            catch (CSException exc)
+            catch (CSException ex)
             {
-                return StatusCode(422, new { success = false, message = exc.Message });
+                return Json(new { success = false, message = ex.Message});
             }
             catch (Exception)
             {
-                throw;
+                return Json(new { success = false, message = CustomExceptionMessage.DefaultExceptionMessage });
             }
 
             return Ok(new { success = true, message = "Cliente cadastrado com sucesso!" });
         }
-    
+
+
+
+        [HttpPost]
+        public IActionResult EditCompany([FromBody] Company company)
+        {
+            try
+            {
+                UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
+
+                if (!UtilsValidators.IsValidDocument(company.Document))
+                    throw new CSException("Documento informado é inválido");
+                
+                //Criar e chamar classe validator, validando os campos obrigatórios, CPF e CNPJ.
+
+                _companyOperations.InsertCompany(company);
+
+            }
+            catch (CSException ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false, message = CustomExceptionMessage.DefaultExceptionMessage });
+            }
+
+            return Ok(new { success = true, message = "Cliente cadastrado com sucesso!" });
+        }
+
+
     }
 }

@@ -98,7 +98,7 @@ namespace Credit.System.App.Controllers
             }
             catch (Exception)
             {
-                return Json(new { success = false, message = CustomExceptionMessage.GenericMessage0001 });
+                return Json(new { success = false, message = CustomExceptionMessage.DefaultExceptionMessage });
             }
            
 
@@ -116,7 +116,7 @@ namespace Credit.System.App.Controllers
             }
             catch (Exception)
             {
-                return Json(new { success = false, message = CustomExceptionMessage.GenericMessage0001});
+                return Json(new { success = false, message = CustomExceptionMessage.DefaultExceptionMessage });
             }
 
             return Json(new { success = true, message = CustomExceptionMessage.SaveChangesMessage });
@@ -155,7 +155,7 @@ namespace Credit.System.App.Controllers
             }
             catch (Exception)
             {
-                return Json(new { success = false, message = CustomExceptionMessage.GenericMessage0001, });
+                return Json(new { success = false, message = CustomExceptionMessage.DefaultExceptionMessage, });
             }
         }
         
@@ -169,7 +169,7 @@ namespace Credit.System.App.Controllers
             }
             catch (Exception)
             {
-                return Json(new { success = false, message = CustomExceptionMessage.GenericMessage0001 });
+                return Json(new { success = false, message = CustomExceptionMessage.DefaultExceptionMessage });
             }
 
             return Json(new {success = true, message = ""  }); //message bloqueado acesso do usuário
@@ -185,7 +185,7 @@ namespace Credit.System.App.Controllers
             }
             catch (Exception)
             {
-                return Json(new { success = false, message = CustomExceptionMessage.GenericMessage0001 });
+                return Json(new { success = false, message = CustomExceptionMessage.DefaultExceptionMessage });
             }
 
             return Json(new { success = true, message = "" }); //message bloqueado acesso do usuário

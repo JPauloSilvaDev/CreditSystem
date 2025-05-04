@@ -70,6 +70,15 @@ namespace Platform.Utils {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Não foi possível atender a solicitação no momento, tente novamente mais tarde..
+        /// </summary>
+        public static string DefaultExceptionMessage {
+            get {
+                return ResourceManager.GetString("DefaultExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid user credentials provided.
         /// </summary>
         public static string ERR_1001 {
@@ -88,11 +97,11 @@ namespace Platform.Utils {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Não foi possível atender a solicitação no momento, tente novamente mais tarde..
+        ///   Looks up a localized string similar to Operação realizada com sucesso!.
         /// </summary>
-        public static string GenericMessage0001 {
+        public static string OperationSuccessMessage {
             get {
-                return ResourceManager.GetString("GenericMessage0001", resourceCulture);
+                return ResourceManager.GetString("OperationSuccessMessage", resourceCulture);
             }
         }
         

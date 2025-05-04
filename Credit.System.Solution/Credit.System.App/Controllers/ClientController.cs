@@ -1,5 +1,4 @@
-﻿using System;
-using Credit.System.App.CustomAttributes;
+﻿using Credit.System.App.CustomAttributes;
 using Credit.System.App.Mapper;
 using Credit.System.App.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -40,7 +39,7 @@ namespace Credit.System.App.Controllers
             }
             catch (Exception)
             {
-                Json(new { success = false, message = CustomExceptionMessage.GenericMessage0001 });
+                Json(new { success = false, message = CustomExceptionMessage.DefaultExceptionMessage });
             }
 
             return View(viewModelClients);
@@ -71,10 +70,10 @@ namespace Credit.System.App.Controllers
 
             catch (Exception)
             {
-                Json(new { success = false, message = CustomExceptionMessage.GenericMessage0001 });
+                Json(new { success = false, message = CustomExceptionMessage.DefaultExceptionMessage });
             }
 
-            return Ok(new { success = true, message = "Cliente cadastrado com sucesso!" });
+            return Json(new { success = true, message = CustomExceptionMessage.OperationSuccessMessage });
 
         }
         [HttpPost]
@@ -86,10 +85,10 @@ namespace Credit.System.App.Controllers
             }
             catch (Exception)
             {
-                Json(new { success = false, message = CustomExceptionMessage.GenericMessage0001 });
+                Json(new { success = false, message = CustomExceptionMessage.DefaultExceptionMessage });
             }
 
-            return Json(new { success = true, message = CustomExceptionMessage.RemovedClientMessage });
+            return Json(new { success = true, message = CustomExceptionMessage.OperationSuccessMessage });
         }
     
     }
