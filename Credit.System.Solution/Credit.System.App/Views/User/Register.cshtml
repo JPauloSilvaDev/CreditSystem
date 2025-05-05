@@ -66,7 +66,7 @@
 											@{
 												if (user.isActive)
 												{
-													<button class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Bloquear">
+													<button class="btn btn-success btn-sm" data-bs-toggle="tooltip" onclick="BlockUserAccess('@user.UserId')"data-bs-placement="top" title="Bloquear">
 														<i class="fa fa-lock"></i>
 													</button>
 												}

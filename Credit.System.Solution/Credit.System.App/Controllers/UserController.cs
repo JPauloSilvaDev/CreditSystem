@@ -55,12 +55,8 @@ namespace Credit.System.App.Controllers
             {
                 UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
 
-                #region Verificando se o usuário logado pertence a empresa do sistema
                 if (userModel.CompanyId == null)
                     userModel.CompanyId = userLogged.CompanyId;
-
-                #endregion
-
 
                 bool userExists = _userOperations.UserExistsAtCompany(userModel.Login, userModel.CompanyId);
 
@@ -76,12 +72,12 @@ namespace Credit.System.App.Controllers
                 return Json(new { success = false, message = exc.Message });
             }
 
-            catch (Exception ex)
+            catch (Exception)
             {
-                return Json(new { success = false, message = ex.Message });
+                return Json(new { success = false, message = CustomExceptionMessage.DefaultExceptionMessage});
             }
 
-            return Ok(new { success = true, message = "Usuário cadastrado com sucesso!" });
+            return Json(new { success = true, message = CustomExceptionMessage.OperationSuccessMessage});
         }
 
 
@@ -172,7 +168,7 @@ namespace Credit.System.App.Controllers
                 return Json(new { success = false, message = CustomExceptionMessage.DefaultExceptionMessage });
             }
 
-            return Json(new {success = true, message = ""  }); //message bloqueado acesso do usuário
+            return Json(new {success = true, message = CustomExceptionMessage.OperationSuccessMessage}); 
         }
        
         [CheckUserSession]
@@ -188,7 +184,7 @@ namespace Credit.System.App.Controllers
                 return Json(new { success = false, message = CustomExceptionMessage.DefaultExceptionMessage });
             }
 
-            return Json(new { success = true, message = "" }); //message bloqueado acesso do usuário
+            return Json(new { success = true, message = CustomExceptionMessage.OperationSuccessMessage}); //message bloqueado acesso do usuário
         }
 
         public IActionResult Logout()

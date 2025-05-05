@@ -276,90 +276,74 @@ function RemoveUser() {
 
 }
 
-function BlockUserAccess() {
+function BlockUserAccess(userId) {
 
-    const data = {
-        UserId: $('#userId').val()
-    };
+    IsLoadingBody(true);
 
-    fetch("/User/BlockUserAccess", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "RequestVerificationToken": getAntiForgeryToken()
-        },
-        body: JSON.stringify(data)
+    fetch(`/User/BlockUserAccess?userId=${userId}`, {
+        method: "GET",
+         headers: {
+             "RequestVerificationToken": getAntiForgeryToken()
+        },// No headers or body needed
     })
         .then(response => {
-            // First check if the response is OK (status 200-299)
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json(); // Parse the JSON only if response is OK
+            IsLoadingBody(false);
+            if (!response.ok) throw new Error("Network error");
+            return response.json();
+
         })
         .then(data => {
+
             if (data.success) {
                 showAlert(data.message, 'success', 5000);
-
+                IsLoadingBody(false);
                 setTimeout(function () {
                     location.reload();
                 }, 3000);
-
-            } else {
-                showAlert(data.message, 'error', 5000);
-                console.error("Server error:", data.message);
             }
+            else {
+                showAlert(data.message, 'error', 5000);
+                IsLoadingBody(false);
+            }
+            console.log("Success:", data);
         })
         .catch(error => {
-            console.error("Fetch error:", error);
-            showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
+            console.error("Error:", error);
+            IsLoadingBody(false);
         });
-
-
 
 }
 
 
 
-function UnblockUserAccess() {
+function UnblockUserAccess(userId) {
 
-    const data = {
-        UserId: $('#userId').val()
-    };
-
-    fetch("/User/UnblockUserAccess", {
-        method: "POST",
+    fetch(`/User/UnblockUserAccess?userId=${userId}`, {
+        method: "GET",
         headers: {
-            "Content-Type": "application/json",
             "RequestVerificationToken": getAntiForgeryToken()
-        },
-        body: JSON.stringify(data)
+        },// No headers or body needed
     })
         .then(response => {
-            // First check if the response is OK (status 200-299)
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json(); // Parse the JSON only if response is OK
+            if (!response.ok) throw new Error("Network error");
+            return response.json();
         })
         .then(data => {
+
             if (data.success) {
                 showAlert(data.message, 'success', 5000);
-
                 setTimeout(function () {
                     location.reload();
                 }, 3000);
-
-            } else {
-                showAlert(data.message, 'error', 5000);
-                console.error("Server error:", data.message);
             }
+            else {
+                showAlert(data.message, 'error', 5000);
+            }
+            console.log("Success:", data);
         })
         .catch(error => {
-            console.error("Fetch error:", error);
-            showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
+            console.error("Error:", error);
         });
-
 
 
 }
