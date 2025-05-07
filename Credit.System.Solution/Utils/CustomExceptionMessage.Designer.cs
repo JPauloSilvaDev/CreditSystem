@@ -97,6 +97,15 @@ namespace Platform.Utils {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Documento informado é inválido.
+        /// </summary>
+        public static string InvalidDocument {
+            get {
+                return ResourceManager.GetString("InvalidDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Operação realizada com sucesso!.
         /// </summary>
         public static string OperationSuccessMessage {

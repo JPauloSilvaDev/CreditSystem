@@ -99,4 +99,10 @@
 	<data name="ERR_1002" xml:space="preserve">
     <value>Database connection timeout occurred</value>
   </data>
+	<data name="InvalidDocument" xml:space="preserve">
+    <value>Documento informado é inválido</value>
+  </data>
+	
+
+
 </root>

@@ -58,19 +58,19 @@ namespace Credit.System.App.Controllers
                 client.CompanyId = userLogged.CompanyId;
 
                 if (!UtilsValidators.IsValidDocument(client.Document))
-                    throw new CSException();
+                    throw new CSException(CustomExceptionMessage.InvalidDocument);
 
                 _clientOperations.InsertClient(client);
             }
 
             catch (CSException exception)
             {
-                Json(new { success = false, message = exception.Message });
+                return Json(new { success = false, message = exception.Message });
             }
 
             catch (Exception)
             {
-                Json(new { success = false, message = CustomExceptionMessage.DefaultExceptionMessage });
+                return Json(new { success = false, message = CustomExceptionMessage.DefaultExceptionMessage });
             }
 
             return Json(new { success = true, message = CustomExceptionMessage.OperationSuccessMessage });

@@ -2,10 +2,12 @@
 using Credit.System.App.Mapper;
 using Credit.System.App.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Platform.Entity.Interfaces;
 using Platform.Entity.ServiceSystem;
 using Platform.Utils;
+using Platform.Utils.Validators;
 namespace Credit.System.App.Controllers
 {
     public class UserController : Controller
@@ -53,6 +55,9 @@ namespace Credit.System.App.Controllers
         {
             try
             {
+                if (!UtilsValidators.IsValidDocument(userModel.Login))
+                    throw new CSException(CustomExceptionMessage.InvalidDocument);
+
                 UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
 
                 if (userModel.CompanyId == null)
