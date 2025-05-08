@@ -19,31 +19,31 @@ namespace Platform.Entity.ServiceSystem
         public string Document { get; set; }
 
         [Description("Telefone 1")]
-        public string? PrimaryPhone { get; set; }
+        public string PrimaryPhone { get; set; }
 
         [Description("Telefone 2")]
         public string? SecondaryPhone { get;set; }
        
         [Description("Cep")]
-        public string? Zipcode { get; set; }
+        public string Zipcode { get; set; }
 
         [Description("Rua")]
-        public string? Street { get; set; }
+        public string Street { get; set; }
 
         [Description("Número")]
-        public short? StreetNumber { get; set; }
+        public short StreetNumber { get; set; }
         
         [Description("Observação")]
         public string? Observation { get; set; }
 
         [Description("Estado")]
-        public string? State { get; set; }
+        public string State { get; set; }
 
         [Description("Cidade")]
-        public string? City { get; set; }
+        public string City { get; set; }
         
         [Description("Bairro")]
-        public string? Neighborhood { get; set; }
+        public string Neighborhood { get; set; }
 
     }
 }

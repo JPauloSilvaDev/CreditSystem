@@ -64,8 +64,6 @@ namespace Credit.System.App.Controllers
             return Json(new { success = true, message = "Cliente cadastrado com sucesso!" });
         }
 
-
-
         [HttpPost]
         public IActionResult EditCompany([FromBody] Company company)
         {
