@@ -28,7 +28,31 @@
         console.log(selectedRowData);
 
     });
- 
+
+    
+    $("#primaryPhone").mask("(99) 9999-9999");
+    $("#secondPhone").mask("(99) 9999-9999");
+    $("#txtCep").mask("99999-999");
+
+    //email: $('#email').val(),
+    //    document: $('#inputCpfCnpj').val(),
+    //        primaryPhone: $('#primaryPhone').val(),
+    //            secondaryPhone: $('#secondPhone').val(),
+    //                zipcode: $('#txtCep').val(),
+
+
+
+
+  //$("#inputCpfCnpj").mask("999.999.999-99");
+  //  //$("#txtCNPJ").mask("99.999.999/9999-99");
+    //$("#txtPlacaVeiculo").mask("aaa - 9999");
+    //$("#txtIP").mask('099.099.099.099');
+
+
+
+
+
+
 });
 
 function validateForm() {

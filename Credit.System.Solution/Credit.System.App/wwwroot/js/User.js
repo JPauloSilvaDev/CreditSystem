@@ -233,6 +233,7 @@ function GetRemoveUserModal(user){
     $("#removeUserModal").modal("show");
     $("#userId").val(user.UserId);
 }
+
 function RemoveUser() {
 
     const data = {
@@ -313,8 +314,6 @@ function BlockUserAccess(userId) {
         });
 
 }
-
-
 
 function UnblockUserAccess(userId) {
 

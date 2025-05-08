@@ -90,6 +90,49 @@ namespace Credit.System.App.Controllers
 
             return Json(new { success = true, message = CustomExceptionMessage.OperationSuccessMessage });
         }
-    
+
+
+
+        [HttpPost]
+        public IActionResult BatchCompanyRegister(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+            {
+                return Json(new { success = false, message = "No file was uploaded." });
+            }
+
+            // Validate file extension
+            var allowedExtensions = new[] { ".xls", ".xlsx" };
+            var fileExtension = Path.GetExtension(file.FileName).ToLowerInvariant();
+
+            if (!allowedExtensions.Contains(fileExtension))
+            {
+                return Json(new { success = false, message = "Invalid file type. Only .xls or .xlsx allowed." });
+            }
+
+            // Define the path to save the uploaded file
+            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+
+            // Create the folder if it doesn't exist
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
+
+            // Build the file path
+            var filePath = Path.Combine(uploadsFolder, Path.GetFileName(file.FileName));
+
+            // Save the file
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                file.CopyTo(stream);
+            }
+
+            return Json(new { success = true, message = CustomExceptionMessage.OperationSuccessMessage });
+        }
+
+
+
+
     }
 }

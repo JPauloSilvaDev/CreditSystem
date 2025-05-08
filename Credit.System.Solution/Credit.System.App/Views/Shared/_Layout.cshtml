@@ -46,23 +46,34 @@
 							</nav>
 						</div>
 
-						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseConfig" aria-expanded="false" aria-controls="collapseLayouts">
+						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseAdmin" aria-expanded="false" aria-controls="collapseLayouts">
 							<div class="sb-nav-link-icon"><i class="fas fa-user-tie"></i></div>
 							Administrativo
 							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
 						</a>
 
-						<div class="collapse" id="collapseConfig" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+						<div class="collapse" id="collapseAdmin" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
 								<a class="nav-link" asp-area="" asp-controller="Client" asp-action="Index">Clientes</a>
+							</nav>
+						</div>
+
+
+						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseConfig" aria-expanded="false" aria-controls="collapseLayouts">
+							<div class="sb-nav-link-icon"><i class="fas fa-gear"></i></div>
+							Configurações
+							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+						</a>
+
+
+						<div class="collapse" id="collapseConfig" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+							<nav class="sb-sidenav-menu-nested nav">
 								<a class="nav-link" asp-area="" asp-controller="Company" asp-action="Index">Minha Empresa</a>
 								<a class="nav-link" asp-area="" asp-controller="User" asp-action="Register">Usuários</a>
 							</nav>
 						</div>
 
-
 						<a class="nav-link" asp-area="" asp-controller="User" asp-action="Logout">Sair</a>
-
 
 					</div>
 				</div>
@@ -106,17 +117,9 @@
 		 style="z-index: 1100; align-items: flex-start; padding-top: 30vh;">
 
 		<div class="spinner-border text-light spinner-wave" role="status" style="width: 3.0rem; height: 3.0rem; animation-delay: 0.5s;"></div>
-	@* 	<div class="spinner-grow text-light spinner-wave" role="status" style="width: 3.0rem; height: 3.0rem; animation-delay: 1.5s;"></div>
-		<div class="spinner-grow text-light spinner-wave" role="status" style="width: 3.0rem; height: 3.0rem; animation-delay: 2.5s"></div> *@
 	</div>
 
 	@Html.AntiForgeryToken()
-	<!-- or -->
-
-
-	@*     
-    <input type="hidden" id="antiForgeryToken" name="__RequestVerificationToken"
-           value="@Html.AntiForgeryToken()" /> *@
 
 	@await RenderSectionAsync("Scripts", required: false)
 </body>

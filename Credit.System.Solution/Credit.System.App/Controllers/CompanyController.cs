@@ -95,8 +95,7 @@ namespace Credit.System.App.Controllers
 
 
 
-
-
+        #region Microserviço de processamento dos arquivos
         //public List<Company> ImportCompaniesFromExcel(string filePath)
         //{
         //    var companies = new List<Company>();
@@ -135,6 +134,8 @@ namespace Credit.System.App.Controllers
 
         //    return companies;
         //}
+        #endregion
+
 
 
 
