@@ -13,7 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Platform.Entity\Platform.Entity.csproj" />
     <ProjectReference Include="..\Platform.Repository\Platform.Repository.csproj" />
-    <ProjectReference Include="..\Utils\Platform.Utils.csproj" />
+    <ProjectReference Include="..\Platform.Utils\Platform.Utils.csproj" />
   </ItemGroup>
 
 </Project>

@@ -32,7 +32,7 @@ namespace Credit.System.App.Models
         public string? Street { get; set; }
 
         [Description("Número")]
-        public short? StreetNumber { get; set; }
+        public short StreetNumber { get; set; }
 
         [Description("Observação")]
         public string? Observation { get; set; }
