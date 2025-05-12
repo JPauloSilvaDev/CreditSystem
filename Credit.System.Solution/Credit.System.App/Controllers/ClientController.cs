@@ -14,10 +14,14 @@ namespace Credit.System.App.Controllers
     public class ClientController : Controller
     {
         private readonly IClientOperations _clientOperations;
-
-        public ClientController(IClientOperations clientOperations)
+        private readonly IConfiguration _configuration;
+        private readonly IBatchClientRegisterOperations _batchClientRegister;
+        
+        public ClientController(IClientOperations clientOperations, IConfiguration configuration, IBatchClientRegisterOperations batchClientRegister)
         {
             _clientOperations = clientOperations;
+            _configuration = configuration;
+            _batchClientRegister = batchClientRegister;
         }
 
         public IActionResult Index()
@@ -52,7 +56,7 @@ namespace Credit.System.App.Controllers
             try
             {
                 UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
-                
+
                 Client client = ClientMapper.MapClientViewModelToClient(clientViewModel);
 
                 client.CompanyId = userLogged.CompanyId;
@@ -76,6 +80,7 @@ namespace Credit.System.App.Controllers
             return Json(new { success = true, message = CustomExceptionMessage.OperationSuccessMessage });
 
         }
+        
         [HttpPost]
         public IActionResult RemoveClient(long clientId)
         {
@@ -91,48 +96,41 @@ namespace Credit.System.App.Controllers
             return Json(new { success = true, message = CustomExceptionMessage.OperationSuccessMessage });
         }
 
-
-
         [HttpPost]
-        public IActionResult BatchCompanyRegister(IFormFile file)
+        public IActionResult UploadFile(IFormFile file)
         {
             if (file == null || file.Length == 0)
+                return Json(new { sucess = false, message = "Arquivo não pode ser vazio" });
+
+            try
             {
-                return Json(new { success = false, message = "No file was uploaded." });
+                var folderPath = _configuration["BatchClientRegisterFilePath"];
+
+                if (!Directory.Exists(folderPath))
+                    Directory.CreateDirectory(folderPath);
+                
+                var filePath = Path.Combine(folderPath, file.FileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+
+                BatchClientRegister batchClientRegister = new BatchClientRegister()
+                {
+                    FileName = file.FileName,
+                    FilePath = filePath,
+                };
+                   
+                _batchClientRegister.Insert(batchClientRegister);
+
+                return Json(new { success = true, message = CustomExceptionMessage.OperationSuccessMessage }); // Or RedirectToAction("UploadFile")
             }
-
-            // Validate file extension
-            var allowedExtensions = new[] { ".xls", ".xlsx" };
-            var fileExtension = Path.GetExtension(file.FileName).ToLowerInvariant();
-
-            if (!allowedExtensions.Contains(fileExtension))
+            catch (Exception ex)
             {
-                return Json(new { success = false, message = "Invalid file type. Only .xls or .xlsx allowed." });
+                return StatusCode(500, $"Internal server error: {ex.Message}");
             }
-
-            // Define the path to save the uploaded file
-            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
-
-            // Create the folder if it doesn't exist
-            if (!Directory.Exists(uploadsFolder))
-            {
-                Directory.CreateDirectory(uploadsFolder);
-            }
-
-            // Build the file path
-            var filePath = Path.Combine(uploadsFolder, Path.GetFileName(file.FileName));
-
-            // Save the file
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                file.CopyTo(stream);
-            }
-
-            return Json(new { success = true, message = CustomExceptionMessage.OperationSuccessMessage });
         }
-
-
-
 
     }
 }

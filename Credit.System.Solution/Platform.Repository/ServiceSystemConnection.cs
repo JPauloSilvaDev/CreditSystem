@@ -11,7 +11,7 @@ namespace Platform.Repository
         public DbSet<User> User { get; set; }
         public DbSet<Company> Company { get; set; }
         public DbSet<Client> Client { get; set; }
-
+        public DbSet<BatchClientRegister> BatchClientRegister { get; set; }
 
     }
 

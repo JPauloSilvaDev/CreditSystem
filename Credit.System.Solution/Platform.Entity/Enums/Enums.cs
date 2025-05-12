@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Platform.Entity.Enums
+﻿namespace Platform.Entity.Enums
 {
     public static class Enums
     {
@@ -15,6 +9,15 @@ namespace Platform.Entity.Enums
             Settled = 2,
             PartiallySettled = 3,
             Ongoing = 4
+        }
+    
+        public enum BatchClientRegisterStatus
+        {
+            Created = 0,
+            Processing = 1,
+            PartiallyProcessed = 2,
+            Processed = 3,
+            Error = 4
         }
     
     }

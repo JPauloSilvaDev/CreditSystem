@@ -11,7 +11,7 @@
             infoFiltered: "Filtrado de _MAX_ registros"
         },
 
-        responsive: true, 
+        responsive: true,
         dom: '<"top"p>rt<"bottom"i>'
 
     });
@@ -29,7 +29,7 @@
 
     });
 
-    
+
     $("#primaryPhone").mask("(99) 9999-9999");
     $("#secondPhone").mask("(99) 9999-9999");
     $("#txtCep").mask("99999-999");
@@ -43,8 +43,8 @@
 
 
 
-  //$("#inputCpfCnpj").mask("999.999.999-99");
-  //  //$("#txtCNPJ").mask("99.999.999/9999-99");
+    //$("#inputCpfCnpj").mask("999.999.999-99");
+    //  //$("#txtCNPJ").mask("99.999.999/9999-99");
     //$("#txtPlacaVeiculo").mask("aaa - 9999");
     //$("#txtIP").mask('099.099.099.099');
 
@@ -270,4 +270,55 @@ function RemoveClient() {
 function GetRemoveClientModal(clientId) {
     $("#removeClientModal").modal("show");
     $("#clientId").val(clientId);
+}
+
+
+
+
+function uploadFile() {
+
+    const fileInput = document.getElementById("fileInput");
+    const file = fileInput.files[0];
+
+    if (!file) {
+        alert("Selecione um arquivo.");
+        return;
+    }
+
+    const formData = new FormData();
+
+    formData.append("file", file); // 'file' must match the controller parameter name
+
+    fetch("/Client/UploadFile", {
+        method: "POST",
+        headers: {
+            "RequestVerificationToken": getAntiForgeryToken() // Add token to header
+        },
+        body: formData,
+       
+    })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                showAlert("Arquivo enviado com sucesso!", "success", 5000);
+            } else {
+                showAlert(result.message || "Erro no envio do arquivo.", "danger", 5000);
+            }
+        })
+        .catch(error => {
+            console.error("Erro no envio:", error);
+            showAlert("Erro inesperado.", "danger", 5000);
+        });
+}
+
+
+
+
+
+function handleUploadResponse(data) {
+    if (data.success) {
+        alert(data.message); // or show in UI
+    } else {
+        alert("Error: " + data.message);
+    }
 }
