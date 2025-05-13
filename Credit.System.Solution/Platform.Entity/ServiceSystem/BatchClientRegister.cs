@@ -11,6 +11,7 @@ namespace Platform.Entity.ServiceSystem
         public string FilePath { get; set; }
 
         public BatchClientRegisterStatus Status { get; set; }
+        public long CompanyId { get; set; }
     
     }
 }

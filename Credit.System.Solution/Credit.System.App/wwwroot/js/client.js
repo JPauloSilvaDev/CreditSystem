@@ -281,7 +281,7 @@ function uploadFile() {
     const file = fileInput.files[0];
 
     if (!file) {
-        alert("Selecione um arquivo.");
+        showAlert("Selecione um arquivo", "warning", 5000);
         return;
     }
 
@@ -302,12 +302,12 @@ function uploadFile() {
             if (result.success) {
                 showAlert("Arquivo enviado com sucesso!", "success", 5000);
             } else {
-                showAlert(result.message || "Erro no envio do arquivo.", "danger", 5000);
+                showAlert(result.message, "danger", 5000);
             }
         })
         .catch(error => {
-            console.error("Erro no envio:", error);
-            showAlert("Erro inesperado.", "danger", 5000);
+            console.error("Informações sobre o erro", error);
+            showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde", "danger", 5000);
         });
 }
 

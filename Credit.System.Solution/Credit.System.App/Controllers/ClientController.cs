@@ -124,11 +124,15 @@ namespace Credit.System.App.Controllers
                    
                 _batchClientRegister.Insert(batchClientRegister);
 
-                return Json(new { success = true, message = CustomExceptionMessage.OperationSuccessMessage }); // Or RedirectToAction("UploadFile")
+                return Json(new { success = true, message = CustomExceptionMessage.OperationSuccessMessage }); 
             }
-            catch (Exception ex)
+            catch (CSException ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return Json(new { success = false, message = ex.Message });
+            }
+            catch (Exception)
+            {
+                return Json(new {success = false, message = CustomExceptionMessage.DefaultExceptionMessage});
             }
         }
 
