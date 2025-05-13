@@ -33,7 +33,23 @@ namespace Platform.Transactional.Operations
         {
             try
             {
-                _serviceSystemConnection.Client.Update(client);
+                Client clientToEdit = _serviceSystemConnection.Client.Find(client.ClientId);
+
+                clientToEdit.PrimaryName = client.PrimaryName;
+                clientToEdit.SecondaryName = client.SecondaryName;
+                clientToEdit.Email = client.Email;
+                clientToEdit.Document = client.Document;
+                clientToEdit.PrimaryPhone = client.PrimaryPhone;
+                clientToEdit.SecondaryPhone = client.SecondaryPhone;
+                clientToEdit.ZipCode = client.ZipCode;
+                clientToEdit.Street = client.Street;
+                clientToEdit.StreetNumber = client.StreetNumber;
+                clientToEdit.Observation = client.Observation;
+                clientToEdit.State = client.State;
+                clientToEdit.City = client.City;
+                clientToEdit.Neighborhood = client.Neighborhood;
+
+                _serviceSystemConnection.SaveChanges();
             }
             catch (Exception)
             {

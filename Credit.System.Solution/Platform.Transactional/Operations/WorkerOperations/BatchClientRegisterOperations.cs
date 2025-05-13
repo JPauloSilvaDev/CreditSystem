@@ -35,9 +35,11 @@ namespace Platform.Transactional.Operations.WorkerOperations
 
                     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
+                    #region fazendo leitura do arquivo XLSX | XLS
                     using var stream = File.Open(filePath, FileMode.Open, FileAccess.Read);
                     using var reader = ExcelReaderFactory.CreateReader(stream);
                     var result = reader.AsDataSet(new ExcelDataSetConfiguration
+                    #endregion
                     {
                         ConfigureDataTable = _ => new ExcelDataTableConfiguration
                         {
@@ -46,7 +48,6 @@ namespace Platform.Transactional.Operations.WorkerOperations
                     });
 
                     var table = result.Tables[0];
-
 
                     int sucessRowsCount = 0;
 
@@ -60,7 +61,7 @@ namespace Platform.Transactional.Operations.WorkerOperations
                             PrimaryPhone = row["Telefone 1"]?.ToString(),
                             SecondaryPhone = row["Telefone 2"]?.ToString(),
                             Email = row["Email"]?.ToString(),
-                            Zipcode = row["Cep"]?.ToString(),
+                            ZipCode = row["Cep"]?.ToString(),
                             Neighborhood = row["Bairro"]?.ToString(),
                             Street = row["Rua"]?.ToString(),
                             StreetNumber = short.TryParse(row["Numero"]?.ToString(), out var number) ? number : (short)0,

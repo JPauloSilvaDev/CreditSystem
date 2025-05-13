@@ -1,18 +1,20 @@
 ﻿$(document).ready(function () {
 
     var table = $('#dataTableClient').DataTable({
-        /* paging: false,*/
+        paging: true,
         searching: true,
         pageLength: 10,
+        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
         language: {
             search: "Pesquisar:",
             zeroRecords: "Nenhum registro encontrado",
             info: "",
-            infoFiltered: "Filtrado de _MAX_ registros"
+            infoFiltered: "Filtrado de _MAX_ registros",
+            lengthMenu: "_MENU_ registros por página",
         },
 
         responsive: true,
-        dom: '<"top"p>rt<"bottom"i>'
+        /*dom: '<"top"p>rt<"bottom"i>'*/
 
     });
 
@@ -95,8 +97,6 @@ function RegisterClient() {
         return;
     }
 
-
-    // Send the data to the server using Fetch API
     fetch("/Client/RegisterClient", {
         method: "POST",
         headers: {
@@ -105,7 +105,7 @@ function RegisterClient() {
         },
         body: JSON.stringify(data)
     })
-        .then(response => response.json()) // Parse the JSON response
+        .then(response => response.json())
         .then(data => {
 
             debugger
@@ -122,20 +122,73 @@ function RegisterClient() {
 }
 
 function SetEditClient(client) {
+    debugger
+    $('#clientId').val(client.ClientId);
     $('#editPrimaryName').val(client.PrimaryName);
+    $('#clientId').val(client.ClientId);
     $('#editSecondaryName').val(client.SecondaryName);
     $('#editEmail').val(client.Email);
     $('#editCpfCnpj').val(client.Document);
-    $('#editEmail').val(client.Email);
-    $('#editEmail').val(client.Email);
-    $('#editEmail').val(client.Email);
-    $('#editEmail').val(client.Email);
-    $('#editEmail').val(client.Email);
-    $('#editEmail').val(client.Email);
-    $('#editEmail').val(client.Email);
-    $('#editEmail').val(client.Email);
-    $('#editEmail').val(client.Email);
+    $('#editPrimaryPhone').val(client.PrimaryPhone);
+    $('#editSecondaryPhone').val(client.SecondaryPhone);
+    $('#editCep').val(client.ZipCode);
+    $('#editStreet').val(client.Street);
+    $('#editStreetNumber').val(client.StreetNumber);
+    $('#editNeighborhood').val(client.Neighborhood)
+    $('#editObservation').val(client.Observation);
+    $('#editCity').val(client.City);
+    $('#editState').val(client.State);
 };
+
+function EditClient() {
+
+    const data = {
+        clientid: $('#clientId').val(),
+        primaryname: $('#editPrimaryName').val(),
+        secondaryname: $('#editSecondaryName').val(),
+        email: $('#editEmail').val(),
+        document: $('#editCpfCnpj').val(),
+        primaryPhone: $('#editPrimaryPhone').val(),
+        secondaryPhone: $('#editSecondaryPhone').val(),
+        zipcode: $('#editCep').val(),
+        street: $('#editStreet').val(),
+        streetNumber: $('#editStreetNumber').val(),
+        observation: $('#editObservation').val(),
+        state: $('#editState').val(),
+        city: $('#editCity').val(),
+        neighborhood: $('#editNeighborhood').val()
+    };
+
+    if (!ValidateRegisterClient(data)) {
+        return;
+    }
+
+    fetch("/Client/EditClient", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => response.json())
+        .then(data => {
+
+            debugger
+            if (data.success) {
+                showAlert("Alterações salvas com sucesso!", 'success', 5000);
+            } else {
+                showAlert("Não foi possível concluir a solicitação no momento", 'error', 5000);
+                
+            }
+        })
+        .catch(error => {
+            showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
+            console.log("detalhes do erro: " + error)
+        });
+}
+
+
 
 function UserLogin() {
     const loginInput = $('#loginInput').val();
@@ -156,7 +209,6 @@ function UserLogin() {
         password: passwordInput,
     };
 
-
     fetch("/User/Login", {
         method: "POST",
         headers: {
@@ -175,7 +227,7 @@ function UserLogin() {
             }
         })
         .catch(error => {
-            //console.error("Error:", error);
+            console.error("Detalhes do erro", error);
             showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
         });
 
@@ -233,10 +285,6 @@ function ValidateRegisterClient(data) {
         return false;
     }
 
-    // Optional: Validate secondPhone and observation if required
-    // if (data.secondPhone === "") {...}
-    // if (data.observation === "") {...}
-
     return true;
 }
 
@@ -246,7 +294,6 @@ function RemoveClient() {
 
     fetch(`/Client/RemoveClient?clientId=${clientId}`, {
         method: "POST"
-        // No headers or body needed
     })
         .then(response => {
             if (!response.ok) throw new Error("Network error");
@@ -272,9 +319,6 @@ function GetRemoveClientModal(clientId) {
     $("#clientId").val(clientId);
 }
 
-
-
-
 function uploadFile() {
 
     const fileInput = document.getElementById("fileInput");
@@ -295,7 +339,7 @@ function uploadFile() {
             "RequestVerificationToken": getAntiForgeryToken() // Add token to header
         },
         body: formData,
-       
+
     })
         .then(response => response.json())
         .then(result => {
@@ -310,10 +354,6 @@ function uploadFile() {
             showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde", "danger", 5000);
         });
 }
-
-
-
-
 
 function handleUploadResponse(data) {
     if (data.success) {

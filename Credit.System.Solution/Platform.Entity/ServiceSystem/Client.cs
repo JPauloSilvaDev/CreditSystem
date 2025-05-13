@@ -25,7 +25,7 @@ namespace Platform.Entity.ServiceSystem
         public string? SecondaryPhone { get;set; }
        
         [Description("Cep")]
-        public string Zipcode { get; set; }
+        public string ZipCode { get; set; }
 
         [Description("Rua")]
         public string Street { get; set; }

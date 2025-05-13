@@ -17,6 +17,7 @@ builder.Services.AddScoped<ICompanyOperations, CompanyOperations>();
 builder.Services.AddScoped<IUserOperations, UserOperations>();
 builder.Services.AddScoped<IClientOperations, ClientOperations>();
 builder.Services.AddScoped<IBatchClientRegisterOperations, BatchClientRegisterOperations>();
+builder.Services.AddScoped<IDebtorOperations, DebtorOperations>();
 builder.Services.AddControllersWithViews();
 
 

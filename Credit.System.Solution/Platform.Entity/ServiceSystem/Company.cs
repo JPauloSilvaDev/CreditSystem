@@ -36,7 +36,9 @@ namespace Platform.Entity.ServiceSystem
         
         [Description("Bairro")]
         public string? Neighborhood { get; set; }
-
+        
+        [Description("Cobrança Terceirizada")]
+        public bool IsThirdPartyCollection { get; set; }
 
     }
 }

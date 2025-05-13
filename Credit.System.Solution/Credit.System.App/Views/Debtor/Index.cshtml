@@ -1,6 +1,6 @@
 ﻿@using Credit.System.App.Enums
 @using System.ComponentModel
-@* @model List<Platform.Entity.ServiceSystem.Client> = ; *@
+@model DebtorViewModel;
 
 <head>
 	<meta charset="utf-8">
@@ -213,8 +213,8 @@
 				</thead>
 				<tbody>
 
-					@* @foreach (Client client in Model)
-					{ *@
+					@foreach (Debtor debtor in Model.Debtors)
+					{
 						<tr>
 							<td class="align-middle text-nowrap">Nome</td>
 							<td class="align-middle text-nowrap">2121212121</td>
@@ -258,7 +258,7 @@
                                 </div> 
 							</td> *@
 						</tr>
-					@* } *@
+					}
 				</tbody>
 			</table>
 		</div>

@@ -27,18 +27,14 @@ namespace Credit.System.App.Controllers
         public IActionResult Index()
         {
             UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
-
-            List<Client>? clients = null;
-            List<ClientViewModel>? viewModelClients = null;
+            ClientViewModel viewModel = new ClientViewModel();
 
             try
             {
-                clients = _clientOperations.GetClientsByCompanyId(userLogged.CompanyId);
+                viewModel.Clients = _clientOperations.GetClientsByCompanyId(userLogged.CompanyId);
 
-                if (clients == null)
+                if (!viewModel.Clients.Any())
                     return View(new List<ClientViewModel>());
-
-                viewModelClients = ClientMapper.MapClientToClientViewModel(clients);
 
             }
             catch (Exception)
@@ -46,18 +42,18 @@ namespace Credit.System.App.Controllers
                 Json(new { success = false, message = CustomExceptionMessage.DefaultExceptionMessage });
             }
 
-            return View(viewModelClients);
+            return View(viewModel);
 
         }
 
         [HttpPost]
-        public IActionResult RegisterClient([FromBody] ClientViewModel clientViewModel)
+        public IActionResult RegisterClient([FromBody] RegisterClientModel clientViewModel)
         {
             try
             {
                 UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
 
-                Client client = ClientMapper.MapClientViewModelToClient(clientViewModel);
+                Client client = ClientMapper.MapClientRegisterModelToClient(clientViewModel);
 
                 client.CompanyId = userLogged.CompanyId;
 
@@ -71,7 +67,6 @@ namespace Credit.System.App.Controllers
             {
                 return Json(new { success = false, message = exception.Message });
             }
-
             catch (Exception)
             {
                 return Json(new { success = false, message = CustomExceptionMessage.DefaultExceptionMessage });
@@ -81,6 +76,26 @@ namespace Credit.System.App.Controllers
 
         }
         
+        [HttpPost]
+        public IActionResult EditClient([FromBody] RegisterClientModel registerClientModel)
+        {
+            try
+            {
+                UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
+                Client client = ClientMapper.MapClientRegisterModelToClient(registerClientModel);
+                client.CompanyId = userLogged.CompanyId;
+                _clientOperations.UpdateClient(client);
+            }
+            catch (Exception)
+            {
+                Json(new { success = false, message = CustomExceptionMessage.DefaultExceptionMessage });
+            }
+
+            return Json(new { success = true, message = CustomExceptionMessage.OperationSuccessMessage });
+        }
+
+
+
         [HttpPost]
         public IActionResult RemoveClient(long clientId)
         {
@@ -95,6 +110,9 @@ namespace Credit.System.App.Controllers
 
             return Json(new { success = true, message = CustomExceptionMessage.OperationSuccessMessage });
         }
+
+
+
 
         [HttpPost]
         public IActionResult UploadFile(IFormFile file)

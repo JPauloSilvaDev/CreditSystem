@@ -1,8 +1,7 @@
-﻿using Platform.Repository;
-using Platform.Entity.Interfaces;
+﻿using Platform.Entity.Interfaces;
 using Platform.Entity.ServiceSystem;
+using Platform.Repository;
 using Utils.Security;
-using System.ComponentModel.Design;
 
 namespace Platform.Transactional.Operations
 {
