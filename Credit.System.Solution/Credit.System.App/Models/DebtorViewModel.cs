@@ -5,6 +5,5 @@ namespace Credit.System.App.Models
     public class DebtorViewModel
     {
         public List<Debtor> Debtors { get; set; }
-        public List<Client> Clients { get; set; }
     }
 }

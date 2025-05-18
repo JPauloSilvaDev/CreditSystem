@@ -94,8 +94,6 @@ namespace Credit.System.App.Controllers
             return Json(new { success = true, message = CustomExceptionMessage.OperationSuccessMessage });
         }
 
-
-
         [HttpPost]
         public IActionResult RemoveClient(long clientId)
         {
@@ -110,9 +108,6 @@ namespace Credit.System.App.Controllers
 
             return Json(new { success = true, message = CustomExceptionMessage.OperationSuccessMessage });
         }
-
-
-
 
         [HttpPost]
         public IActionResult UploadFile(IFormFile file)
