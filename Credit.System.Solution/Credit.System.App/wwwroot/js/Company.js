@@ -1,25 +1,34 @@
-﻿function RegisterNewUser() {
+﻿
+//Adicionando máscaras aos campos de input.
+document.addEventListener('DOMContentLoaded', function () {
+    $("#PrimaryPhone").mask("(99) 9999-9999");
+    $("#SecondPhone").mask("(99) 9999-9999");
+    $("#ZipCode").mask("99999-999");
+    $("#Document").mask("99.999.999/9999-99");
+});
+
+function EditCompany() {
 
     IsLoadingBody(true);
 
     const data = {
-        
         PrimaryName: document.getElementById("PrimaryName").value,
-        SecondName: document.getElementById("SecondName").value,
+        SecondaryName: document.getElementById("SecondName").value,
         Document: document.getElementById("Document").value,
         PrimaryPhone: document.getElementById("PrimaryPhone").value,
-        SecondPhone: document.getElementById("SecondPhone").value,
+        SecondaryPhone: document.getElementById("SecondPhone").value,
         Email: document.getElementById("Email").value,
         ZipCode: document.getElementById("ZipCode").value,
         AddressNumber: document.getElementById("AddressNumber").value,
         City: document.getElementById("inputCity").value,
         State: document.getElementById("inputState").value,
         Observation: document.getElementById("Observation").value,
-        Neighborhood: document.getElementById("inputNeighborhood").value
+        Neighborhood: document.getElementById("inputNeighborhood").value,
+        Street: document.getElementById("inputStreet").value
     };
 
     // Send the data to the server using Fetch API
-    fetch("/Company/CompanyRegister", {
+    fetch("/Company/EditCompany", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

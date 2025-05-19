@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link href="~/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/css/Company.css" rel="stylesheet">
-  
+
 </head>
 
 @{
@@ -26,7 +26,7 @@
 
         <div class="row">
             <p>Dados</p>
-            
+
             <div class="col-md-3 mb-3">
                 <label for="firstName">Razão Social</label>
                 <input type="text" value="@Model.PrimaryName"class="form-control" id="PrimaryName" placeholder="Digite o nome">
@@ -41,13 +41,13 @@
                 <label for="lastName">Email</label>
                 <input type="text" class="form-control" id="Email" value="@Model.Email" placeholder="Digite um email válido">
             </div>
-        
+
         </div>
 
         <div class="row">
             <div class="col-md-2 mb-3">
                 <label for="username">CNPJ</label>
-                <input type="text" class="form-control" value="@Model.Document" id="Document" placeholder="CPF/CNPJ" disabled>
+                <input type="text" class="form-control" value="@Model.Document" id="Document" placeholder="CPF/CNPJ">
             </div>
 
             <div class="col-md-2 mb-3">
@@ -79,7 +79,7 @@
 
             <div class="col-md-3 mb-3">
                 <label>Logradouro</label>
-                <input type="text" class="form-control" id="inputStreet">
+                <input type="text" class="form-control" value="@Model.Street" id="inputStreet">
             </div>
 
             <div class="col-md-1 mb-3">
@@ -97,10 +97,49 @@
         </div>
 
         <div class="row">
-            
+
             <div class="col-md-1 mb-3">
                 <label>Estado</label>
-                <input type="text" class="form-control" id="inputState" value="@Model.State">
+                <select class="form-control" name="estado" id="inputState">
+
+                    @if(Model.State != null)
+                    {
+                        <option value="@Model.State" selected>@Model.State</option>
+                    }
+                    else
+                    {
+                        <option value="" selected>Selecione</option>
+                    }
+                   
+                    <option value="AC">AC</option>
+                    <option value="AL">AL</option>
+                    <option value="AP">AP</option>
+                    <option value="AM">AM</option>
+                    <option value="BA">BA</option>
+                    <option value="CE">CE</option>
+                    <option value="DF">DF</option>
+                    <option value="ES">ES</option>
+                    <option value="GO">GO</option>
+                    <option value="MA">MA</option>
+                    <option value="MT">MT</option>
+                    <option value="MS">MS</option>
+                    <option value="MG">MG</option>
+                    <option value="PA">PA</option>
+                    <option value="PB">PB</option>
+                    <option value="PR">PR</option>
+                    <option value="PE">PE</option>
+                    <option value="PI">PI</option>
+                    <option value="RJ">RJ</option>
+                    <option value="RN">RN</option>
+                    <option value="RS">RS</option>
+                    <option value="RO">RO</option>
+                    <option value="RR">RR</option>
+                    <option value="SC">SC</option>
+                    <option value="SP">SP</option>
+                    <option value="SE">SE</option>
+                    <option value="TO">TO</option>
+                </select>
+                
             </div>
 
             <div class="col-md-3 mb-3">
@@ -117,7 +156,7 @@
 
     </div>
 
-    <button class="btn btn-success" onclick="RegisterNewUser()">Salvar Alterações</button>
+    <button class="btn btn-success" onclick="EditCompany()">Salvar Alterações</button>
 
 </div>
 

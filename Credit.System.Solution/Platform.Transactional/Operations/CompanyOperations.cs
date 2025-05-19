@@ -64,6 +64,7 @@ namespace Platform.Transactional.Operations
             {
                 Company editCompany = GetCompanyById(company.CompanyId);
 
+                editCompany.Document = company.Document;
                 editCompany.PrimaryName = company.PrimaryName;
                 editCompany.SecondaryName = company.SecondaryName;
                 editCompany.PrimaryPhone = company.PrimaryPhone;
@@ -76,6 +77,7 @@ namespace Platform.Transactional.Operations
                 editCompany.Observation = company.Observation;
                 editCompany.Neighborhood = company.Neighborhood;
                 editCompany.AddressNumber = company.AddressNumber;
+                editCompany.Street = company.Street;
                 editCompany.UpdateDate = DateTime.Now;
              
                 _serviceSystemConnection.SaveChanges();

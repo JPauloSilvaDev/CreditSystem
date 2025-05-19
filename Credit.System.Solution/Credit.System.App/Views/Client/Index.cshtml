@@ -8,9 +8,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<script src="~/js/client.js"></script>
-	@{
-		Client? currentSelectedClient = null;
-	}
+
 	<style type="text/css" id="operaUserStyle">
 
 		body {
@@ -67,7 +65,7 @@
 	<button class="btn btn-secondary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClientForm" aria-expanded="false" aria-controls="collapseClientForm">
 		Novo Cliente
 	</button>
-	
+
 	<button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#uploadModal">
 		Importar Planilha
 	</button>
@@ -98,7 +96,7 @@
 
 				<div class="col-md-3 mb-3">
 					<label for="lastName">Nome Fantasia</label>
-					<input  type="text" class="form-control" id="lastName" placeholder="(Opcional)" required="">
+					<input type="text" class="form-control" id="lastName" placeholder="(Opcional)" required="">
 					<div class="invalid-feedback">É necessário informar o nome</div>
 				</div>
 
@@ -112,13 +110,13 @@
 			<div class="row">
 				<div class="col-md-2 mb-3">
 					<label for="username">CPF/CNPJ</label>
-					<input  type="text" class="form-control" id="inputCpfCnpj" placeholder="CPF/CNPJ" required="">
+					<input type="text" class="form-control" id="inputCpfCnpj" placeholder="CPF/CNPJ" required="">
 					<div class="invalid-feedback">É necessário informar um documento válido.</div>
 				</div>
 
 				<div class="col-md-2 mb-3">
 					<label for="PrimaryPhone">Contato 1</label>
-					<input  class="form-control" id="primaryPhone" placeholder="Número">
+					<input class="form-control" id="primaryPhone" placeholder="Número">
 					<div class="invalid-feedback">É necessário informar um contato.</div>
 				</div>
 
@@ -182,7 +180,7 @@
 			</div>
 		</div>
 
-		<button id="registerClientBtn" onclick="RegisterClient()" class="btn btn-secondary">Cadastrar</button>
+		<button id="registerClientBtn" onclick="RegisterClient()" class="btn btn-success">Cadastrar</button>
 		<button id="registerClientBtn" class="btn btn-danger" data-bs-toggle="collapse" data-bs-target="#collapseClientForm" aria-expanded="false" aria-controls="collapseClientForm">Cancelar</button>
 	</div>
 </div>
@@ -241,8 +239,7 @@
 			<div class="row">
 				<div class="col-md-2 mb-3">
 					<label for="zipCode">Cep</label>
-					<input type="text" class="form-control" id="editCep" placeholder="Digite um Cep" >
-					<div class="invalid-feedback">Zip code required.</div>
+					<input type="text" class="form-control" id="editCep" placeholder="Digite um Cep">
 				</div>
 			</div>
 
@@ -250,21 +247,18 @@
 				<div class="col-md-3 mb-3">
 					<label>Logradouro</label>
 					<input type="text" class="form-control" id="editStreet">
-					<div class="invalid-feedback">Zip code required.</div>
 				</div>
 
 				<div class="col-md-1 mb-3">
 					<label>Número</label>
 					<input type="text" class="form-control" id="editStreetNumber">
-					<div class="invalid-feedback">Zip code required.</div>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="col-md-3 mb-3">
 					<label>Observação</label>
-					<input type="text" class="form-control" id="editObservation" >
-					<div class="invalid-feedback">Zip code required.</div>
+					<input type="text" class="form-control" id="editObservation">
 				</div>
 			</div>
 
@@ -272,19 +266,16 @@
 				<div class="col-md-1 mb-3">
 					<label>Estado</label>
 					<input type="text" class="form-control" id="editState" required="">
-					<div class="invalid-feedback">Zip code required.</div>
 				</div>
 
 				<div class="col-md-3 mb-3">
 					<label>Municipio</label>
 					<input type="text" class="form-control" id="editCity" required="">
-					<div class="invalid-feedback">Zip code required.</div>
 				</div>
 
 				<div class="col-md-2 mb-3">
 					<label>Bairro</label>
-					<input type="text" class="form-control" id="editNeighborhood" required="">
-					<div class="invalid-feedback">Zip code required.</div>
+					<input type="text" class="form-control" id="editNeighborhood">
 				</div>
 			</div>
 		</div>
@@ -296,21 +287,38 @@
 <div class="card shadow mb-4">
 	<div class="card-header py-3 d-flex justify-content-between align-items-center">
 		<h6 class="m-0 font-weight-bold text-primary">
-			<i class="fas fa-table me-2"></i>Clientes
+			<i class="fas fa-table me-2"></i>Meus Clientes
 		</h6>
 		<div class="d-flex">
+			<label for="customLenght">Registros por página</label>		
+			<select class="form-control" style="width: 20%" id="customLength">
+				<option value="10">10</option>
+				<option value="25">25</option>
+				<option value="100">100</option>
+			</select>
 			<div class="input-group me-2">
 				<span class="input-group-text bg-light border-0">
 					<i class="fas fa-search"></i>
 				</span>
 				<input type="text" class="form-control border-0 bg-light" id="searchInput" placeholder="Pesquisar...">
 			</div>
+			
 			<button class="btn btn-light" id="refreshTable">
 				<i class="fas fa-sync-alt"></i>
 			</button>
+			
+		
 		</div>
+	
 	</div>
+
+
+	
 	<div class="card-body">
+
+	
+
+
 		<div class="table-responsive">
 			<table id="dataTableClient" class="table">
 				<thead class="table-light">
@@ -318,15 +326,7 @@
 						<th class="text-nowrap">Razão Social</th>
 						<th class="text-nowrap">Nome Fantasia</th>
 						<th class="text-nowrap">Telefone</th>
-						<th class="text-nowrap">Telefone 2</th>
 						<th>Email</th>
-						<th>Cidade</th>
-						<th>Estado</th>
-						<th>Bairro</th>
-						<th>Rua</th>
-						<th>Nº</th>
-						<th>Cep</th>
-						<th>Observação</th>
 						<th>Ações</th>
 					</tr>
 				</thead>
@@ -338,24 +338,20 @@
 							<td class="align-middle text-nowrap">@client.PrimaryName</td>
 							<td class="align-middle text-nowrap">@client.SecondaryName</td>
 							<td class="align-middle text-nowrap">@client.PrimaryPhone</td>
-							<td class="align-middle text-nowrap">@client.SecondaryPhone</td>
 							<td class="align-middle text-nowrap">@client.Email</td>
-							<td class="align-middle text-nowrap">@client.City</td>
-							<td class="align-middle text-nowrap">@client.State</td>
-							<td class="align-middle text-nowrap">@client.Neighborhood</td>
-							<td class="align-middle text-nowrap">@client.Street</td>
-							<td class="align-middle text-nowrap">@client.StreetNumber</td>
-							<td class="align-middle text-nowrap">@client.ZipCode</td>
-							<td class="align-middle text-nowrap">@client.Observation</td>
 
 							<td class="text-end">
 								<div class="btn-group btn-group-sm">
-									
-									<button class="btn btn-primary btn-sm" data-bs-placement="top" title="Editar" data-bs-toggle="collapse" data-bs-target="#collapseEditClient" aria-expanded="false" aria-controls="collapseEditClient" onclick="SetEditClient(@JsonConvert.SerializeObject(client))">
+
+									<button class="btn btn-primary btn-sm" data-bs-placement="top" title="Visualizar Detalhes" onclick="getAdditionalDetails(@JsonConvert.SerializeObject(client))">
+										<i class="fas fa-eye"></i>
+									</button>
+
+									<button class="btn btn-success btn-sm" data-bs-placement="top" title="Editar" data-bs-toggle="collapse" data-bs-target="#collapseEditClient" aria-expanded="false" aria-controls="collapseEditClient" onclick="SetEditClient(@JsonConvert.SerializeObject(client))">
 										<i class="fas fa-edit"></i>
 									</button>
-									
-									<button class="btn btn-danger btn-sm" style="cursor:pointer"data-bs-toggle="tooltip" data-bs-placement="top" title="Remover" onclick="GetRemoveClientModal(@client.ClientId)">
+
+									<button class="btn btn-danger btn-sm" style="cursor:pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Remover" onclick="GetRemoveClientModal(@client.ClientId)">
 										<i class="fas fa-trash"></i>
 									</button>
 
@@ -369,21 +365,18 @@
 	</div>
 </div>
 
-@* </div> *@
 <div class="row justify-content-center">
 	<div class="modal fade" id="removeClientModal" tabindex="-1" aria-labelledby="removeClientModal" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 
 				<input type="hidden" id="clientId">
-
-				<!-- Modal Header -->
+				
 				<div class="modal-header bg-dark text-white">
 					<h5 class="modal-title" id="removeUserModalLabel">Remover Cliente</h5>
 					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 
-				<!-- Modal Body -->
 				<div class="modal-body">
 					<p class="mb-4 text-center"><b>Deseja remover o cliente selecionado?</b></p>
 
@@ -396,8 +389,7 @@
 						</button>
 					</div>
 				</div>
-
-				<!-- Modal Footer (Removed redundant buttons) -->
+				
 			</div>
 		</div>
 	</div>
@@ -406,27 +398,58 @@
 <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="uploadModalLabel">Importar Planilha</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
+			<div class="modal-header">
+				<h5 class="modal-title" id="uploadModalLabel">Importar Planilha</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
 
-				<div class="modal-body">
-					<div class="mb-3">
-						<label for="file" class="form-label">Escolha o arquivo</label>
+			<div class="modal-body">
+				<div class="mb-3">
+					<label for="file" class="form-label">Escolha o arquivo</label>
 					<input class="form-control" type="file" name="file" id="fileInput" required />
-					</div>
 				</div>
+			</div>
 
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-					<button type="submit" onclick="uploadFile()" class="btn btn-primary">Enviar Arquivo</button>
-				</div>
-			
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+				<button type="submit" onclick="uploadFile()" class="btn btn-primary">Enviar Arquivo</button>
+			</div>
+
 		</div>
 	</div>
 </div>
 
+<div class="modal fade" id="clientDetailsModal" tabindex="-1" aria-labelledby="clientDetailsModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content shadow">
+			<div class="modal-header">
+				<h5 class="modal-title" id="clientDetailsModalLabel"><i class="fas fa-table me-2"></i>Mais Detalhes</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="table-responsive">
+					<table id="additionalDetailsTable" class="table">
+						<thead class="table-light">
+							<tr>
+								<th>Telefone 2</th>
+								<th>Cidade</th>
+								<th>Estado</th>
+								<th>Bairro</th>
+								<th>Rua</th>
+								<th>Nº</th>
+								<th>Cep</th>
+								<th>Observação</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 
 

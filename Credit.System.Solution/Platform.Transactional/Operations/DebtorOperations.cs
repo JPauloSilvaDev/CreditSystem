@@ -16,6 +16,22 @@ namespace Platform.Transactional.Operations
 
         public void InsertDebtor(Debtor debtor)
         {
+            try
+            {
+                debtor.CreationDate = DateTime.Now;
+                _serviceSystemConnection.AddAsync(debtor);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public void UpdateDebtor(Debtor debtor)
+        {
+
+        }
+        public void DeleteDebtor(long debtorId)
+        {
 
         }
 
@@ -24,14 +40,14 @@ namespace Platform.Transactional.Operations
         {
             try
             {
-                return _serviceSystemConnection.Debtor.Where(x=> x.CompanyId == companyId).ToList();
+                return _serviceSystemConnection.Debtor.Where(x => x.CompanyId == companyId).ToList();
             }
             catch (Exception)
             {
 
                 throw;
             }
-        
+
         }
 
 

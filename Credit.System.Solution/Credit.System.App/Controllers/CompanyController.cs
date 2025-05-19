@@ -74,7 +74,7 @@ namespace Credit.System.App.Controllers
                 if (!UtilsValidators.IsValidDocument(company.Document))
                     throw new CSException("Documento informado é inválido");
 
-                //Criar e chamar classe validator, validando os campos obrigatórios, CPF e CNPJ.
+                company.CompanyId = userLogged.CompanyId;
 
                 _companyOperations.UpdateCompany(company);
 

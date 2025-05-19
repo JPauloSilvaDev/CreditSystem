@@ -21,21 +21,23 @@ namespace Platform.Entity.ServiceSystem
         [Description("Telefone 2")]
         public string? SecondaryPhone { get; set; }
 
-        public string? Email { get; set; }
+        public string Email { get; set; }
        
-        public string? ZipCode { get; set; }
+        public string ZipCode { get; set; }
         
         [Description("Número da Rua")]
         public short? AddressNumber { get; set; }
         
-        public string? City { get; set; }
+        public string City { get; set; }
        
-        public string? State { get; set; }
-       
-        public string? Observation { get; set; }
+        public string State { get; set; }
+        
+        public string Street { get; set; }
+
+        public string Observation { get; set; }
         
         [Description("Bairro")]
-        public string? Neighborhood { get; set; }
+        public string Neighborhood { get; set; }
         
         [Description("Cobrança Terceirizada")]
         public bool IsThirdPartyCollection { get; set; }

@@ -13,22 +13,18 @@
             lengthMenu: "_MENU_ registros por página",
         },
 
-        responsive: true,
-        /*dom: '<"top"p>rt<"bottom"i>'*/
-
+    /*    responsive: true,*/
+        dom: '<"top"p>rt<"bottom"i>'
+       
     });
 
+    $('#customLength').on('change', function () {
+        var newLength = parseInt($(this).val(), 10);
+        table.page.len(newLength).draw();
+    });
     //Transformando o input de procura da tabela customizado ao invés do padrão do DataTable
     $('#searchInput').on('keyup', function () {
         table.search(this.value).draw();
-    });
-
-    $('#dataTableClient tbody').on('click', 'tr', function () {
-        selectedRowData = table.row(this).data();
-        $('#dataTableClient tbody tr').removeClass('table-active');
-
-        console.log(selectedRowData);
-
     });
 
 
@@ -49,9 +45,6 @@
     //  //$("#txtCNPJ").mask("99.999.999/9999-99");
     //$("#txtPlacaVeiculo").mask("aaa - 9999");
     //$("#txtIP").mask('099.099.099.099');
-
-
-
 
 
 
@@ -179,7 +172,7 @@ function EditClient() {
                 showAlert("Alterações salvas com sucesso!", 'success', 5000);
             } else {
                 showAlert("Não foi possível concluir a solicitação no momento", 'error', 5000);
-                
+
             }
         })
         .catch(error => {
@@ -355,10 +348,26 @@ function uploadFile() {
         });
 }
 
-function handleUploadResponse(data) {
-    if (data.success) {
-        alert(data.message); // or show in UI
-    } else {
-        alert("Error: " + data.message);
-    }
+
+function getAdditionalDetails(client) {
+    const tableBody = document.querySelector("#additionalDetailsTable tbody");
+
+    $('#additionalDetailsTable tbody').empty();
+
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+     <td class="align-middle text-nowrap">${client.SecondaryPhone}</td>
+    <td class="align-middle text-nowrap">${client.City}</td>
+        <td class="align-middle text-nowrap">${client.State}</td>
+        <td class="align-middle text-nowrap">${client.Neighborhood}</td>
+        <td class="align-middle text-nowrap">${client.Street}</td>
+        <td class="align-middle text-nowrap">${client.StreetNumber}</td>
+        <td class="align-middle text-nowrap">${client.ZipCode}</td>
+        <td class="align-middle text-nowrap">${client.Observation}</td>
+    `;
+
+    tableBody.appendChild(row);
+
+    $('#clientDetailsModal').modal('show');
 }

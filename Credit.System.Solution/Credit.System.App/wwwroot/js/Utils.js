@@ -93,13 +93,10 @@ function fadeOutAlert(alertElement) {
     alertElement.classList.add('fade-out');
 }
 
-function getPostalCode() {
-    debugger;
-
-    txtCep = document.getElementById('ZipCode').value;
-    var cepSemFormatacao = txtCep.replace(/\D/g, '');
-
-    postalCode = txtCep;
+function getPostalCode(zipCode) {
+  
+    var cepSemFormatacao = zipCode.replace(/\D/g, '');
+ 
     url = `https://viacep.com.br/ws/${cepSemFormatacao}/json/`
     fetch(url, {
         method: 'get',
@@ -125,8 +122,6 @@ function getPostalCode() {
     });
 
 }
-
-
 
 function IsLoadingBody(isLoading)
 {
