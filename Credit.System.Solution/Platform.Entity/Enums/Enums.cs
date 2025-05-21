@@ -27,5 +27,16 @@
 
     }
 
+    public static class BatchDebtorRegisterEnums
+    {
+        public enum BatchDebtorRegisterStatus
+        {
+            Created = 0,
+            Processing = 1,
+            PartiallyProcessed = 2,
+            Processed = 3,
+            Error = 4
+        }
+    }
 
 }

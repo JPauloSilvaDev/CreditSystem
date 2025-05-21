@@ -1,12 +1,11 @@
-﻿using Credit.System.App.Models;
-using Platform.Entity.Interfaces;
+﻿using Credit.System.App.CustomAttributes;
+using Credit.System.App.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Platform.Entity.Interfaces;
 using Platform.Entity.ServiceSystem;
-using Credit.System.App.CustomAttributes;
 using Platform.Utils;
 using Platform.Utils.Validators;
-using NPOI.XSSF.UserModel;
 
 
 namespace Credit.System.App.Controllers
@@ -48,7 +47,6 @@ namespace Credit.System.App.Controllers
                 if (!UtilsValidators.IsValidDocument(company.Document))
                     throw new CSException(CustomExceptionMessage.InvalidDocument);
 
-
                 _companyOperations.InsertCompany(company);
 
             }
@@ -63,7 +61,7 @@ namespace Credit.System.App.Controllers
 
             return Json(new { success = true, message = "Cliente cadastrado com sucesso!" });
         }
-
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public IActionResult EditCompany([FromBody] Company company)
         {

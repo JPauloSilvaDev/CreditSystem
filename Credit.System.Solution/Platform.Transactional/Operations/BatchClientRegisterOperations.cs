@@ -1,23 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 using Platform.Entity.Interfaces;
 using Platform.Entity.ServiceSystem;
 using Platform.Repository;
-using Platform.Entity.Enums;
 using static Platform.Entity.Enums.BatchClientRegisterEnums;
 
 namespace Platform.Transactional.Operations
 {
-
-
-
-
     public class BatchClientRegisterOperations : IBatchClientRegisterOperations
     {
-
         private readonly ServiceSystemConnection _serviceSystemConnection;
 
         public BatchClientRegisterOperations(ServiceSystemConnection serviceSystemConnection)
@@ -27,50 +17,30 @@ namespace Platform.Transactional.Operations
 
         public async Task InsertBatchClientRegisterAsync(BatchClientRegister batchClientRegister)
         {
-            try
-            {
-                batchClientRegister.Status = BatchClientRegisterStatus.Created;
-                batchClientRegister.CreationDate = DateTime.Now;
-               
-                await _serviceSystemConnection.BatchClientRegister.AddAsync(batchClientRegister);
-                await _serviceSystemConnection.SaveChangesAsync();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-                   
+
+            batchClientRegister.Status = BatchClientRegisterStatus.Created;
+            batchClientRegister.CreationDate = DateTime.Now;
+
+            await _serviceSystemConnection.BatchClientRegister.AddAsync(batchClientRegister);
+            await _serviceSystemConnection.SaveChangesAsync();
+
         }
-    
-        public List<BatchClientRegister> GetBatchToProcessByStatus(BatchClientRegisterStatus batchClientRegisterStatus)
+
+        public async Task<List<BatchClientRegister>> GetBatchToProcessByStatusAsync(BatchClientRegisterStatus batchClientRegisterStatus)
         {
-            try
-            {
-                return _serviceSystemConnection.BatchClientRegister.Where(x => x.Status == batchClientRegisterStatus).ToList();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return await _serviceSystemConnection.BatchClientRegister.Where(x => x.Status == batchClientRegisterStatus).ToListAsync();
         }
 
-        public void UpdateBatchStatus(long batchId, BatchClientRegisterStatus status)
+        public async Task UpdateBatchStatusAsync(long batchId, BatchClientRegisterStatus status)
         {
-            try
-            {
-                BatchClientRegister batchClientRegister = _serviceSystemConnection.BatchClientRegister.Where(x => x.BatchClientRegisterId == batchId).FirstOrDefault();
 
-                batchClientRegister.UpdateDate = DateTime.Now;
-                batchClientRegister.Status = status;
+            BatchClientRegister batchClientRegister = _serviceSystemConnection.BatchClientRegister.Where(x => x.BatchClientRegisterId == batchId).FirstOrDefault();
 
-                _serviceSystemConnection.SaveChanges();
+            batchClientRegister.UpdateDate = DateTime.Now;
+            batchClientRegister.Status = status;
 
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+          await  _serviceSystemConnection.SaveChangesAsync();
+
         }
-
     }
 }

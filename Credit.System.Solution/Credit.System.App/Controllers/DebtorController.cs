@@ -11,7 +11,6 @@ namespace Credit.System.App.Controllers
 {
     public class DebtorController : Controller
     {
-
         private readonly IConfiguration _configuration;
         private readonly IDebtorOperations _debtorOperations;
         private readonly ICompanyOperations _companyOperations;
@@ -24,20 +23,20 @@ namespace Credit.System.App.Controllers
         }
 
         [CheckUserSession]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
-            DebtorViewModel viewModel = new ();
+            DebtorViewModel viewModel = new();
             try
             {
                 Company companyInfo = _companyOperations.GetCompanyById(userLogged.CompanyId);
-                
+
                 if (companyInfo.IsThirdPartyCollection)
                 {
-                    viewModel.Debtors = _debtorOperations.GetDebtorsByCompanyId(userLogged.CompanyId);
+                    viewModel.Debtors = await _debtorOperations.GetDebtorsByCompanyIdAsync(userLogged.CompanyId);
                 }
 
-                viewModel.Debtors = _debtorOperations.GetDebtorsByCompanyId(userLogged.CompanyId);
+                viewModel.Debtors = await _debtorOperations.GetDebtorsByCompanyIdAsync(userLogged.CompanyId);
 
             }
             catch (CSException ex)
@@ -54,20 +53,20 @@ namespace Credit.System.App.Controllers
 
         [CheckUserSession]
         [HttpPost]
-        public IActionResult RegisterDebtor([FromBody] RegisterDebtorModel debtorViewModel)
+        public async Task<IActionResult> RegisterDebtor([FromBody] RegisterDebtorModel debtorViewModel)
         {
             try
             {
                 UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
 
-                Debtor debtor = null;/*ClientMapper.MapClientRegisterModelToClient(debtorViewModel);*/
+                Debtor debtor = new();/*ClientMapper.MapClientRegisterModelToClient(debtorViewModel);*/
 
                 debtor.CompanyId = userLogged.CompanyId;
 
                 if (!UtilsValidators.IsValidDocument(debtor.Document))
                     throw new CSException(CustomExceptionMessage.InvalidDocument);
 
-                _debtorOperations.InsertDebtor(debtor);
+                await _debtorOperations.InsertDebtorAsync(debtor);
             }
 
             catch (CSException exception)
@@ -84,14 +83,14 @@ namespace Credit.System.App.Controllers
         }
         [CheckUserSession]
         [HttpPost]
-        public IActionResult EditDebtor([FromBody] RegisterClientModel registerClientModel)
+        public async Task<IActionResult> EditDebtor([FromBody] RegisterClientModel registerClientModel)
         {
             try
             {
                 UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
                 Debtor debtor = null;
                 debtor.CompanyId = userLogged.CompanyId;
-                _debtorOperations.UpdateDebtor(debtor);
+                await _debtorOperations.UpdateDebtorAsync(debtor);
             }
             catch (Exception)
             {
@@ -102,11 +101,11 @@ namespace Credit.System.App.Controllers
         }
         [CheckUserSession]
         [HttpPost]
-        public IActionResult RemoveDebtor(long clientId)
+        public async Task<IActionResult> RemoveDebtor(long clientId)
         {
             try
             {
-                _debtorOperations.DeleteDebtor(clientId);
+                await _debtorOperations.DeleteDebtorAsync(clientId);
             }
             catch (Exception)
             {

@@ -6,8 +6,8 @@ namespace Platform.Entity.Interfaces
     public interface IBatchClientRegisterOperations
     {
         public Task InsertBatchClientRegisterAsync(BatchClientRegister batchClientRegister);
-        public List<BatchClientRegister> GetBatchToProcessByStatus(BatchClientRegisterStatus batchClientRegisterStatus);
-        public void UpdateBatchStatus(long batchClientRegisterId, BatchClientRegisterStatus status);
+        public Task<List<BatchClientRegister>> GetBatchToProcessByStatusAsync(BatchClientRegisterStatus batchClientRegisterStatus);
+        public Task UpdateBatchStatusAsync(long batchClientRegisterId, BatchClientRegisterStatus status);
     
     }
 }

@@ -26,24 +26,24 @@ namespace Credit.System.App.Controllers
 
         public async Task<IActionResult> Index()
         {
-            UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
-            ClientViewModel viewModel = new ();
-
             try
             {
+                UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
+                ClientViewModel viewModel = new();
+
                 viewModel.Clients = await _clientOperations.GetClientsByCompanyIdAsync(userLogged.CompanyId);
 
                 if (!viewModel.Clients.Any())
                     return View(new List<ClientViewModel>());
 
+                return View(viewModel);
+
             }
             catch (Exception)
             {
-                Json(new { success = false, message = CustomExceptionMessage.DefaultExceptionMessage });
+                return Json(new { success = false, message = CustomExceptionMessage.DefaultExceptionMessage });
             }
-
-            return View(viewModel);
-
+         
         }
 
         [HttpPost]

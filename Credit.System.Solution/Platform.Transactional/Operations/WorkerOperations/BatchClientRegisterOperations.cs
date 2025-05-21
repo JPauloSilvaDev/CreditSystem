@@ -24,8 +24,8 @@ namespace Platform.Transactional.Operations.WorkerOperations
 
             try
             {
-                List<BatchClientRegister> batchClientRegister = _batchClientRegister.GetBatchToProcessByStatus(BatchClientRegisterStatus.Created);
-
+                List<BatchClientRegister> batchClientRegister = await _batchClientRegister.GetBatchToProcessByStatusAsync(BatchClientRegisterStatus.Created);
+                
                 if (!batchClientRegister.Any())
                     throw new CSException();
 
@@ -80,7 +80,7 @@ namespace Platform.Transactional.Operations.WorkerOperations
                     long batchId = batch.BatchClientRegisterId;
 
                     BatchClientRegisterStatus operationStatus = GetOperationStatus(table.Rows.Count, sucessRowsCount);
-                    _batchClientRegister.UpdateBatchStatus(batchId, operationStatus);
+                    await _batchClientRegister.UpdateBatchStatusAsync(batchId, operationStatus);
                 }
 
             }

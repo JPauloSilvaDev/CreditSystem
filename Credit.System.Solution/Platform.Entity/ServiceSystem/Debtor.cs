@@ -5,6 +5,8 @@ namespace Platform.Entity.ServiceSystem
     public class Debtor : BaseEntity
     {
         public long DebtorId { get; set; }
+        
+        public long? ClientId { get; set; }
 
         public long CompanyId { get; set; }
 
