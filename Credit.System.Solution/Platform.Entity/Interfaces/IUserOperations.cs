@@ -4,21 +4,23 @@ namespace Platform.Entity.Interfaces
 {
     public interface IUserOperations
     {
-        public void InsertUser(User user);
+        public Task InsertUserAsync(User user);
         
-        public User GetUserByLoginAndPassword(string user, string password);
+        public Task<User> GetUserByLoginAndPasswordAsync(string user, string password);
 
-        public bool UserExistsAtCompany(string login, long companyId);
+        public Task<bool> UserExistsAtCompanyAsync(string login, long companyId);
 
-        public List<User> GetAllUsersByCompanyId(long companyId);
+        public Task<List<User>> GetAllUsersByCompanyIdAsync(long companyId);
 
-        public void UpdateUser(User user);
+        public Task UpdateUserAsync(User user);
 
-        public void DeleteUser(long userId);
+        public Task DeleteUserAsync(long userId);
 
-        public User GetUserByid(long userId);
-        public void BlockUserAccess(long userId);
-        public void UnblockUserAccess(long userId);
+        public Task<User> GetUserByIdAsync(long userId);
+        
+        public Task BlockUserAccessAsync(long userId);
+        
+        public Task UnblockUserAccessAsync(long userId);
 
     }
 }

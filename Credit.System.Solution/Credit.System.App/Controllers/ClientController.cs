@@ -24,14 +24,14 @@ namespace Credit.System.App.Controllers
             _batchClientRegister = batchClientRegister;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
-            ClientViewModel viewModel = new ClientViewModel();
+            ClientViewModel viewModel = new ();
 
             try
             {
-                viewModel.Clients = _clientOperations.GetClientsByCompanyId(userLogged.CompanyId);
+                viewModel.Clients = await _clientOperations.GetClientsByCompanyIdAsync(userLogged.CompanyId);
 
                 if (!viewModel.Clients.Any())
                     return View(new List<ClientViewModel>());
@@ -47,7 +47,7 @@ namespace Credit.System.App.Controllers
         }
 
         [HttpPost]
-        public IActionResult RegisterClient([FromBody] RegisterClientModel clientViewModel)
+        public async Task<IActionResult> RegisterClient([FromBody] RegisterClientModel clientViewModel)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace Credit.System.App.Controllers
                 if (!UtilsValidators.IsValidDocument(client.Document))
                     throw new CSException(CustomExceptionMessage.InvalidDocument);
 
-                _clientOperations.InsertClient(client);
+               await _clientOperations.InsertClientAsync(client);
             }
 
             catch (CSException exception)
@@ -77,14 +77,16 @@ namespace Credit.System.App.Controllers
         }
         
         [HttpPost]
-        public IActionResult EditClient([FromBody] RegisterClientModel registerClientModel)
+        public async Task<IActionResult> EditClient([FromBody] RegisterClientModel registerClientModel)
         {
             try
             {
                 UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
                 Client client = ClientMapper.MapClientRegisterModelToClient(registerClientModel);
+                
                 client.CompanyId = userLogged.CompanyId;
-                _clientOperations.UpdateClient(client);
+               
+                await  _clientOperations.UpdateClientAsync(client);
             }
             catch (Exception)
             {
@@ -95,11 +97,11 @@ namespace Credit.System.App.Controllers
         }
 
         [HttpPost]
-        public IActionResult RemoveClient(long clientId)
+        public async Task<IActionResult> RemoveClient(long clientId)
         {
             try
             {
-                _clientOperations.DeleteClient(clientId);
+                await _clientOperations.DeleteClientAsync(clientId);
             }
             catch (Exception)
             {
@@ -110,7 +112,7 @@ namespace Credit.System.App.Controllers
         }
 
         [HttpPost]
-        public IActionResult UploadFile(IFormFile file)
+        public async Task<IActionResult> UploadFile(IFormFile file)
         {
             if (file == null || file.Length == 0)
                 return Json(new { sucess = false, message = "Arquivo não pode ser vazio" });
@@ -135,7 +137,7 @@ namespace Credit.System.App.Controllers
                     FilePath = filePath,
                 };
                    
-                _batchClientRegister.Insert(batchClientRegister);
+               await _batchClientRegister.InsertBatchClientRegisterAsync(batchClientRegister);
 
                 return Json(new { success = true, message = CustomExceptionMessage.OperationSuccessMessage }); 
             }

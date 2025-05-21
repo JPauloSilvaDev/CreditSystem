@@ -1,16 +1,8 @@
 ﻿namespace Platform.Entity.Enums
 {
-    public static class Enums
+    public static class BatchClientRegisterEnums
     {
-        public enum BillStatus
-        {
-            Unknown = 0,
-            Pending = 1,
-            Settled = 2,
-            PartiallySettled = 3,
-            Ongoing = 4
-        }
-    
+        
         public enum BatchClientRegisterStatus
         {
             Created = 0,
@@ -21,4 +13,19 @@
         }
     
     }
+
+    public static class BillEnums
+    {
+        public enum BillStatus
+        {
+            Unknown = 0,
+            Pending = 1,
+            Settled = 2,
+            PartiallySettled = 3,
+            Ongoing = 4
+        }
+
+    }
+
+
 }

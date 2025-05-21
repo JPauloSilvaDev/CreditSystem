@@ -2,7 +2,6 @@
 using Credit.System.App.Mapper;
 using Credit.System.App.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Platform.Entity.Interfaces;
 using Platform.Entity.ServiceSystem;
@@ -27,31 +26,39 @@ namespace Credit.System.App.Controllers
         }
         [CheckUserSession]
         [HttpGet]
-        public IActionResult Register()
+        public async Task<IActionResult> Register()
         {
-            UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
+            try
+            {
+                UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
 
-            RegisterUserModel registerModel = new RegisterUserModel();
+                RegisterUserModel registerModel = new ();
 
-            registerModel.CompanyId = userLogged.CompanyId;
+                registerModel.CompanyId = userLogged.CompanyId;
 
-            if (userLogged.CompanyId == 1)
-                registerModel.CompanyList = _companyOperations.GetAllCompanies();
+                if (userLogged.CompanyId == 1)
+                    registerModel.CompanyList = _companyOperations.GetAllCompanies();
 
+                List<User> userList = await _userOperations.GetAllUsersByCompanyIdAsync(userLogged.CompanyId);
 
-            List<User> userList = _userOperations.GetAllUsersByCompanyId(userLogged.CompanyId);
+                List<UserViewModel> userViewModelList = UserMapper.MapUserListToUserViewModelList(userList);
 
-            List<UserViewModel> userViewModelList = UserMapper.MapUserListToUserViewModelList(userList);
+                registerModel.Users = userViewModelList;
 
-            registerModel.Users = userViewModelList;
-
-            return View(registerModel);
+                return View(registerModel);
+            }
+            catch (Exception)
+            {
+               return Json(new {sucess = false, Message = CustomExceptionMessage.DefaultExceptionMessage});
+            }
+            
+          
         }
 
         [CheckUserSession]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Register([FromBody] RegisterUserModel userModel)
+        public async Task<IActionResult> Register([FromBody] RegisterUserModel userModel)
         {
             try
             {
@@ -63,14 +70,9 @@ namespace Credit.System.App.Controllers
                 if (userModel.CompanyId == null)
                     userModel.CompanyId = userLogged.CompanyId;
 
-                bool userExists = _userOperations.UserExistsAtCompany(userModel.Login, userModel.CompanyId);
-
-                if (userExists)
-                    throw new CSException(string.Format(CustomExceptionMessage.UserMessage0000, userModel.Login));
-
                 User newUser = UserMapper.MapRegisterUserModelToUser(userModel);
 
-                _userOperations.InsertUser(newUser);
+                await _userOperations.InsertUserAsync(newUser);
             }
             catch (CSException exc)
             {
@@ -89,13 +91,13 @@ namespace Credit.System.App.Controllers
         [CheckUserSession]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditUser([FromBody] UserViewModel userViewModel)
+        public async Task<IActionResult> EditUser([FromBody] UserViewModel userViewModel)
         {
             try
             {
                 User user = UserMapper.MapUserViewModelToUser(userViewModel);
 
-                _userOperations.UpdateUser(user);
+               await _userOperations.UpdateUserAsync(user);
             }
             catch (Exception)
             {
@@ -109,11 +111,11 @@ namespace Credit.System.App.Controllers
         [CheckUserSession]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult RemoveUser([FromBody] UserViewModel userViewModel)
+        public async Task<IActionResult> RemoveUser([FromBody] UserViewModel userViewModel)
         {
             try
             {
-                _userOperations.DeleteUser(userViewModel.UserId);
+               await _userOperations.DeleteUserAsync(userViewModel.UserId);
             }
             catch (Exception)
             {
@@ -126,16 +128,16 @@ namespace Credit.System.App.Controllers
 
 
         [HttpPost]
-        public IActionResult Login([FromBody] LoginModel loginInfo)
+        public async Task<IActionResult> Login([FromBody] LoginModel loginInfo)
         {
             try
             {
-                User user = _userOperations.GetUserByLoginAndPassword(loginInfo.Login, loginInfo.Password);
+                User user = await _userOperations.GetUserByLoginAndPasswordAsync(loginInfo.Login, loginInfo.Password);
 
                 if (user == null)
                     throw new CSException(CustomExceptionMessage.UserMessage0001);
 
-                UserSessionModel sessionModel = new UserSessionModel()
+                UserSessionModel sessionModel = new()
                 {
                     UserId = user.UserId,
                     Name = user.Name,
@@ -162,11 +164,11 @@ namespace Credit.System.App.Controllers
         
         [CheckUserSession]
         [ValidateAntiForgeryToken]
-        public IActionResult BlockUserAccess(long userId)
+        public async Task<IActionResult> BlockUserAccess(long userId)
         {
             try
             {
-                _userOperations.BlockUserAccess(userId);
+               await _userOperations.BlockUserAccessAsync(userId);
             }
             catch (Exception)
             {
@@ -178,11 +180,11 @@ namespace Credit.System.App.Controllers
        
         [CheckUserSession]
         [ValidateAntiForgeryToken]
-        public IActionResult UnblockUserAccess(long userId)
+        public async Task<IActionResult> UnblockUserAccess(long userId)
         {
             try
             {
-                _userOperations.UnblockUserAccess(userId);
+                await _userOperations.UnblockUserAccessAsync(userId);
             }
             catch (Exception)
             {

@@ -1,4 +1,4 @@
-﻿using static Platform.Entity.Enums.Enums;
+﻿using static Platform.Entity.Enums.BatchClientRegisterEnums;
 
 namespace Platform.Entity.ServiceSystem
 {
@@ -11,6 +11,7 @@ namespace Platform.Entity.ServiceSystem
         public string FilePath { get; set; }
 
         public BatchClientRegisterStatus Status { get; set; }
+       
         public long CompanyId { get; set; }
     
     }

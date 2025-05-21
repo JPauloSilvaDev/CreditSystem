@@ -27,7 +27,7 @@ namespace Credit.System.App.Controllers
         public IActionResult Index()
         {
             UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
-            DebtorViewModel viewModel = new DebtorViewModel();
+            DebtorViewModel viewModel = new ();
             try
             {
                 Company companyInfo = _companyOperations.GetCompanyById(userLogged.CompanyId);

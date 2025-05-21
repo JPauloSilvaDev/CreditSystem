@@ -1,5 +1,5 @@
 using System;
-using static Platform.Entity.Enums.Enums;
+using static Platform.Entity.Enums.BillEnums;
 
 namespace Credit.System.App.Models
 {

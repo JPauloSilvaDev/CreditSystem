@@ -7,7 +7,7 @@ using Platform.Entity.Interfaces;
 using Platform.Entity.ServiceSystem;
 using Platform.Repository;
 using Platform.Entity.Enums;
-using static Platform.Entity.Enums.Enums;
+using static Platform.Entity.Enums.BatchClientRegisterEnums;
 
 namespace Platform.Transactional.Operations
 {
@@ -25,15 +25,15 @@ namespace Platform.Transactional.Operations
             _serviceSystemConnection = serviceSystemConnection;
         }
 
-
-        public void Insert(BatchClientRegister batchClientRegister)
+        public async Task InsertBatchClientRegisterAsync(BatchClientRegister batchClientRegister)
         {
             try
             {
                 batchClientRegister.Status = BatchClientRegisterStatus.Created;
                 batchClientRegister.CreationDate = DateTime.Now;
-                _serviceSystemConnection.BatchClientRegister.Add(batchClientRegister);
-                _serviceSystemConnection.SaveChanges();
+               
+                await _serviceSystemConnection.BatchClientRegister.AddAsync(batchClientRegister);
+                await _serviceSystemConnection.SaveChangesAsync();
             }
             catch (Exception)
             {

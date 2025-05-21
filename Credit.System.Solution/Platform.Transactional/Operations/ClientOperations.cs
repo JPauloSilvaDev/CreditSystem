@@ -1,4 +1,5 @@
-﻿using Platform.Entity.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Platform.Entity.Interfaces;
 using Platform.Entity.ServiceSystem;
 using Platform.Repository;
 using System.Text.Json.Nodes;
@@ -15,13 +16,13 @@ namespace Platform.Transactional.Operations
             _serviceSystemConnection = serviceSystemConnection;
         }
 
-        public void InsertClient(Client client)
+        public async Task InsertClientAsync(Client client)
         {
             try
             {
                 client.CreationDate = DateTime.Now;
-                _serviceSystemConnection.Add(client);
-                _serviceSystemConnection.SaveChanges();
+                await _serviceSystemConnection.AddAsync(client);
+                await _serviceSystemConnection.SaveChangesAsync();
             }
 
             catch (Exception)
@@ -29,7 +30,7 @@ namespace Platform.Transactional.Operations
                 throw;
             }
         }
-        public void UpdateClient(Client client)
+        public async Task UpdateClientAsync(Client client)
         {
             try
             {
@@ -49,7 +50,7 @@ namespace Platform.Transactional.Operations
                 clientToEdit.City = client.City;
                 clientToEdit.Neighborhood = client.Neighborhood;
 
-                _serviceSystemConnection.SaveChanges();
+                await _serviceSystemConnection.SaveChangesAsync();
             }
             catch (Exception)
             {
@@ -58,7 +59,7 @@ namespace Platform.Transactional.Operations
 
         }
 
-        public void DeleteClient(long clientId)
+        public async Task DeleteClientAsync(long clientId)
         {
             try
             {
@@ -67,7 +68,7 @@ namespace Platform.Transactional.Operations
                 client.DeletionDate = DateTime.Now;
                 client.UpdateDate = DateTime.Now;
 
-                _serviceSystemConnection.SaveChanges();
+               await _serviceSystemConnection.SaveChangesAsync();
             }
             catch (Exception)
             {
@@ -75,11 +76,11 @@ namespace Platform.Transactional.Operations
             }
         }
 
-        public List<Client> GetClientsByCompanyId(long companyId)
+        public async Task<List<Client>> GetClientsByCompanyIdAsync(long companyId)
         {
             try
             {
-                return _serviceSystemConnection.Client.Where(x => x.CompanyId == companyId && x.DeletionDate == null).ToList();
+                return await _serviceSystemConnection.Client.Where(x => x.CompanyId == companyId && x.DeletionDate == null).Take(1000).ToListAsync();
             }
             catch (Exception)
             {

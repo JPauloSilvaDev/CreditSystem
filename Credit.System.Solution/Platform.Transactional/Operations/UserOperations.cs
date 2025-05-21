@@ -1,6 +1,9 @@
-﻿using Platform.Entity.Interfaces;
+﻿using System.Runtime.CompilerServices;
+using Microsoft.EntityFrameworkCore;
+using Platform.Entity.Interfaces;
 using Platform.Entity.ServiceSystem;
 using Platform.Repository;
+using Platform.Utils;
 using Utils.Security;
 
 namespace Platform.Transactional.Operations
@@ -14,108 +17,84 @@ namespace Platform.Transactional.Operations
             _serviceSystemConnection = serviceSystemConnection;
         }
 
-        public void InsertUser(User user)
+        public async Task InsertUserAsync(User user)
         {
-			try
-			{
-				user.IsActive = true;
-				user.CreationDate = DateTime.Now;
-                user.Login = user.Login;
-                user.Password = "POkN8Tt8TnnfTAzUERL/6w=="; //123
+            bool userExists = await UserExistsAtCompanyAsync(user.Login, user.CompanyId);
 
-                //usar somente quando a funcionalidade de envio de email estiver pronta.
+            if (userExists)
+                throw new CSException(string.Format(CustomExceptionMessage.UserMessage0000, user.Login));
 
-                //string firstPassword = Security.GeneratePassword();
-                //user.Password = Security.Encrypt(firstPassword);
-                
-                _serviceSystemConnection.Add(user);
-                _serviceSystemConnection.SaveChanges();
-			
-			}
-			catch (Exception)
-			{
-				throw;
-			}
+            user.IsActive = true;
+            user.CreationDate = DateTime.Now;
+            user.Login = user.Login;
+            user.Password = "POkN8Tt8TnnfTAzUERL/6w=="; //123
+
+            //usar somente quando a funcionalidade de envio de email estiver pronta.
+
+            //string firstPassword = Security.GeneratePassword();
+            //user.Password = Security.Encrypt(firstPassword);
+
+            await _serviceSystemConnection.AddAsync(user);
+            await _serviceSystemConnection.SaveChangesAsync();
+
         }
 
-        public User GetUserByLoginAndPassword(string login, string password)
+        public async Task<User> GetUserByLoginAndPasswordAsync(string login, string password)
         {
-            User? user = new User();
 
-            try
-            {
-                user = _serviceSystemConnection.User.
-                FirstOrDefault(x =>
-                x.Login == login && 
-                x.Password == Security.Encrypt(password) && 
-                x.IsActive == true && 
+            return await _serviceSystemConnection.User.FirstOrDefaultAsync(x => x.Login == login && x.Password == Security.Encrypt(password) && x.IsActive == true &&
+            x.DeletionDate == null);
+
+        }
+
+        public async Task<bool> UserExistsAtCompanyAsync(string login, long companyId)
+        {
+
+            return _serviceSystemConnection.User
+                .Any(x => x.Login == login && x.CompanyId == companyId &&
                 x.DeletionDate == null);
+
+        }
+
+        public async Task<List<User>> GetAllUsersByCompanyIdAsync(long companyId)
+        {
+
+            try
+            {
+                return await _serviceSystemConnection.User.Where(x => x.CompanyId == companyId &&
+                x.DeletionDate == null).ToListAsync();
             }
             catch (Exception)
             {
                 throw;
             }
 
-            return user;
-        
         }
 
-        public bool UserExistsAtCompany(string login, long companyId)
+        public async Task UpdateUserAsync(User editedData)
         {
             try
             {
-                return _serviceSystemConnection.User
-                    .Any(x => x.Login == login && x.CompanyId == companyId &&
-                    x.DeletionDate == null);
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public List<User> GetAllUsersByCompanyId(long companyId)
-        {
-            List<User> users = new List<User>();
-
-            try
-            {
-                users = _serviceSystemConnection.User.Where(x => x.CompanyId == companyId && 
-                x.DeletionDate == null).ToList();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-           
-            return users;
-        }
-
-        public void UpdateUser(User editedData)
-        {
-            try
-            {
-                User userToEdit = GetUserByid(editedData.UserId);
+                User userToEdit = await GetUserByIdAsync(editedData.UserId);
 
                 userToEdit.Login = editedData.Login;
                 userToEdit.Email = editedData.Email;
                 userToEdit.Name = editedData.Name;
                 userToEdit.Password = userToEdit.Password;
                 userToEdit.UpdateDate = DateTime.Now;
-                
-                _serviceSystemConnection.SaveChanges();
+
+                _serviceSystemConnection.SaveChangesAsync();
             }
             catch (Exception)
             {
                 throw;
             }
         }
-        public User GetUserByid(long userId)
+        public async Task<User> GetUserByIdAsync(long userId)
         {
             try
             {
-                User user = _serviceSystemConnection.User.Where(x => x.UserId == userId).FirstOrDefault();
-                return user;
+                return await  _serviceSystemConnection.User.Where(x => x.UserId == userId).FirstOrDefaultAsync();
             }
             catch (Exception)
             {
@@ -124,25 +103,25 @@ namespace Platform.Transactional.Operations
         }
 
 
-        public void DeleteUser(long userId)
+        public async Task DeleteUserAsync(long userId)
         {
-            User userToRemove = GetUserByid(userId);
-            
+            User userToRemove = await GetUserByIdAsync(userId);
+
             userToRemove.DeletionDate = DateTime.Now;
             userToRemove.IsActive = false;
 
             _serviceSystemConnection.SaveChanges();
         }
 
-        public void BlockUserAccess(long userId)
+        public async Task BlockUserAccessAsync(long userId)
         {
             try
             {
-                User user = GetUserByid(userId);
+                User user = await GetUserByIdAsync(userId);
 
                 user.IsActive = false;
 
-                _serviceSystemConnection.SaveChanges();
+                _serviceSystemConnection.SaveChangesAsync();
             }
             catch (Exception)
             {
@@ -151,14 +130,14 @@ namespace Platform.Transactional.Operations
 
         }
 
-        public void UnblockUserAccess(long userId)
+        public async Task UnblockUserAccessAsync(long userId)
         {
             try
             {
-                User user = GetUserByid(userId);
+                User user = await GetUserByIdAsync(userId);
 
                 user.IsActive = true;
-                
+
                 _serviceSystemConnection.SaveChanges();
             }
             catch (Exception)

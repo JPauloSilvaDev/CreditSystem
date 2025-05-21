@@ -25,7 +25,7 @@ $(document).ready(function () {
 
 });
 
-function RegisterNewUser() {
+async function RegisterNewUser() {
 
     const cpf = document.getElementById("cpfInput").value;
     const email = document.getElementById("emailInput").value;
@@ -56,45 +56,45 @@ function RegisterNewUser() {
 
     IsLoadingBody(true);
 
-    fetch("/User/Register", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "RequestVerificationToken": getAntiForgeryToken()
-        },
-        body: JSON.stringify(data)
-    })
-        .then(response => {
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json(); 
-        })
-        .then(data => {
-            if (data.success) {
-                IsLoadingBody(false);
-                showAlert(data.message || "Usuário cadastrado com sucesso!", 'success', 5000);
-                
-                $('#registerModal').modal('hide');
 
-                setTimeout(function () {
-                    location.reload();
-                }, 3000);
-                
-                
-            } else {
-                showAlert(data.message, 'error', 5000);
-                IsLoadingBody(false);
-                console.error("Detalhes do erro:", data.message);
-            }
-        })
-        .catch(error => {
-            console.error("Fetch error:", error);
-            showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
+    try {
+        const response = await fetch("/User/Register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "RequestVerificationToken": getAntiForgeryToken()
+            },
+            body: JSON.stringify(data)
         });
 
-   
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        if (result.success) {
+            IsLoadingBody(false);
+            showAlert(result.message || "Usuário cadastrado com sucesso!", 'success', 5000);
+
+            $('#registerModal').modal('hide');
+
+            setTimeout(() => {
+                location.reload();
+            }, 3000);
+        } else {
+            showAlert(result.message, 'error', 5000);
+            IsLoadingBody(false);
+            console.error("Detalhes do erro:", result.message);
+        }
+
+    } catch (error) {
+        console.error("Fetch error:", error);
+        showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
+    }
+
+
+
 }
 
 function GetEditUserModal(user) {
@@ -163,7 +163,7 @@ function UserLogin() {
 
 function EditUser() {
 
-    
+
     const editCpf = $('#editCpfInput').val();
     const editEmail = $('#editEmailInput').val();
     const editName = $('#editNameInput').val();
@@ -228,7 +228,7 @@ function EditUser() {
 
 }
 
-function GetRemoveUserModal(user){
+function GetRemoveUserModal(user) {
 
     $("#removeUserModal").modal("show");
     $("#userId").val(user.UserId);
@@ -283,8 +283,8 @@ function BlockUserAccess(userId) {
 
     fetch(`/User/BlockUserAccess?userId=${userId}`, {
         method: "GET",
-         headers: {
-             "RequestVerificationToken": getAntiForgeryToken()
+        headers: {
+            "RequestVerificationToken": getAntiForgeryToken()
         },// No headers or body needed
     })
         .then(response => {

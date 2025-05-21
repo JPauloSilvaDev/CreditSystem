@@ -3,13 +3,11 @@
 function applyCpfMask(inputId) {
 
     $("#" + inputId).mask("999.999.999-99");
-          
 }
 
 function applyCnpjMask(inputId) {
 
     $("#" + inputId).mask("99.999.999/9999-99");
-
 }
 
 //function documentFormatter(inputDocument) {

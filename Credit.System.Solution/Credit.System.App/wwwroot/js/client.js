@@ -27,7 +27,6 @@
         table.search(this.value).draw();
     });
 
-
     $("#primaryPhone").mask("(99) 9999-9999");
     $("#secondPhone").mask("(99) 9999-9999");
     $("#txtCep").mask("99999-999");
@@ -69,7 +68,7 @@ function validateForm() {
 
 }
 
-function RegisterClient() {
+async function RegisterClient() {
 
     const data = {
         primaryName: $('#firstName').val(),
@@ -90,28 +89,31 @@ function RegisterClient() {
         return;
     }
 
-    fetch("/Client/RegisterClient", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-
-        },
-        body: JSON.stringify(data)
-    })
-        .then(response => response.json())
-        .then(data => {
-
-            debugger
-            if (data.success) {
-                showAlert("Usuário cadastrado com sucesso!", 'success', 5000);
-            } else {
-                showAlert("Não foi possível concluir a solicitação no momento", 'error', 5000);
-                console.log(data.message)
-            }
-        })
-        .catch(error => {
-            showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
+    try {
+        const response = await fetch("/Client/RegisterClient", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
         });
+
+        const result = await response.json();
+
+        debugger;
+
+        if (result.success) {
+            showAlert("Usuário cadastrado com sucesso!", 'success', 5000);
+            window.reload();
+        } else {
+            showAlert("Não foi possível concluir a solicitação no momento", 'error', 5000);
+            console.log(result.message);
+        }
+
+    } catch (error) {
+        showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
+        console.error(error);
+    }
 }
 
 function SetEditClient(client) {
@@ -133,8 +135,7 @@ function SetEditClient(client) {
     $('#editState').val(client.State);
 };
 
-function EditClient() {
-
+async function EditClient() {
     const data = {
         clientid: $('#clientId').val(),
         primaryname: $('#editPrimaryName').val(),
@@ -156,75 +157,72 @@ function EditClient() {
         return;
     }
 
-    fetch("/Client/EditClient", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-
-        },
-        body: JSON.stringify(data)
-    })
-        .then(response => response.json())
-        .then(data => {
-
-            debugger
-            if (data.success) {
-                showAlert("Alterações salvas com sucesso!", 'success', 5000);
-            } else {
-                showAlert("Não foi possível concluir a solicitação no momento", 'error', 5000);
-
-            }
-        })
-        .catch(error => {
-            showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
-            console.log("detalhes do erro: " + error)
+    try {
+        const response = await fetch("/Client/EditClient", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
         });
+
+        const result = await response.json();
+
+        if (result.success) {
+            showAlert("Alterações salvas com sucesso!", 'success', 5000);
+        } else {
+            showAlert("Não foi possível concluir a solicitação no momento", 'error', 5000);
+        }
+
+    } catch (error) {
+        console.error("Detalhes do erro:", error);
+        showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
+    }
 }
 
+async function UserLogin() {
 
-
-function UserLogin() {
     const loginInput = $('#loginInput').val();
     const passwordInput = $('#passwordInput').val();
 
-    if (loginInput == "") {
+    if (loginInput === "") {
         showAlert("Digite seu login", 'warning', 5000);
         return;
     }
 
-    if (passwordInput == "") {
+    if (passwordInput === "") {
         showAlert("Digite sua senha", 'warning', 5000);
         return;
     }
 
     const data = {
         login: loginInput,
-        password: passwordInput,
+        password: passwordInput
     };
 
-    fetch("/User/Login", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-
-        },
-        body: JSON.stringify(data)
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                window.location.href = "/Home/Index";
-            } else {
-                showAlert(data.message, 'error', 5000);
-                console.log(data.message);
-            }
-        })
-        .catch(error => {
-            console.error("Detalhes do erro", error);
-            showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
+    try {
+        const response = await fetch("/User/Login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
         });
 
+        const result = await response.json();
+
+        if (result.success) {
+            window.location.href = "/Home/Index";
+        } else {
+            showAlert(result.message, 'error', 5000);
+            console.log(result.message);
+        }
+    } catch (error) {
+        console.error("Detalhes do erro", error);
+        showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
+    }
 }
+
 
 function ValidateRegisterClient(data) {
 
@@ -281,39 +279,40 @@ function ValidateRegisterClient(data) {
     return true;
 }
 
-function RemoveClient() {
+async function RemoveClient() {
+    const clientId = $("#clientId").val();
 
-    var clientId = $("#clientId").val();
-
-    fetch(`/Client/RemoveClient?clientId=${clientId}`, {
-        method: "POST"
-    })
-        .then(response => {
-            if (!response.ok) throw new Error("Network error");
-            return response.json();
-        })
-        .then(data => {
-
-            if (data.success) {
-                showAlert(data.message, 'success', 5000);
-            }
-            else {
-                showAlert(data.message, 'error', 5000);
-            }
-            console.log("Success:", data);
-        })
-        .catch(error => {
-            console.error("Error:", error);
+    try {
+        const response = await fetch(`/Client/RemoveClient?clientId=${clientId}`, {
+            method: "POST"
         });
+
+        if (!response.ok) {
+            throw new Error("Network error");
+        }
+
+        const data = await response.json();
+
+        if (data.success) {
+            showAlert(data.message, 'success', 5000);
+        } else {
+            showAlert(data.message, 'error', 5000);
+        }
+
+        console.log("Success:", data);
+    } catch (error) {
+        console.error("Error:", error);
+        showAlert("Ocorreu um erro ao remover o cliente. Tente novamente mais tarde.", 'error', 5000);
+    }
 }
+
 
 function GetRemoveClientModal(clientId) {
     $("#removeClientModal").modal("show");
     $("#clientId").val(clientId);
 }
 
-function uploadFile() {
-
+async function uploadFile() {
     const fileInput = document.getElementById("fileInput");
     const file = fileInput.files[0];
 
@@ -323,30 +322,31 @@ function uploadFile() {
     }
 
     const formData = new FormData();
-
     formData.append("file", file); // 'file' must match the controller parameter name
 
-    fetch("/Client/UploadFile", {
-        method: "POST",
-        headers: {
-            "RequestVerificationToken": getAntiForgeryToken() // Add token to header
-        },
-        body: formData,
-
-    })
-        .then(response => response.json())
-        .then(result => {
-            if (result.success) {
-                showAlert("Arquivo enviado com sucesso!", "success", 5000);
-            } else {
-                showAlert(result.message, "danger", 5000);
-            }
-        })
-        .catch(error => {
-            console.error("Informações sobre o erro", error);
-            showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde", "danger", 5000);
+    try {
+        const response = await fetch("/Client/UploadFile", {
+            method: "POST",
+            headers: {
+                "RequestVerificationToken": getAntiForgeryToken() // Add token to header
+            },
+            body: formData
         });
+
+        const result = await response.json();
+
+        if (result.success) {
+            showAlert("Arquivo enviado com sucesso!", "success", 5000);
+        } else {
+            showAlert(result.message, "danger", 5000);
+        }
+    } catch (error) {
+        console.error("Informações sobre o erro", error);
+        showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde", "danger", 5000);
+    }
 }
+
+
 
 
 function getAdditionalDetails(client) {

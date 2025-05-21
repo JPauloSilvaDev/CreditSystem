@@ -1,6 +1,6 @@
 ﻿using Credit.System.App.Models;
 using Microsoft.AspNetCore.Mvc;
-using static Platform.Entity.Enums.Enums;
+using static Platform.Entity.Enums.BillEnums;
 
 namespace Credit.System.App.Controllers
 {

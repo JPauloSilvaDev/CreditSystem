@@ -3,7 +3,7 @@ using System.Text;
 using ExcelDataReader;
 using Platform.Entity.Interfaces;
 using Platform.Entity.ServiceSystem;
-using static Platform.Entity.Enums.Enums;
+using static Platform.Entity.Enums.BatchClientRegisterEnums;
 
 
 namespace Platform.Transactional.Operations.WorkerOperations
@@ -19,7 +19,7 @@ namespace Platform.Transactional.Operations.WorkerOperations
             _clientOperations = clientOperations;
         }
 
-        public void ProcessRegisterClientBatch()
+        public async Task ProcessRegisterClientBatch()
         {
 
             try
@@ -72,7 +72,7 @@ namespace Platform.Transactional.Operations.WorkerOperations
 
                         };
 
-                        _clientOperations.InsertClient(client);
+                       await _clientOperations.InsertClientAsync(client);
 
                         sucessRowsCount++;
                     }

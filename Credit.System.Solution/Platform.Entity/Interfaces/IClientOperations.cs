@@ -4,13 +4,13 @@ namespace Platform.Entity.Interfaces
 {
     public interface IClientOperations
     {
-        public void InsertClient(Client client);
+        public Task InsertClientAsync(Client client);
 
-        public void UpdateClient(Client client);
+        public Task UpdateClientAsync(Client client);
         
-        public void DeleteClient(long clientId);
-
-        public List<Client> GetClientsByCompanyId(long companyId);
+        public Task DeleteClientAsync(long clientId);
+        
+        public Task<List<Client>> GetClientsByCompanyIdAsync(long companyId);
 
         public Client GetClientById(long clientId);   
     
