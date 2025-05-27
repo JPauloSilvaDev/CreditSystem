@@ -4,6 +4,41 @@ Admin web app made with the purpose of taking care of inadimplemt clients where 
 Its developed using .net 9 MVC, HTML, CSS and JS (JQuery too) and SQL Server as database while applying SOLID principles and clean code.
 
 
+## ENGLISH
+
+
+# 📊 Admin Web App - Company Debtors Management
+
+A web-based administrative application built to help manage ** a clients debtor**, enabling:
+
+- Organization of **debts** and **payments**
+- Registration of **clients** and **debtors**
+- Overview of company outstanding balances
+
+---
+
+## 🛠️ Technologies Used
+
+- **.NET 9** with **MVC pattern**
+- **HTML**, **CSS**, **JavaScript**, and **jQuery**
+- **SQL Server** as the database
+
+---
+
+## 🧱 Best Practices
+
+The project follows:
+
+- **SOLID principles**
+- **Clean Code** practices
+- A modular architecture with clear separation of concerns (Repository, Transactional, Utils, Entity, etc.)
+
+---
+
+## 📁 Project Structure
+
+
+
 
 ## PORTUGUÊS
 
@@ -40,43 +75,7 @@ O projeto foi desenvolvido aplicando:
 
 
 
-## ENGLISH
 
-
-
-
-
-
-
-# 📊 Admin Web App - Company Debtors Management
-
-A web-based administrative application built to help manage ** a clients debtor**, enabling:
-
-- Organization of **debts** and **payments**
-- Registration of **clients** and **debtors**
-- Overview of company outstanding balances
-
----
-
-## 🛠️ Technologies Used
-
-- **.NET 9** with **MVC pattern**
-- **HTML**, **CSS**, **JavaScript**, and **jQuery**
-- **SQL Server** as the database
-
----
-
-## 🧱 Best Practices
-
-The project follows:
-
-- **SOLID principles**
-- **Clean Code** practices
-- A modular architecture with clear separation of concerns (Repository, Transactional, Utils, Entity, etc.)
-
----
-
-## 📁 Project Structure
 
 
 
