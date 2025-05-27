@@ -11,8 +11,10 @@ namespace Platform.Entity.Interfaces
         public Task DeleteClientAsync(long clientId);
         
         public Task<List<Client>> GetClientsByCompanyIdAsync(long companyId);
+        
+        public Task<List<Client>> GetClientsByDocumentAndCompanyIdAsync(string document, long companyId);
 
-        public Client GetClientById(long clientId);   
-    
+        public Task<Client> GetClientByIdAsync(long clientId);
+        public Task<List<Client>> GetClientsByNameAndCompanyId(string name, long companyId);
     }
 }

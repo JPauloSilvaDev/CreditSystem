@@ -4,6 +4,7 @@ using Platform.Repository;
 using Platform.Transactional.Operations;
 
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ServiceSystemConnection>(options =>
@@ -18,6 +19,7 @@ builder.Services.AddScoped<IUserOperations, UserOperations>();
 builder.Services.AddScoped<IClientOperations, ClientOperations>();
 builder.Services.AddScoped<IBatchClientRegisterOperations, BatchClientRegisterOperations>();
 builder.Services.AddScoped<IDebtorOperations, DebtorOperations>();
+builder.Services.AddScoped<IBatchDebtorRegisterOperations, BatchDebtorRegisterOperations>();
 builder.Services.AddControllersWithViews();
 
 

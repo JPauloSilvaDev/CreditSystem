@@ -1,84 +1,71 @@
-﻿@using Credit.System.App.Enums
-@using System.ComponentModel
-@model ClientViewModel;
-@using Newtonsoft.Json
-<head>
+﻿<head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<script src="~/js/client.js"></script>
 
-	<style type="text/css" id="operaUserStyle">
-
-		body {
-			background-color: #F8F9FA;
-		}
-
-		#main-container {
-			padding: 10px;
-		}
-
-		label {
-			font-size: 0.8rem;
-			color: #595C5F
-		}
-
-		#titClientRegister {
-			background-color: #212529;
-			color: #F8F9FA;
-			padding: 8px;
-			padding-bottom: .5px;
-			align-items: center;
-			align-content: center;
-			border-radius: 11px;
-			display: flex;
-			margin-bottom: 1rem;
-		}
-
-		#dadosPessoais {
-			background-color: #F2F2F2;
-			border-radius: 11px;
-			padding: 10px;
-			margin-bottom: 1rem;
-		}
-
-		#adress {
-			background-color: #F2F2F2;
-			border-radius: 11px;
-			padding: 10px;
-			margin-bottom: 1rem;
-		}
-
-		p {
-			color: #5C636A;
-		}
-	</style>
-
 </head>
 
 <div class="text-end">
 	<button class="btn btn-secondary mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseClientForm" aria-expanded="false" aria-controls="collapseClientForm">
-		Novo Cliente
+		New Client
 	</button>
 
 	<button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#uploadModal">
-		Importar Planilha
+		Import Spreadsheet
 	</button>
 
 	<a class="btn btn-success mb-3"
 	   href="/templates/templatecliente.xlsx"
 	   download="templatecliente.xlsx">
-		Baixar Template
+		Download Template
 	</a>
 
 </div>
+
+
+<div class="card shadow mb-4">
+	<div class="card-header dark py-3 d-flex justify-content-between align-items-center">
+		<h6 class="m-0 font-weight-bold text-primary">
+			<i class="fa-solid fa-filter"></i> Filter
+		</h6>
+	</div>
+	<div class="card-body">
+
+		<div class="form-row align-items-end">
+			<div class="form-group col-md-6 col-lg-2">
+				<label class="form-label fw-bold" for="filterContent">Search</label>
+				<input type="text" class="form-control" id="filterContent" placeholder="Type something to search">
+			</div>
+
+			<div class="form-group col-md-6 col-lg-2">
+				<label class="form-label fw-bold" for="filterType">Filter Type</label>
+				<select class="form-control" id="filterType">
+					<option value="">Select a filter</option>
+					<option value="Document">Document</option>
+					<option value="Name">Name</option>
+				</select>
+			</div>
+
+			<br />
+			<button class="btn btn-primary" onclick="GetClientGrid()">Filter</button>
+
+		</div>
+
+	</div>
+</div>
+
+
+<div id="clientGrid"></div>
+
+
 <!-- Toggle Button -->
 <!-- Collapsible Container -->
 <div class="collapse" id="collapseClientForm" style="transition: height 1s ease !important;">
 	<div class="shadow p-3 mb-5 bg-body-tertiary rounded" id="main-container">
 		<div id="titClientRegister">
-			<h4 class="mb-3">Cadastrar Cliente</h4>
+			<h4 class="mb-3">Register Client</h4>
 		</div>
 
 		<div class="container" id="dadosPessoais">
@@ -280,171 +267,10 @@
 		<button class="btn btn-danger" data-bs-toggle="collapse" data-bs-target="#collapseEditClient" aria-expanded="false" aria-controls="collapseEditClient">Cancelar</button>
 	</div>
 </div>
-<div class="card shadow mb-4">
-	<div class="card-header py-3 d-flex justify-content-between align-items-center">
-		<h6 class="m-0 font-weight-bold text-primary">
-			<i class="fas fa-table me-2"></i>Meus Clientes
-		</h6>
-		<div class="d-flex">
-			<label for="customLenght">Registros por página</label>		
-			<select class="form-control" style="width: 20%" id="customLength">
-				<option value="10">10</option>
-				<option value="25">25</option>
-				<option value="100">100</option>
-			</select>
-			<div class="input-group me-2">
-				<span class="input-group-text bg-light border-0">
-					<i class="fas fa-search"></i>
-				</span>
-				<input type="text" class="form-control border-0 bg-light" id="searchInput" placeholder="Pesquisar...">
-			</div>
-			
-			<button class="btn btn-light" id="refreshTable">
-				<i class="fas fa-sync-alt"></i>
-			</button>
-			
-		
-		</div>
-	
-	</div>
-
-	
-	<div class="card-body">
-
-	
 
 
-		<div class="table-responsive">
-			<table id="dataTableClient" class="table">
-				<thead class="table-light">
-					<tr>
-						<th class="text-nowrap">Razão Social</th>
-						<th class="text-nowrap">Nome Fantasia</th>
-						<th class="text-nowrap">Telefone</th>
-						<th>Email</th>
-						<th>Ações</th>
-					</tr>
-				</thead>
-				<tbody>
 
-					@foreach (Client client in Model.Clients)
-					{
-						<tr>
-							<td class="align-middle text-nowrap">@client.PrimaryName</td>
-							<td class="align-middle text-nowrap">@client.SecondaryName</td>
-							<td class="align-middle text-nowrap">@client.PrimaryPhone</td>
-							<td class="align-middle text-nowrap">@client.Email</td>
 
-							<td class="text-end">
-								<div class="btn-group btn-group-sm">
-
-									<button class="btn btn-primary btn-sm" data-bs-placement="top" title="Visualizar Detalhes" onclick="getAdditionalDetails(@JsonConvert.SerializeObject(client))">
-										<i class="fas fa-eye"></i>
-									</button>
-
-									<button class="btn btn-success btn-sm" data-bs-placement="top" title="Editar" data-bs-toggle="collapse" data-bs-target="#collapseEditClient" aria-expanded="false" aria-controls="collapseEditClient" onclick="SetEditClient(@JsonConvert.SerializeObject(client))">
-										<i class="fas fa-edit"></i>
-									</button>
-
-									<button class="btn btn-danger btn-sm" style="cursor:pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Remover" onclick="GetRemoveClientModal(@client.ClientId)">
-										<i class="fas fa-trash"></i>
-									</button>
-
-								</div>
-							</td>
-						</tr>
-					}
-				</tbody>
-			</table>
-		</div>
-	</div>
-</div>
-
-<div class="row justify-content-center">
-	<div class="modal fade" id="removeClientModal" tabindex="-1" aria-labelledby="removeClientModal" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-
-				<input type="hidden" id="clientId">
-				
-				<div class="modal-header bg-dark text-white">
-					<h5 class="modal-title" id="removeUserModalLabel">Remover Cliente</h5>
-					<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-
-				<div class="modal-body">
-					<p class="mb-4 text-center"><b>Deseja remover o cliente selecionado?</b></p>
-
-					<div class="d-flex justify-content-end gap-2">
-						<button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-							Cancelar
-						</button>
-						<button type="button" onclick="RemoveClient()" class="btn btn-success">
-							Sim
-						</button>
-					</div>
-				</div>
-				
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="uploadModalLabel">Importar Planilha</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-
-			<div class="modal-body">
-				<div class="mb-3">
-					<label for="file" class="form-label">Escolha o arquivo</label>
-					<input class="form-control" type="file" name="file" id="fileInput" required />
-				</div>
-			</div>
-
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-				<button type="submit" onclick="uploadFile()" class="btn btn-primary">Enviar Arquivo</button>
-			</div>
-
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="clientDetailsModal" tabindex="-1" aria-labelledby="clientDetailsModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content shadow">
-			<div class="modal-header">
-				<h5 class="modal-title" id="clientDetailsModalLabel"><i class="fas fa-table me-2"></i>Mais Detalhes</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<div class="table-responsive">
-					<table id="additionalDetailsTable" class="table">
-						<thead class="table-light">
-							<tr>
-								<th>Telefone 2</th>
-								<th>Cidade</th>
-								<th>Estado</th>
-								<th>Bairro</th>
-								<th>Rua</th>
-								<th>Nº</th>
-								<th>Cep</th>
-								<th>Observação</th>
-							</tr>
-						</thead>
-						<tbody>
-							
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
 
 
 

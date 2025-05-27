@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Platform.Entity.Interfaces;
 using Platform.Entity.ServiceSystem;
 using Platform.Repository;
 using static Platform.Entity.Enums.BatchDebtorRegisterEnums;
 
-namespace Platform.Transactional.Operations.WorkerOperations
+namespace Platform.Transactional.Operations
 {
-    public class BatchDebtorRegisterOperations
+    public class BatchDebtorRegisterOperations : IBatchDebtorRegisterOperations
     {
         private readonly ServiceSystemConnection _serviceSystemConnection;
 

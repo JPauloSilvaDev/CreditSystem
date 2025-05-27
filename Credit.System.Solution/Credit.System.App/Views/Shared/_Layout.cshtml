@@ -35,45 +35,45 @@
 					
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
 							<div class="sb-nav-link-icon"><i class="fa-solid fa-dollar-sign"></i></div>
-							Operações
+							Operations
 							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
 						</a>
 					
 						<div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" asp-area="" asp-controller="Debtor" asp-action="Index">Devedores</a>
-								<a class="nav-link" asp-area="" asp-controller="Bill" asp-action="Index">Títulos</a>
+								<a class="nav-link" asp-area="" asp-controller="Debtor" asp-action="Index">Debtors</a>
+								<a class="nav-link" asp-area="" asp-controller="Bill" asp-action="Index">Bills</a>
 							</nav>
 						</div>
 
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseAdmin" aria-expanded="false" aria-controls="collapseLayouts">
 							<div class="sb-nav-link-icon"><i class="fas fa-user-tie"></i></div>
-							Administrativo
+							Management
 							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
 						</a>
 
 						<div class="collapse" id="collapseAdmin" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" asp-area="" asp-controller="Client" asp-action="Index">Clientes</a>
+								<a class="nav-link" asp-area="" asp-controller="Client" asp-action="Index">Clients</a>
 							</nav>
 						</div>
 
 
 						<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseConfig" aria-expanded="false" aria-controls="collapseLayouts">
 							<div class="sb-nav-link-icon"><i class="fas fa-gear"></i></div>
-							Configurações
+							Settings
 							<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
 						</a>
 
 
 						<div class="collapse" id="collapseConfig" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
 							<nav class="sb-sidenav-menu-nested nav">
-								<a class="nav-link" asp-area="" asp-controller="Company" asp-action="Index">Minha Empresa</a>
-								<a class="nav-link" asp-area="" asp-controller="User" asp-action="Register">Usuários</a>
+								<a class="nav-link" asp-area="" asp-controller="Company" asp-action="Index">My Company</a>
+								<a class="nav-link" asp-area="" asp-controller="User" asp-action="Register">Users</a>
 							</nav>
 						</div>
 
-						<a class="nav-link" asp-area="" asp-controller="User" asp-action="Logout">Sair</a>
+						<a class="nav-link" asp-area="" asp-controller="User" asp-action="Logout">Logout</a>
 
 					</div>
 				</div>
@@ -102,7 +102,7 @@
 
 				<footer class="border-top footer text-muted">
 					<div class="container">
-						&copy; @DateTime.Now.Year - Sistema de Cobrança - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+						&copy; @DateTime.Now.Year - .Net 9 MVC Project - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
 					</div>
 				</footer>
 			</div>

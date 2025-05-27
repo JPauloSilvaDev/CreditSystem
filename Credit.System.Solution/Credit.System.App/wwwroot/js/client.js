@@ -1,35 +1,6 @@
 ﻿$(document).ready(function () {
 
-    var table = $('#dataTableClient').DataTable({
-        paging: true,
-        searching: true,
-        pageLength: 10,
-        lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
-        language: {
-            search: "Pesquisar:",
-            zeroRecords: "Nenhum registro encontrado",
-            info: "",
-            infoFiltered: "Filtrado de _MAX_ registros",
-            lengthMenu: "_MENU_ registros por página",
-        },
-
-    /*    responsive: true,*/
-        dom: '<"top"p>rt<"bottom"i>'
-       
-    });
-
-    $('#customLength').on('change', function () {
-        var newLength = parseInt($(this).val(), 10);
-        table.page.len(newLength).draw();
-    });
-    //Transformando o input de procura da tabela customizado ao invés do padrão do DataTable
-    $('#searchInput').on('keyup', function () {
-        table.search(this.value).draw();
-    });
-
-    $("#primaryPhone").mask("(99) 9999-9999");
-    $("#secondPhone").mask("(99) 9999-9999");
-    $("#txtCep").mask("99999-999");
+   
 
     //email: $('#email').val(),
     //    document: $('#inputCpfCnpj').val(),
@@ -347,7 +318,6 @@ function uploadFile() {
         });
 }
 
-
 function getAdditionalDetails(client) {
     const tableBody = document.querySelector("#additionalDetailsTable tbody");
 
@@ -369,4 +339,72 @@ function getAdditionalDetails(client) {
     tableBody.appendChild(row);
 
     $('#clientDetailsModal').modal('show');
+}
+
+
+
+async function GetClientGrid() {
+    var filterType = $('#filterType').val();
+    var filterContent = $('#filterContent').val();
+
+    if (filterContent === "")
+        return showAlert("Type something to search.", "warning", 5000);
+
+    try {
+        const response = await fetch(`/Client/GetClientGrid?filterType=${filterType}&filterContent=${filterContent}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "RequestVerificationToken": getAntiForgeryToken()
+            }
+        });
+
+        if (!response.ok) {
+            showAlert("Erro na requisição.", 'error', 5000);
+            return;
+        }
+
+        const html = await response.text(); // Expect HTML
+
+        // Render HTML into the ClientGrid div
+        document.getElementById("clientGrid").innerHTML = html;
+
+        var table = $('#dataTableClient').DataTable({
+            paging: true,
+            searching: true,
+            pageLength: 10,
+            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+            language: {
+                search: "Pesquisar:",
+                zeroRecords: "Nenhum registro encontrado",
+                info: "",
+                infoFiltered: "Filtrado de _MAX_ registros",
+                lengthMenu: "_MENU_ registros por página",
+            },
+
+            /*    responsive: true,*/
+            dom: '<"top"p>rt<"bottom"i>'
+
+        });
+
+        $('#customLength').on('change', function () {
+            var newLength = parseInt($(this).val(), 10);
+            table.page.len(newLength).draw();
+        });
+        //Transformando o input de procura da tabela customizado ao invés do padrão do DataTable
+        $('#searchInput').on('keyup', function () {
+            table.search(this.value).draw();
+        });
+
+        $("#primaryPhone").mask("(99) 9999-9999");
+        $("#secondPhone").mask("(99) 9999-9999");
+        $("#txtCep").mask("99999-999");
+
+
+
+
+    } catch (error) {
+        showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
+        console.error(error);
+    }
 }

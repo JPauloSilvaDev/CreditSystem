@@ -10,6 +10,9 @@ namespace Platform.Entity.Interfaces
         public Task<Debtor> GetDebtorByIdAsync(long debtorId);
         public Task<List<Debtor>> GetDebtorsByCompanyIdAsync(long companyId);
         public Task<List<Debtor>> GetDebtorsByClientIdAndCompanyId(long  clientId, long companyId);
+        public Task<List<Debtor>> GetDebtorByDocumentAndCompanyId(string document, long companyId);
+        public Task<List<Debtor>> GetDebtorsByStateAndCompanyId(string state, long companyId);
+        public Task<List<Debtor>> GetDebtorsByNameAndCompanyId(string state, long companyId);
         
     }
 }

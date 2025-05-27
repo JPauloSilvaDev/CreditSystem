@@ -149,6 +149,39 @@ namespace Credit.System.App.Controllers
             {
                 return Json(new {success = false, message = CustomExceptionMessage.DefaultExceptionMessage});
             }
+
+
+
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> GetClientGrid(string filterType, string filterContent)
+        {
+            UserSessionModel userLogged = JsonConvert.DeserializeObject<UserSessionModel>(HttpContext.Session.GetString("UserLogged"));
+            ClientViewModel viewModel = new();
+            viewModel.Clients = new();
+            try
+            {
+                if (filterType == "Document")
+                    viewModel.Clients = await _clientOperations.GetClientsByDocumentAndCompanyIdAsync(filterContent, userLogged.CompanyId);
+
+                else if (filterType == "Name")
+                    viewModel.Clients = await _clientOperations.GetClientsByNameAndCompanyId(filterContent, userLogged.CompanyId);
+
+            }
+            catch (CSException ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false, message = CustomExceptionMessage.DefaultExceptionMessage });
+            }
+
+            return PartialView("~/Views/Client/_ClientGrid.cshtml", viewModel);
+
         }
 
     }

@@ -100,6 +100,42 @@ async function DebtorRegister() {
     }
 }
 
+async function GetDebtorByFilter() {
+
+    var filterType = $('#filterType').val();
+    var filterContent = $('#filterContent').val();
+
+    if (filterContent == "")
+        return showAlert("Digite um conteúdo para busca!", "warning", 5000);
+
+    try {
+
+
+        const response = await fetch(`/Debtor/GetDebtorsByFilter?filterType=${filterType}&filterContent=${filterContent}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "RequestVerificationToken": getAntiForgeryToken()
+            },
+        });
+
+        const result = await response.json();
+
+        debugger;
+
+        if (result.success) {
+          
+        } else {
+            showAlert("Não foi possível concluir a solicitação no momento", 'error', 5000);
+            console.log(result.message);
+        }
+
+    } catch (error) {
+        showAlert("Não foi possível concluir a solicitação no momento, tente novamente mais tarde.", 'error', 5000);
+        console.error(error);
+    }
+}
+
 function SetEditDebtor(client) {
     debugger
     $('#clientId').val(client.ClientId);
